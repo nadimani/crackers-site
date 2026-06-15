@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>ASR Pyro Park – Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@700;900&display=swap" rel="stylesheet"/>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <style>
+    :root{
+      --fire:#FF4500;--ember:#FF8C00;--gold:#FFD700;
+      --night:#06060F;--dark:#0E0E1E;--panel:#131325;--card:#1A1A30;
+      --muted:#8892B0;--light:#EEF0FF;--wa:#25D366;--r:8px;
+      --green:#2ECC71;--red:#E74C3C;--blue:#3498DB;--purple:#9B59B6;
+      --display:'Noto Serif Tamil',serif;--body:'Hind Madurai','Inter',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--body);background:var(--night);color:var(--light);min-height:100vh;display:flex;flex-direction:column;}
+    a{color:inherit;text-decoration:none}
+    button{font-family:var(--body);cursor:pointer;}
+
+    /* LOGIN */
+    .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;
+      background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(255,69,0,.15) 0%,transparent 70%),var(--night);}
+    .login-box{background:var(--card);border:1px solid rgba(255,140,0,.2);border-radius:12px;
+      padding:2.5rem;width:100%;max-width:380px;text-align:center;}
+    .login-logo{font-family:var(--display);font-size:1.4rem;font-weight:900;color:var(--gold);margin-bottom:.3rem;}
+    .login-sub{font-size:.82rem;color:var(--muted);margin-bottom:2rem;}
+    .login-box input{width:100%;background:var(--panel);border:1.5px solid rgba(255,255,255,.1);
+      border-radius:var(--r);color:var(--light);padding:.7rem 1rem;font-size:.93rem;font-family:var(--body);
+      margin-bottom:.9rem;transition:border-color .2s;}
+    .login-box input:focus{outline:none;border-color:var(--ember);}
+    .login-box .role-tabs{display:flex;gap:.5rem;margin-bottom:1.2rem;}
+    .role-tab{flex:1;padding:.5rem;border-radius:6px;border:1.5px solid rgba(255,255,255,.1);
+      background:transparent;color:var(--muted);font-size:.82rem;font-weight:600;transition:all .2s;}
+    .role-tab.active{border-color:var(--fire);background:rgba(255,69,0,.12);color:var(--light);}
+    .btn-login{width:100%;padding:.75rem;background:linear-gradient(135deg,var(--fire),var(--ember));
+      color:#fff;border:none;border-radius:var(--r);font-size:.95rem;font-weight:700;
+      transition:opacity .2s;}
+    .btn-login:hover{opacity:.88}
+    .login-err{font-size:.8rem;color:var(--red);margin-top:.7rem;display:none;}
+
+    /* SHELL */
+    .shell{display:none;flex:1;flex-direction:column;}
+    .shell.visible{display:flex;}
+
+    /* TOPBAR */
+    .topbar{background:var(--dark);border-bottom:1px solid rgba(255,140,0,.15);
+      display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.4rem;position:sticky;top:0;z-index:100;}
+    .tb-logo{font-family:var(--display);font-size:1rem;font-weight:900;color:var(--gold);}
+    .tb-right{display:flex;align-items:center;gap:1rem;}
+    .tb-role{font-size:.75rem;background:rgba(255,69,0,.18);color:var(--ember);
+      padding:.25rem .7rem;border-radius:12px;font-weight:700;}
+    .btn-sm{padding:.35rem .85rem;border-radius:6px;font-size:.8rem;font-weight:600;border:none;}
+    .btn-danger{background:rgba(231,76,60,.18);color:var(--red);}
+    .btn-primary{background:linear-gradient(135deg,var(--fire),var(--ember));color:#fff;}
+    .btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,.12);}
+    .btn-green{background:rgba(46,204,113,.18);color:var(--green);}
+    .btn-blue{background:rgba(52,152,219,.18);color:var(--blue);}
+    .btn-purple{background:rgba(155,89,182,.18);color:var(--purple);}
+
+    /* LAYOUT */
+    .main-layout{display:flex;flex:1;overflow:hidden;}
+    .sidebar{width:200px;background:var(--dark);border-right:1px solid rgba(255,255,255,.06);
+      padding:1rem .75rem;flex-shrink:0;overflow-y:auto;}
+    .sidebar-section{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;
+      color:var(--muted);font-weight:700;margin:1rem 0 .4rem .5rem;}
+    .sidebar-section:first-child{margin-top:0;}
+    .nav-item{display:flex;align-items:center;gap:.6rem;padding:.52rem .7rem;border-radius:7px;
+      font-size:.84rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .2s;margin-bottom:.1rem;}
+    .nav-item:hover{background:rgba(255,255,255,.05);color:var(--light);}
+    .nav-item.active{background:rgba(255,69,0,.14);color:var(--fire);font-weight:700;}
+    .nav-item .ni{font-size:1rem;}
+    .content{flex:1;overflow-y:auto;padding:1.5rem;}
+
+    /* TABS */
+    .page{display:none;} .page.active{display:block;}
+
+    /* CARDS ROW */
+    .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-bottom:1.5rem;}
+    .stat-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:1.1rem 1.2rem;}
+    .stat-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;}
+    .stat-val{font-family:var(--display);font-size:1.7rem;font-weight:900;color:#fff;line-height:1;}
+    .stat-sub{font-size:.75rem;color:var(--muted);margin-top:.3rem;}
+    .stat-card.fire .stat-val{color:var(--fire);}
+    .stat-card.gold .stat-val{color:var(--gold);}
+    .stat-card.green .stat-val{color:var(--green);}
+    .stat-card.blue .stat-val{color:var(--blue);}
+
+    /* TABLE */
+    .table-wrap{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);overflow:hidden;}
+    .table-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.1rem;
+      border-bottom:1px solid rgba(255,255,255,.06);}
+    .table-title{font-size:.9rem;font-weight:700;}
+    table{width:100%;border-collapse:collapse;}
+    th{font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
+      padding:.65rem 1rem;text-align:left;background:rgba(255,255,255,.02);}
+    td{font-size:.84rem;padding:.65rem 1rem;border-top:1px solid rgba(255,255,255,.04);}
+    tr:hover td{background:rgba(255,255,255,.02);}
+    .badge{display:inline-block;padding:.2rem .6rem;border-radius:10px;font-size:.72rem;font-weight:700;}
+    .badge-pending{background:rgba(255,140,0,.18);color:var(--ember);}
+    .badge-confirmed{background:rgba(52,152,219,.18);color:var(--blue);}
+    .badge-packed{background:rgba(155,89,182,.18);color:var(--purple);}
+    .badge-shipped{background:rgba(255,215,0,.18);color:var(--gold);}
+    .badge-delivered{background:rgba(46,204,113,.18);color:var(--green);}
+    .badge-cancelled{background:rgba(231,76,60,.18);color:var(--red);}
+
+    /* FORMS */
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .fg{display:flex;flex-direction:column;gap:.3rem;}
+    .fg label{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+    .fg input,.fg select,.fg textarea{background:var(--panel);border:1.5px solid rgba(255,255,255,.09);
+      border-radius:var(--r);color:var(--light);padding:.6rem .85rem;font-size:.9rem;font-family:var(--body);}
+    .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--ember);}
+    .fg select option{background:var(--panel);}
+    .fg textarea{resize:vertical;min-height:70px;}
+    .fg-full{grid-column:1/-1;}
+
+    /* MODAL */
+    .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:500;
+      display:none;align-items:center;justify-content:center;padding:1rem;}
+    .modal-bg.open{display:flex;}
+    .modal{background:var(--card);border:1px solid rgba(255,140,0,.2);border-radius:12px;
+      padding:1.6rem;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;}
+    .modal h2{font-family:var(--display);font-size:1.1rem;font-weight:900;color:#fff;margin-bottom:1.2rem;}
+    .modal-footer{display:flex;gap:.7rem;justify-content:flex-end;margin-top:1.3rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06);}
+
+    /* INVOICE */
+    .invoice-preview{background:#fff;color:#111;padding:2rem;border-radius:8px;font-family:'Inter',sans-serif;font-size:.88rem;}
+    .inv-header{display:flex;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #FF4500;}
+    .inv-company{font-size:1.2rem;font-weight:900;color:#FF4500;}
+    .inv-meta{text-align:right;font-size:.82rem;color:#555;}
+    .inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;}
+    .inv-section-title{font-size:.72rem;font-weight:700;text-transform:uppercase;color:#888;margin-bottom:.3rem;}
+    .inv-table{width:100%;border-collapse:collapse;margin-bottom:1rem;}
+    .inv-table th{background:#FF4500;color:#fff;padding:.5rem .75rem;font-size:.78rem;text-align:left;}
+    .inv-table td{padding:.45rem .75rem;border-bottom:1px solid #eee;font-size:.83rem;}
+    .inv-table tr:nth-child(even) td{background:#fafafa;}
+    .inv-totals{text-align:right;}
+    .inv-total-row{display:flex;justify-content:flex-end;gap:2rem;padding:.25rem 0;}
+    .inv-grand{font-size:1.1rem;font-weight:900;color:#FF4500;border-top:2px solid #FF4500;padding-top:.5rem;margin-top:.25rem;}
+    .inv-footer{margin-top:1.5rem;padding-top:1rem;border-top:1px solid #eee;font-size:.78rem;color:#888;text-align:center;}
+
+    /* INVENTORY */
+    .inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1rem;}
+    .inv-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:1.1rem;}
+    .inv-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem;}
+    .inv-product{font-size:.9rem;font-weight:700;}
+    .inv-emoji{font-size:1.5rem;}
+    .stock-bar{height:6px;background:rgba(255,255,255,.08);border-radius:3px;margin:.5rem 0;}
+    .stock-fill{height:100%;border-radius:3px;transition:width .3s;}
+    .stock-ok{background:var(--green);}
+    .stock-low{background:var(--ember);}
+    .stock-out{background:var(--red);}
+    .inv-nums{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);}
+
+    /* REPORT */
+    .report-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-bottom:1.5rem;}
+    .report-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:1.2rem;}
+    .report-card h3{font-size:.88rem;font-weight:700;margin-bottom:1rem;color:var(--gold);}
+    .chart-bar-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;}
+    .chart-label{font-size:.78rem;color:var(--muted);width:100px;flex-shrink:0;text-align:right;}
+    .chart-bar{height:18px;border-radius:4px;background:linear-gradient(90deg,var(--fire),var(--ember));min-width:4px;transition:width .5s;}
+    .chart-val{font-size:.78rem;font-weight:700;white-space:nowrap;}
+
+    /* TRACKING */
+    .track-steps{display:flex;flex-direction:column;gap:0;margin-top:1rem;}
+    .track-step{display:flex;gap:1rem;padding-bottom:1rem;position:relative;}
+    .track-step:not(:last-child)::before{content:'';position:absolute;left:14px;top:28px;bottom:0;width:2px;background:rgba(255,255,255,.08);}
+    .track-dot{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.1);
+      display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;background:var(--panel);}
+    .track-dot.done{border-color:var(--green);background:rgba(46,204,113,.15);}
+    .track-dot.active{border-color:var(--gold);background:rgba(255,215,0,.15);}
+    .track-info h4{font-size:.85rem;font-weight:700;margin-bottom:.15rem;}
+    .track-info p{font-size:.78rem;color:var(--muted);}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--card);border:1px solid var(--gold);
+      color:var(--gold);padding:.6rem 1.2rem;border-radius:20px;font-size:.83rem;font-weight:700;
+      opacity:0;pointer-events:none;transition:opacity .3s;z-index:9999;}
+    .toast.show{opacity:1;}
+
+    /* MISC */
+    .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.4rem;flex-wrap:wrap;gap:.7rem;}
+    .page-title{font-family:var(--display);font-size:1.3rem;font-weight:900;color:#fff;}
+    .search-input{background:var(--card);border:1.5px solid rgba(255,255,255,.09);border-radius:var(--r);
+      color:var(--light);padding:.5rem .9rem;font-size:.85rem;font-family:var(--body);width:220px;}
+    .search-input:focus{outline:none;border-color:var(--ember);}
+    .empty-state{text-align:center;padding:3rem 1rem;color:var(--muted);}
+    .empty-state .es-icon{font-size:2.5rem;margin-bottom:.7rem;}
+    .empty-state p{font-size:.88rem;}
+    .divider{border:none;border-top:1px solid rgba(255,255,255,.06);margin:1.2rem 0;}
+    .flex-row{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;}
+    .order-items-list{font-size:.82rem;color:var(--muted);}
+    .order-items-list span{display:inline-block;background:rgba(255,255,255,.06);border-radius:4px;padding:.15rem .45rem;margin:.1rem;}
+    @media(max-width:768px){.sidebar{display:none;}.content{padding:1rem;}}
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="login-logo">🎆 ASR Pyro Park</div>
+    <div class="login-sub">Admin &amp; Finance Portal</div>
+    <div class="role-tabs">
+      <button class="role-tab active" onclick="setRole('admin',this)">🔧 Admin</button>
+      <button class="role-tab" onclick="setRole('finance',this)">💼 Finance</button>
+    </div>
+    <input type="email" id="loginEmail" placeholder="Email address"/>
+    <input type="password" id="loginPwd" placeholder="Password"/>
+    <button class="btn-login" onclick="doLogin()">Sign In →</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- SHELL -->
+<div class="shell" id="shell">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="tb-logo">🎆 ASR Pyro Park</div>
+    <div class="tb-right">
+      <span class="tb-role" id="roleLabel">Admin</span>
+      <span style="font-size:.82rem;color:var(--muted)" id="userEmail"></span>
+      <button class="btn-sm btn-danger" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-section">Overview</div>
+      <div class="nav-item active" onclick="showPage('dashboard',this)"><span class="ni">📊</span> Dashboard</div>
+      <div class="sidebar-section">Operations</div>
+      <div class="nav-item" onclick="showPage('orders',this)"><span class="ni">📦</span> Orders</div>
+      <div class="nav-item admin-only" onclick="showPage('inventory',this)"><span class="ni">🗃️</span> Inventory</div>
+      <div class="sidebar-section">Finance</div>
+      <div class="nav-item" onclick="showPage('invoices',this)"><span class="ni">🧾</span> Invoices</div>
+      <div class="nav-item" onclick="showPage('reports',this)"><span class="ni">📈</span> Reports</div>
+      <div class="sidebar-section admin-only">Settings</div>
+      <div class="nav-item admin-only" onclick="showPage('products',this)"><span class="ni">🎆</span> Products</div>
+      <div class="nav-item admin-only" onclick="showPage('users',this)"><span class="ni">👤</span> Users</div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="page-header">
+          <div class="page-title">Dashboard</div>
+          <button class="btn-sm btn-primary" onclick="showPage('orders',document.querySelector('[onclick*=orders]'))">+ New Order</button>
+        </div>
+        <div class="stat-row" id="dash-stats"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;" id="dash-bottom">
+          <div class="table-wrap">
+            <div class="table-header"><span class="table-title">Recent Orders</span></div>
+            <table><thead><tr><th>Order #</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
+            <tbody id="recent-orders-table"></tbody></table>
+          </div>
+          <div class="table-wrap">
+            <div class="table-header"><span class="table-title">Low Stock Alert</span></div>
+            <table><thead><tr><th>Product</th><th>Stock</th><th>Action</th></tr></thead>
+            <tbody id="low-stock-table"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDERS -->
+      <div class="page" id="page-orders">
+        <div class="page-header">
+          <div class="page-title">Orders</div>
+          <div class="flex-row">
+            <input class="search-input" id="order-search" placeholder="🔍 Search orders..." oninput="renderOrders()"/>
+            <button class="btn-sm btn-primary" onclick="openNewOrder()">+ New Order</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;" id="status-filters">
+          <button class="btn-sm btn-ghost active-filter" onclick="filterOrders('all',this)">All</button>
+          <button class="btn-sm btn-ghost" onclick="filterOrders('Pending',this)">Pending</button>
+          <button class="btn-sm btn-ghost" onclick="filterOrders('Confirmed',this)">Confirmed</button>
+          <button class="btn-sm btn-ghost" onclick="filterOrders('Packed',this)">Packed</button>
+          <button class="btn-sm btn-ghost" onclick="filterOrders('Shipped',this)">Shipped</button>
+          <button class="btn-sm btn-ghost" onclick="filterOrders('Delivered',this)">Delivered</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Order #</th><th>Customer</th><th>Phone</th><th>Items</th><th>Amount</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="orders-table"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- INVENTORY -->
+      <div class="page" id="page-inventory">
+        <div class="page-header">
+          <div class="page-title">Inventory</div>
+          <button class="btn-sm btn-primary" onclick="openAddStock()">+ Update Stock</button>
+        </div>
+        <div class="stat-row" id="inv-stats"></div>
+        <div class="inv-grid" id="inv-grid"></div>
+      </div>
+
+      <!-- INVOICES -->
+      <div class="page" id="page-invoices">
+        <div class="page-header">
+          <div class="page-title">Invoices</div>
+          <input class="search-input" placeholder="🔍 Search invoices..." oninput="renderInvoices(this.value)"/>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Invoice #</th><th>Order #</th><th>Customer</th><th>Amount</th><th>Advance</th><th>Balance</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="invoices-table"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- REPORTS -->
+      <div class="page" id="page-reports">
+        <div class="page-header">
+          <div class="page-title">Reports</div>
+          <div class="flex-row">
+            <select class="search-input" id="report-period" onchange="renderReports()" style="width:auto;">
+              <option value="7">Last 7 days</option>
+              <option value="30" selected>Last 30 days</option>
+              <option value="90">Last 90 days</option>
+              <option value="365">This year</option>
+            </select>
+            <button class="btn-sm btn-green" onclick="exportCSV()">⬇ Export CSV</button>
+          </div>
+        </div>
+        <div class="stat-row" id="report-stats"></div>
+        <div class="report-row" id="report-charts"></div>
+        <div class="table-wrap" style="margin-top:1.2rem;">
+          <div class="table-header"><span class="table-title">Order-wise Summary</span></div>
+          <table><thead><tr><th>Order #</th><th>Customer</th><th>Items</th><th>Total</th><th>Advance</th><th>Balance</th><th>Status</th><th>Date</th></tr></thead>
+          <tbody id="report-table"></tbody></table>
+        </div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div class="page" id="page-products">
+        <div class="page-header">
+          <div class="page-title">Product Catalogue</div>
+          <button class="btn-sm btn-primary" onclick="openAddProduct()">+ Add Product</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Emoji</th><th>Product Name</th><th>Price (₹)</th><th>Unit</th><th>Active</th><th>Actions</th></tr></thead>
+            <tbody id="products-table"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- USERS -->
+      <div class="page" id="page-users">
+        <div class="page-header">
+          <div class="page-title">User Management</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Email</th><th>Role</th><th>Last Login</th></tr></thead>
+            <tbody>
+              <tr><td>admin@asrpyropark.com</td><td><span class="badge badge-confirmed">Admin</span></td><td>Just now</td></tr>
+              <tr><td>finance@asrpyropark.com</td><td><span class="badge badge-pending">Finance</span></td><td>–</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:1.2rem;padding:1rem;background:var(--card);border-radius:var(--r);border:1px solid rgba(255,255,255,.06);">
+          <p style="font-size:.82rem;color:var(--muted);">To add users, create accounts in Firebase Auth console at <a href="https://console.firebase.google.com" target="_blank" style="color:var(--gold);">console.firebase.google.com</a> and assign roles in Firestore under <code style="color:var(--ember);">users/{uid}</code> with field <code style="color:var(--ember);">role: "admin"</code> or <code style="color:var(--ember);">"finance"</code>.</p>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main-layout -->
+</div><!-- /shell -->
+
+<!-- MODALS -->
+
+<!-- New/Edit Order Modal -->
+<div class="modal-bg" id="orderModal">
+  <div class="modal">
+    <h2 id="orderModalTitle">New Order</h2>
+    <div class="form-grid">
+      <div class="fg"><label>Customer Name *</label><input id="om-name" placeholder="Ravi Kumar"/></div>
+      <div class="fg"><label>Phone *</label><input id="om-phone" placeholder="9XXXXXXXXX"/></div>
+      <div class="fg"><label>City</label><input id="om-city" placeholder="Chennai"/></div>
+      <div class="fg"><label>Occasion</label>
+        <select id="om-occasion">
+          <option>Diwali</option><option>Wedding</option><option>New Year</option>
+          <option>Birthday</option><option>Other Festival</option><option>Bulk / Commercial</option>
+        </select>
+      </div>
+      <div class="fg-full fg"><label>Order Items (select &amp; qty)</label>
+        <div id="om-items-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.5rem;margin-top:.3rem;"></div>
+      </div>
+      <div class="fg"><label>Advance Paid (₹)</label><input type="number" id="om-advance" placeholder="0" value="0"/></div>
+      <div class="fg"><label>Status</label>
+        <select id="om-status">
+          <option>Pending</option><option>Confirmed</option><option>Packed</option>
+          <option>Shipped</option><option>Delivered</option><option>Cancelled</option>
+        </select>
+      </div>
+      <div class="fg-full fg"><label>Notes</label><textarea id="om-notes" placeholder="Any special instructions..."></textarea></div>
+    </div>
+    <div style="margin-top:.8rem;padding:.75rem;background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.2);border-radius:var(--r);">
+      <div style="display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:.3rem;">
+        <span style="color:var(--muted)">Subtotal</span><span id="om-subtotal">₹0</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:.3rem;">
+        <span style="color:var(--muted)">Advance Paid</span><span id="om-advance-display" style="color:var(--green)">₹0</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:1rem;font-weight:800;color:var(--gold);">
+        <span>Balance Due</span><span id="om-balance">₹0</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm btn-ghost" onclick="closeModal('orderModal')">Cancel</button>
+      <button class="btn-sm btn-primary" onclick="saveOrder()">Save Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- View Order / Tracking Modal -->
+<div class="modal-bg" id="viewOrderModal">
+  <div class="modal">
+    <h2>Order Details</h2>
+    <div id="view-order-content"></div>
+    <div class="modal-footer">
+      <button class="btn-sm btn-ghost" onclick="closeModal('viewOrderModal')">Close</button>
+      <button class="btn-sm btn-blue" onclick="generateInvoiceFromView()">🧾 Invoice</button>
+      <button class="btn-sm btn-green" onclick="sendWAUpdate()">💬 WhatsApp Update</button>
+    </div>
+  </div>
+</div>
+
+<!-- Invoice Preview Modal -->
+<div class="modal-bg" id="invoiceModal">
+  <div class="modal" style="max-width:700px;">
+    <h2>Invoice Preview</h2>
+    <div id="invoice-content"></div>
+    <div class="modal-footer">
+      <button class="btn-sm btn-ghost" onclick="closeModal('invoiceModal')">Close</button>
+      <button class="btn-sm btn-primary" onclick="printInvoice()">🖨 Print / Save PDF</button>
+      <button class="btn-sm btn-green" onclick="sendInvoiceWA()">💬 Send via WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<!-- Stock Update Modal -->
+<div class="modal-bg" id="stockModal">
+  <div class="modal">
+    <h2>Update Stock</h2>
+    <div class="form-grid">
+      <div class="fg fg-full"><label>Product</label>
+        <select id="sm-product" onchange="updateStockPreview()">
+          <option value="">Select product...</option>
+        </select>
+      </div>
+      <div class="fg"><label>Current Stock (boxes)</label><input type="number" id="sm-current" readonly style="opacity:.6;"/></div>
+      <div class="fg"><label>Add / Remove Qty</label><input type="number" id="sm-delta" placeholder="e.g. +50 or -10" oninput="updateStockPreview()"/></div>
+      <div class="fg fg-full"><label>New Stock will be</label>
+        <div id="sm-preview" style="padding:.6rem .85rem;background:var(--panel);border-radius:var(--r);font-size:.9rem;font-weight:700;color:var(--gold);">–</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm btn-ghost" onclick="closeModal('stockModal')">Cancel</button>
+      <button class="btn-sm btn-primary" onclick="saveStock()">Update Stock</button>
+    </div>
+  </div>
+</div>
+
+<!-- Product Modal -->
+<div class="modal-bg" id="productModal">
+  <div class="modal">
+    <h2 id="productModalTitle">Add Product</h2>
+    <div class="form-grid">
+      <div class="fg"><label>Emoji</label><input id="pm-emoji" placeholder="🎆" maxlength="4"/></div>
+      <div class="fg"><label>Product Name *</label><input id="pm-name" placeholder="Sky Rockets"/></div>
+      <div class="fg"><label>Price per box (₹, after discount)</label><input type="number" id="pm-price" placeholder="200"/></div>
+      <div class="fg"><label>Unit</label><input id="pm-unit" placeholder="per box" value="per box"/></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm btn-ghost" onclick="closeModal('productModal')">Cancel</button>
+      <button class="btn-sm btn-primary" onclick="saveProduct()">Save Product</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// FIREBASE CONFIG — REPLACE WITH YOUR OWN FROM FIREBASE CONSOLE
+// ═══════════════════════════════════════════════════════════
+const FB_CONFIG = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// ═══════════════════════════════════════════════════════════
+// DEMO MODE — runs without Firebase using localStorage
+// When you add real Firebase config above, this switches off
+// ═══════════════════════════════════════════════════════════
+const DEMO = (FB_CONFIG.apiKey === "YOUR_API_KEY");
+
+let db, auth;
+if (!DEMO) {
+  firebase.initializeApp(FB_CONFIG);
+  db   = firebase.firestore();
+  auth = firebase.auth();
+}
+
+// ── Default products ───────────────────────────────────────
+const DEFAULT_PRODUCTS = [
+  {id:'p1',emoji:'🧨',name:'Garland (100 Wala)',price:120,unit:'per box',active:true},
+  {id:'p2',emoji:'🧨',name:'Garland (200 Wala)',price:200,unit:'per box',active:true},
+  {id:'p3',emoji:'🌀',name:'Ground Chakkara',price:85,unit:'per box',active:true},
+  {id:'p4',emoji:'🌸',name:'Flower Pots',price:95,unit:'per box',active:true},
+  {id:'p5',emoji:'✨',name:'Sparklers (Green)',price:60,unit:'per box',active:true},
+  {id:'p6',emoji:'🌈',name:'Sparklers (Colour)',price:75,unit:'per box',active:true},
+  {id:'p7',emoji:'💥',name:'Sound Crackers',price:150,unit:'per box',active:true},
+  {id:'p8',emoji:'🚀',name:'Sky Rockets',price:200,unit:'per box',active:true},
+  {id:'p9',emoji:'🎆',name:'Aerial Shells',price:350,unit:'per box',active:true},
+  {id:'p10',emoji:'⚡',name:'Bijli Crackers',price:90,unit:'per box',active:true},
+  {id:'p11',emoji:'⛲',name:'Fancy Fountain',price:180,unit:'per box',active:true},
+  {id:'p12',emoji:'🌟',name:'Phooljhari (Long)',price:110,unit:'per box',active:true},
+];
+
+// ── Local state (demo + cache) ─────────────────────────────
+let STATE = {
+  role: 'admin',
+  user: null,
+  orders: [],
+  products: [],
+  inventory: {},
+  orderFilter: 'all',
+  editOrderId: null,
+  viewOrderId: null,
+};
+
+function loadState(){
+  STATE.orders   = JSON.parse(localStorage.getItem('asr_orders') || '[]');
+  STATE.products = JSON.parse(localStorage.getItem('asr_products') || JSON.stringify(DEFAULT_PRODUCTS));
+  STATE.inventory= JSON.parse(localStorage.getItem('asr_inventory') || '{}');
+  // seed inventory
+  STATE.products.forEach(p=>{ if(STATE.inventory[p.id]==null) STATE.inventory[p.id]=50; });
+}
+
+function saveState(){
+  localStorage.setItem('asr_orders',    JSON.stringify(STATE.orders));
+  localStorage.setItem('asr_products',  JSON.stringify(STATE.products));
+  localStorage.setItem('asr_inventory', JSON.stringify(STATE.inventory));
+}
+
+// ── Order number generator ─────────────────────────────────
+function genOrderNum(){
+  const d = new Date();
+  const yy = String(d.getFullYear()).slice(2);
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const seq = String(STATE.orders.length+1).padStart(4,'0');
+  return `ASR${yy}${mm}${seq}`;
+}
+
+// ── Auth ───────────────────────────────────────────────────
+let loginRole = 'admin';
+function setRole(r, el){
+  loginRole = r;
+  document.querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function doLogin(){
+  const email = document.getElementById('loginEmail').value.trim();
+  const pwd   = document.getElementById('loginPwd').value;
+  const err   = document.getElementById('loginErr');
+  err.style.display='none';
+
+  // Demo login
+  if(DEMO){
+    const valid = (loginRole==='admin'&&email==='admin@asrpyropark.com'&&pwd==='admin123')
+               || (loginRole==='finance'&&email==='finance@asrpyropark.com'&&pwd==='finance123');
+    if(valid){
+      STATE.role = loginRole;
+      STATE.user = {email};
+      enterShell();
+    } else {
+      err.style.display='block';
+      err.textContent='Invalid credentials. Demo: admin@asrpyropark.com / admin123';
+    }
+    return;
+  }
+  // Real Firebase
+  auth.signInWithEmailAndPassword(email, pwd)
+    .then(cred => {
+      return db.collection('users').doc(cred.user.uid).get().then(doc=>{
+        STATE.role = doc.exists ? (doc.data().role||'finance') : 'finance';
+        STATE.user = {email: cred.user.email};
+        enterShell();
+      });
+    })
+    .catch(e=>{ err.style.display='block'; err.textContent=e.message; });
+}
+
+function doLogout(){
+  if(!DEMO) auth.signOut();
+  document.getElementById('loginWrap').style.display='flex';
+  document.getElementById('shell').classList.remove('visible');
+}
+
+function enterShell(){
+  loadState();
+  document.getElementById('loginWrap').style.display='none';
+  document.getElementById('shell').classList.add('visible');
+  document.getElementById('roleLabel').textContent = STATE.role==='admin'?'Admin':'Finance';
+  document.getElementById('userEmail').textContent  = STATE.user.email;
+  // hide admin-only items for finance
+  document.querySelectorAll('.admin-only').forEach(el=>{
+    el.style.display = STATE.role==='admin' ? '' : 'none';
+  });
+  renderDashboard();
+  renderOrders();
+  renderInventory();
+  renderInvoices();
+  renderReports();
+  renderProducts();
+  buildOrderModalItems();
+}
+
+// ── Navigation ─────────────────────────────────────────────
+function showPage(id, el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(el) el.classList.add('active');
+  if(id==='dashboard') renderDashboard();
+  if(id==='reports')   renderReports();
+}
+
+// ── DASHBOARD ──────────────────────────────────────────────
+function renderDashboard(){
+  const orders = STATE.orders;
+  const total  = orders.reduce((s,o)=>s+o.total,0);
+  const adv    = orders.reduce((s,o)=>s+o.advance,0);
+  const pending= orders.filter(o=>o.status==='Pending').length;
+  const shipped= orders.filter(o=>o.status==='Shipped').length;
+
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="stat-card gold"><div class="stat-label">Total Revenue</div><div class="stat-val">₹${fmt(total)}</div><div class="stat-sub">${orders.length} orders</div></div>
+    <div class="stat-card green"><div class="stat-label">Advance Collected</div><div class="stat-val">₹${fmt(adv)}</div><div class="stat-sub">Balance: ₹${fmt(total-adv)}</div></div>
+    <div class="stat-card fire"><div class="stat-label">Pending Orders</div><div class="stat-val">${pending}</div><div class="stat-sub">Awaiting confirmation</div></div>
+    <div class="stat-card blue"><div class="stat-label">Shipped / Transit</div><div class="stat-val">${shipped}</div><div class="stat-sub">Out for delivery</div></div>`;
+
+  const recent = [...orders].sort((a,b)=>b.createdAt-a.createdAt).slice(0,5);
+  document.getElementById('recent-orders-table').innerHTML = recent.length
+    ? recent.map(o=>`<tr>
+        <td style="color:var(--gold);font-weight:700">${o.orderNum}</td>
+        <td>${o.name}</td><td>₹${fmt(o.total)}</td>
+        <td><span class="badge badge-${o.status.toLowerCase()}">${o.status}</span></td>
+      </tr>`).join('')
+    : '<tr><td colspan="4" class="empty-state"><p>No orders yet</p></td></tr>';
+
+  const lowStock = STATE.products.filter(p=>STATE.inventory[p.id]<20);
+  document.getElementById('low-stock-table').innerHTML = lowStock.length
+    ? lowStock.map(p=>`<tr>
+        <td>${p.emoji} ${p.name}</td>
+        <td style="color:${STATE.inventory[p.id]===0?'var(--red)':'var(--ember)'}">
+          ${STATE.inventory[p.id]} boxes</td>
+        <td><button class="btn-sm btn-green" onclick="quickRestock('${p.id}')">Restock</button></td>
+      </tr>`).join('')
+    : '<tr><td colspan="3" style="padding:.8rem 1rem;font-size:.83rem;color:var(--muted)">All products well-stocked ✅</td></tr>';
+}
+
+// ── ORDERS ─────────────────────────────────────────────────
+function filterOrders(status, el){
+  STATE.orderFilter = status;
+  document.querySelectorAll('#status-filters .btn-sm').forEach(b=>b.classList.remove('active-filter'));
+  el.classList.add('active-filter');
+  renderOrders();
+}
+
+function renderOrders(){
+  const q     = (document.getElementById('order-search')?.value||'').toLowerCase();
+  const filter= STATE.orderFilter;
+  let orders  = STATE.orders.filter(o=>{
+    const matchFilter = filter==='all' || o.status===filter;
+    const matchQ = !q || o.name.toLowerCase().includes(q) || o.orderNum.toLowerCase().includes(q) || o.phone.includes(q);
+    return matchFilter && matchQ;
+  }).sort((a,b)=>b.createdAt-a.createdAt);
+
+  const tbody = document.getElementById('orders-table');
+  if(!orders.length){ tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><div class="es-icon">📦</div><p>No orders found</p></div></td></tr>'; return; }
+  tbody.innerHTML = orders.map(o=>`<tr>
+    <td style="color:var(--gold);font-weight:700;cursor:pointer" onclick="viewOrder('${o.id}')">${o.orderNum}</td>
+    <td>${o.name}</td><td>${o.phone}</td>
+    <td><div class="order-items-list">${(o.items||[]).slice(0,2).map(i=>`<span>${i.emoji}${i.name} ×${i.qty}</span>`).join('')}${o.items?.length>2?`<span>+${o.items.length-2} more</span>`:''}</div></td>
+    <td>₹${fmt(o.total)}<br/><span style="font-size:.72rem;color:var(--green)">Adv: ₹${fmt(o.advance)}</span></td>
+    <td><select class="badge badge-${o.status.toLowerCase()}" onchange="quickStatus('${o.id}',this.value)" style="background:transparent;border:none;font-weight:700;cursor:pointer;font-size:.72rem;">
+      ${['Pending','Confirmed','Packed','Shipped','Delivered','Cancelled'].map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`).join('')}
+    </select></td>
+    <td style="font-size:.78rem;color:var(--muted)">${dateStr(o.createdAt)}</td>
+    <td>
+      <div class="flex-row">
+        <button class="btn-sm btn-ghost" onclick="viewOrder('${o.id}')">👁</button>
+        ${STATE.role==='admin'?`<button class="btn-sm btn-blue" onclick="editOrder('${o.id}')">✏️</button>`:''}
+        <button class="btn-sm btn-purple" onclick="showInvoice('${o.id}')">🧾</button>
+        <button class="btn-sm btn-green" onclick="sendWAStatus('${o.id}')">💬</button>
+      </div>
+    </td>
+  </tr>`).join('');
+}
+
+function quickStatus(id, status){
+  const o = STATE.orders.find(o=>o.id===id);
+  if(o){ o.status=status; o.updatedAt=Date.now(); saveState(); renderOrders(); renderDashboard(); showToast('Status updated to '+status); }
+}
+
+function viewOrder(id){
+  const o = STATE.orders.find(o=>o.id===id);
+  if(!o) return;
+  STATE.viewOrderId = id;
+  const statuses = ['Pending','Confirmed','Packed','Shipped','Delivered'];
+  const cur = statuses.indexOf(o.status);
+  document.getElementById('view-order-content').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+      <div><div style="font-size:.72rem;color:var(--muted);text-transform:uppercase">Order Number</div>
+           <div style="font-size:1.1rem;font-weight:900;color:var(--gold)">${o.orderNum}</div></div>
+      <div><div style="font-size:.72rem;color:var(--muted);text-transform:uppercase">Status</div>
+           <span class="badge badge-${o.status.toLowerCase()}">${o.status}</span></div>
+      <div><div style="font-size:.72rem;color:var(--muted);text-transform:uppercase">Customer</div><div style="font-weight:700">${o.name}</div></div>
+      <div><div style="font-size:.72rem;color:var(--muted);text-transform:uppercase">Phone</div><div style="font-weight:700">${o.phone}</div></div>
+      <div><div style="font-size:.72rem;color:var(--muted);text-transform:uppercase">City</div><div>${o.city||'–'}</div></div>
+      <div><div style="font-size:.72rem;color:var(--muted);text-transform:uppercase">Occasion</div><div>${o.occasion||'–'}</div></div>
+    </div>
+    <hr class="divider"/>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem;text-transform:uppercase;font-weight:700">Items</div>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:1rem;">
+      <thead><tr><th style="text-align:left;font-size:.72rem;color:var(--muted);padding:.4rem 0">Product</th><th style="text-align:right;font-size:.72rem;color:var(--muted)">Qty</th><th style="text-align:right;font-size:.72rem;color:var(--muted)">Rate</th><th style="text-align:right;font-size:.72rem;color:var(--muted)">Amount</th></tr></thead>
+      <tbody>${(o.items||[]).map(i=>`<tr><td style="padding:.35rem 0">${i.emoji} ${i.name}</td><td style="text-align:right">${i.qty}</td><td style="text-align:right">₹${i.price}</td><td style="text-align:right;font-weight:700">₹${i.qty*i.price}</td></tr>`).join('')}</tbody>
+    </table>
+    <div style="display:flex;justify-content:flex-end;flex-direction:column;align-items:flex-end;gap:.3rem;">
+      <div style="font-size:.88rem;color:var(--muted)">Total: <strong style="color:#fff">₹${fmt(o.total)}</strong></div>
+      <div style="font-size:.88rem;color:var(--green)">Advance Paid: ₹${fmt(o.advance)}</div>
+      <div style="font-size:1rem;font-weight:800;color:var(--gold)">Balance Due: ₹${fmt(o.total-o.advance)}</div>
+    </div>
+    <hr class="divider"/>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem;text-transform:uppercase;font-weight:700">Tracking</div>
+    <div class="track-steps">
+      ${statuses.map((s,i)=>`<div class="track-step">
+        <div class="track-dot ${i<cur?'done':i===cur?'active':''}">${i<cur?'✓':i===cur?'●':'○'}</div>
+        <div class="track-info"><h4>${s}</h4><p style="font-size:.75rem;color:var(--muted)">${i<=cur?dateStr(o.updatedAt||o.createdAt):'Pending'}</p></div>
+      </div>`).join('')}
+    </div>
+    ${o.notes?`<hr class="divider"/><div style="font-size:.82rem;color:var(--muted)"><strong>Notes:</strong> ${o.notes}</div>`:''}`;
+  document.getElementById('viewOrderModal').classList.add('open');
+}
+
+function openNewOrder(){
+  STATE.editOrderId = null;
+  document.getElementById('orderModalTitle').textContent = 'New Order';
+  ['om-name','om-phone','om-city','om-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('om-advance').value='0';
+  document.getElementById('om-status').value='Pending';
+  document.getElementById('om-occasion').value='Diwali';
+  buildOrderModalItems();
+  calcOrderTotal();
+  document.getElementById('orderModal').classList.add('open');
+}
+
+function editOrder(id){
+  const o = STATE.orders.find(o=>o.id===id);
+  if(!o) return;
+  STATE.editOrderId = id;
+  document.getElementById('orderModalTitle').textContent = 'Edit Order – '+o.orderNum;
+  document.getElementById('om-name').value    = o.name;
+  document.getElementById('om-phone').value   = o.phone;
+  document.getElementById('om-city').value    = o.city||'';
+  document.getElementById('om-notes').value   = o.notes||'';
+  document.getElementById('om-advance').value = o.advance||0;
+  document.getElementById('om-status').value  = o.status;
+  document.getElementById('om-occasion').value= o.occasion||'Diwali';
+  buildOrderModalItems(o.items);
+  calcOrderTotal();
+  document.getElementById('orderModal').classList.add('open');
+}
+
+function buildOrderModalItems(existingItems=[]){
+  const grid = document.getElementById('om-items-grid');
+  grid.innerHTML = STATE.products.filter(p=>p.active).map(p=>{
+    const ex = existingItems.find(i=>i.id===p.id);
+    return `<div style="background:var(--panel);border-radius:6px;padding:.55rem .6rem;display:flex;align-items:center;gap:.5rem;">
+      <span>${p.emoji}</span>
+      <span style="font-size:.78rem;font-weight:600;flex:1">${p.name}</span>
+      <input type="number" min="0" value="${ex?ex.qty:0}" data-pid="${p.id}"
+        style="width:52px;background:var(--card);border:1px solid rgba(255,255,255,.1);border-radius:4px;color:var(--light);padding:.25rem .4rem;font-size:.82rem;font-family:var(--body);text-align:center;"
+        oninput="calcOrderTotal()"/>
+    </div>`;
+  }).join('');
+}
+
+function calcOrderTotal(){
+  let sub=0;
+  document.querySelectorAll('#om-items-grid input[data-pid]').forEach(inp=>{
+    const qty = parseInt(inp.value)||0;
+    const p   = STATE.products.find(p=>p.id===inp.dataset.pid);
+    if(p&&qty>0) sub+=qty*p.price;
+  });
+  const adv = parseInt(document.getElementById('om-advance').value)||0;
+  document.getElementById('om-subtotal').textContent        = '₹'+fmt(sub);
+  document.getElementById('om-advance-display').textContent = '₹'+fmt(adv);
+  document.getElementById('om-balance').textContent         = '₹'+fmt(sub-adv);
+}
+
+function saveOrder(){
+  const name  = document.getElementById('om-name').value.trim();
+  const phone = document.getElementById('om-phone').value.trim();
+  if(!name||!phone){ showToast('Name and phone are required!'); return; }
+
+  const items=[];
+  document.querySelectorAll('#om-items-grid input[data-pid]').forEach(inp=>{
+    const qty=parseInt(inp.value)||0;
+    if(qty>0){
+      const p=STATE.products.find(p=>p.id===inp.dataset.pid);
+      if(p) items.push({id:p.id,name:p.name,emoji:p.emoji,price:p.price,qty});
+    }
+  });
+  if(!items.length){ showToast('Add at least one item!'); return; }
+
+  const total   = items.reduce((s,i)=>s+i.qty*i.price,0);
+  const advance = parseInt(document.getElementById('om-advance').value)||0;
+  const status  = document.getElementById('om-status').value;
+  const now     = Date.now();
+
+  if(STATE.editOrderId){
+    const o = STATE.orders.find(o=>o.id===STATE.editOrderId);
+    Object.assign(o,{name,phone,city:document.getElementById('om-city').value,
+      occasion:document.getElementById('om-occasion').value,
+      notes:document.getElementById('om-notes').value,items,total,advance,status,updatedAt:now});
+    showToast('Order updated!');
+  } else {
+    const order = {
+      id: 'ord_'+now, orderNum: genOrderNum(),
+      name,phone,city:document.getElementById('om-city').value,
+      occasion:document.getElementById('om-occasion').value,
+      notes:document.getElementById('om-notes').value,
+      items,total,advance,status,createdAt:now,updatedAt:now,
+    };
+    STATE.orders.unshift(order);
+    // deduct inventory
+    items.forEach(i=>{ STATE.inventory[i.id]=(STATE.inventory[i.id]||0)-i.qty; if(STATE.inventory[i.id]<0)STATE.inventory[i.id]=0; });
+    showToast('Order '+order.orderNum+' created!');
+  }
+  saveState(); closeModal('orderModal');
+  renderOrders(); renderDashboard(); renderInventory(); renderInvoices();
+}
+
+// ── INVENTORY ──────────────────────────────────────────────
+function renderInventory(){
+  const prods = STATE.products;
+  const total = prods.length;
+  const low   = prods.filter(p=>STATE.inventory[p.id]<20&&STATE.inventory[p.id]>0).length;
+  const out   = prods.filter(p=>STATE.inventory[p.id]<=0).length;
+  document.getElementById('inv-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-label">Total Products</div><div class="stat-val">${total}</div></div>
+    <div class="stat-card gold"><div class="stat-label">Total Stock (boxes)</div><div class="stat-val">${Object.values(STATE.inventory).reduce((a,b)=>a+b,0)}</div></div>
+    <div class="stat-card"><div class="stat-label">Low Stock</div><div class="stat-val" style="color:var(--ember)">${low}</div><div class="stat-sub">&lt; 20 boxes</div></div>
+    <div class="stat-card fire"><div class="stat-label">Out of Stock</div><div class="stat-val">${out}</div></div>`;
+
+  document.getElementById('inv-grid').innerHTML = prods.map(p=>{
+    const stock=STATE.inventory[p.id]||0;
+    const max=100; const pct=Math.min(100,stock/max*100);
+    const cls=stock===0?'stock-out':stock<20?'stock-low':'stock-ok';
+    return `<div class="inv-card">
+      <div class="inv-card-top"><div class="inv-emoji">${p.emoji}</div>
+        <button class="btn-sm btn-green" onclick="quickRestock('${p.id}')">+</button></div>
+      <div class="inv-product">${p.name}</div>
+      <div class="stock-bar"><div class="stock-fill ${cls}" style="width:${pct}%"></div></div>
+      <div class="inv-nums"><span style="color:${stock===0?'var(--red)':stock<20?'var(--ember)':'var(--green)'}">${stock} boxes</span><span>₹${p.price}</span></div>
+    </div>`;
+  }).join('');
+
+  // Populate stock modal product selector
+  const sel = document.getElementById('sm-product');
+  sel.innerHTML='<option value="">Select product...</option>'+
+    prods.map(p=>`<option value="${p.id}">${p.emoji} ${p.name} (${STATE.inventory[p.id]||0} boxes)</option>`).join('');
+}
+
+function openAddStock(){ document.getElementById('stockModal').classList.add('open'); }
+function quickRestock(pid){
+  STATE.inventory[pid]=(STATE.inventory[pid]||0)+50;
+  saveState(); renderInventory(); renderDashboard(); showToast('Restocked +50 boxes');
+}
+
+function updateStockPreview(){
+  const pid   = document.getElementById('sm-product').value;
+  const delta = parseInt(document.getElementById('sm-delta').value)||0;
+  const cur   = pid ? (STATE.inventory[pid]||0) : 0;
+  document.getElementById('sm-current').value = cur;
+  document.getElementById('sm-preview').textContent = pid ? Math.max(0,cur+delta)+' boxes' : '–';
+}
+
+function saveStock(){
+  const pid   = document.getElementById('sm-product').value;
+  const delta = parseInt(document.getElementById('sm-delta').value)||0;
+  if(!pid){ showToast('Select a product!'); return; }
+  STATE.inventory[pid]=Math.max(0,(STATE.inventory[pid]||0)+delta);
+  saveState(); renderInventory(); renderDashboard();
+  closeModal('stockModal'); showToast('Stock updated!');
+}
+
+// ── INVOICES ───────────────────────────────────────────────
+function renderInvoices(q=''){
+  let orders = STATE.orders.filter(o=>o.status!=='Cancelled');
+  if(q) orders=orders.filter(o=>o.name.toLowerCase().includes(q.toLowerCase())||o.orderNum.includes(q));
+  orders.sort((a,b)=>b.createdAt-a.createdAt);
+  const tbody=document.getElementById('invoices-table');
+  if(!orders.length){tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><div class="es-icon">🧾</div><p>No invoices yet</p></div></td></tr>';return;}
+  tbody.innerHTML=orders.map((o,i)=>`<tr>
+    <td style="font-weight:700;color:var(--gold)">INV-${String(i+1).padStart(4,'0')}</td>
+    <td style="color:var(--ember)">${o.orderNum}</td>
+    <td>${o.name}</td>
+    <td>₹${fmt(o.total)}</td>
+    <td style="color:var(--green)">₹${fmt(o.advance)}</td>
+    <td style="color:${o.total-o.advance>0?'var(--red)':'var(--green)'}">₹${fmt(o.total-o.advance)}</td>
+    <td style="font-size:.78rem;color:var(--muted)">${dateStr(o.createdAt)}</td>
+    <td><div class="flex-row">
+      <button class="btn-sm btn-primary" onclick="showInvoice('${o.id}')">🖨 Print</button>
+      <button class="btn-sm btn-green" onclick="sendInvoiceWAById('${o.id}')">💬</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function showInvoice(oid){
+  const o=STATE.orders.find(o=>o.id===oid);
+  if(!o)return;
+  STATE.viewOrderId=oid;
+  const invNum='INV-'+String(STATE.orders.indexOf(o)+1).padStart(4,'0');
+  document.getElementById('invoice-content').innerHTML=`
+  <div class="invoice-preview" id="inv-printable">
+    <div class="inv-header">
+      <div>
+        <div class="inv-company">🎆 ASR Pyro Park</div>
+        <div style="font-size:.8rem;color:#555;margin-top:.3rem;">3/1255/29, Selvam Nagar, Sivakasi, Tamil Nadu</div>
+        <div style="font-size:.8rem;color:#555;">📞 9962020890 | 💬 9962020870</div>
+        <div style="font-size:.8rem;color:#555;">UPI: nadimani@icici</div>
+      </div>
+      <div class="inv-meta">
+        <div style="font-size:1rem;font-weight:900;color:#FF4500;">${invNum}</div>
+        <div>Order: <strong>${o.orderNum}</strong></div>
+        <div>Date: ${dateStr(o.createdAt)}</div>
+        <div style="margin-top:.4rem;"><span style="background:#FF4500;color:#fff;padding:.2rem .6rem;border-radius:4px;font-size:.75rem;">${o.status}</span></div>
+      </div>
+    </div>
+    <div class="inv-parties">
+      <div><div class="inv-section-title">Bill To</div>
+        <div style="font-weight:700">${o.name}</div>
+        <div>${o.phone}</div>
+        <div>${o.city||''}</div>
+        <div>${o.occasion||''}</div>
+      </div>
+      <div><div class="inv-section-title">Tracking</div>
+        <div style="font-weight:700;color:#FF4500">${o.orderNum}</div>
+        <div style="font-size:.78rem;color:#777">Share this order number to track your order at our website.</div>
+      </div>
+    </div>
+    <table class="inv-table">
+      <thead><tr><th>#</th><th>Product</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead>
+      <tbody>
+        ${(o.items||[]).map((item,i)=>`<tr><td>${i+1}</td><td>${item.emoji} ${item.name}</td><td>${item.qty}</td><td>₹${item.price}</td><td>₹${item.qty*item.price}</td></tr>`).join('')}
+      </tbody>
+    </table>
+    <div class="inv-totals">
+      <div class="inv-total-row"><span style="color:#555">Subtotal</span><span>₹${fmt(o.total)}</span></div>
+      <div class="inv-total-row"><span style="color:#27ae60">Advance Received</span><span style="color:#27ae60">- ₹${fmt(o.advance)}</span></div>
+      <div class="inv-total-row inv-grand"><span>Balance Due</span><span>₹${fmt(o.total-o.advance)}</span></div>
+    </div>
+    <div class="inv-footer">
+      Thank you for your order! Pay balance via UPI: <strong>nadimani@icici</strong> | Questions? WhatsApp 9962020890<br/>
+      <em>This is a computer-generated quotation invoice. All orders confirmed via WhatsApp.</em>
+    </div>
+  </div>`;
+  closeModal('viewOrderModal');
+  document.getElementById('invoiceModal').classList.add('open');
+}
+
+function generateInvoiceFromView(){ showInvoice(STATE.viewOrderId); }
+
+function printInvoice(){
+  const el=document.getElementById('inv-printable');
+  const w=window.open('','_blank');
+  w.document.write(`<html><head><title>Invoice</title><style>body{font-family:Inter,sans-serif;padding:2rem;}</style></head><body>${el.outerHTML}</body></html>`);
+  w.document.close(); w.print();
+}
+
+function sendInvoiceWA(){
+  const o=STATE.orders.find(o=>o.id===STATE.viewOrderId);
+  if(!o)return;
+  const msg=`🧾 *Invoice – ASR Pyro Park*\n\nOrder: *${o.orderNum}*\nCustomer: ${o.name}\nTotal: ₹${fmt(o.total)}\nAdvance: ₹${fmt(o.advance)}\nBalance Due: ₹${fmt(o.total-o.advance)}\n\nPay balance via UPI: *nadimani@icici*\nQuestions? Call 9962020890`;
+  window.open('https://wa.me/91'+o.phone+'?text='+encodeURIComponent(msg),'_blank');
+}
+function sendInvoiceWAById(id){STATE.viewOrderId=id;sendInvoiceWA();}
+
+// ── REPORTS ────────────────────────────────────────────────
+function renderReports(){
+  const days   = parseInt(document.getElementById('report-period')?.value||30);
+  const cutoff = Date.now()-days*86400000;
+  const orders = STATE.orders.filter(o=>o.createdAt>=cutoff&&o.status!=='Cancelled');
+  const total  = orders.reduce((s,o)=>s+o.total,0);
+  const adv    = orders.reduce((s,o)=>s+o.advance,0);
+
+  document.getElementById('report-stats').innerHTML=`
+    <div class="stat-card gold"><div class="stat-label">Revenue (${days}d)</div><div class="stat-val">₹${fmt(total)}</div></div>
+    <div class="stat-card green"><div class="stat-label">Advance Collected</div><div class="stat-val">₹${fmt(adv)}</div></div>
+    <div class="stat-card fire"><div class="stat-label">Balance Pending</div><div class="stat-val">₹${fmt(total-adv)}</div></div>
+    <div class="stat-card blue"><div class="stat-label">Orders</div><div class="stat-val">${orders.length}</div></div>`;
+
+  // Product sales chart
+  const prodSales={};
+  orders.forEach(o=>(o.items||[]).forEach(i=>{
+    prodSales[i.name]=(prodSales[i.name]||0)+i.qty*i.price;
+  }));
+  const sortedProds=Object.entries(prodSales).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const maxProd=sortedProds[0]?.[1]||1;
+
+  // Status breakdown
+  const statusCnt={};
+  STATE.orders.forEach(o=>{ statusCnt[o.status]=(statusCnt[o.status]||0)+1; });
+
+  document.getElementById('report-charts').innerHTML=`
+    <div class="report-card">
+      <h3>📦 Revenue by Product</h3>
+      ${sortedProds.length?sortedProds.map(([name,val])=>`
+        <div class="chart-bar-row">
+          <div class="chart-label">${name.split('(')[0].trim()}</div>
+          <div class="chart-bar" style="width:${Math.round(val/maxProd*160)}px"></div>
+          <div class="chart-val">₹${fmt(val)}</div>
+        </div>`).join(''):'<p style="color:var(--muted);font-size:.83rem">No data yet</p>'}
+    </div>
+    <div class="report-card">
+      <h3>📊 Order Status Breakdown</h3>
+      ${Object.entries(statusCnt).map(([s,c])=>`
+        <div class="chart-bar-row">
+          <div class="chart-label">${s}</div>
+          <div class="chart-bar" style="width:${Math.round(c/STATE.orders.length*160)}px;background:var(--blue)"></div>
+          <div class="chart-val">${c} orders</div>
+        </div>`).join('')||'<p style="color:var(--muted);font-size:.83rem">No data yet</p>'}
+    </div>`;
+
+  document.getElementById('report-table').innerHTML=orders.sort((a,b)=>b.createdAt-a.createdAt).map(o=>`<tr>
+    <td style="color:var(--gold)">${o.orderNum}</td><td>${o.name}</td>
+    <td>${(o.items||[]).length} items</td>
+    <td>₹${fmt(o.total)}</td><td style="color:var(--green)">₹${fmt(o.advance)}</td>
+    <td style="color:var(--red)">₹${fmt(o.total-o.advance)}</td>
+    <td><span class="badge badge-${o.status.toLowerCase()}">${o.status}</span></td>
+    <td style="font-size:.78rem;color:var(--muted)">${dateStr(o.createdAt)}</td>
+  </tr>`).join('') || '<tr><td colspan="8" class="empty-state"><p>No orders in this period</p></td></tr>';
+}
+
+function exportCSV(){
+  const days=parseInt(document.getElementById('report-period')?.value||30);
+  const cutoff=Date.now()-days*86400000;
+  const orders=STATE.orders.filter(o=>o.createdAt>=cutoff&&o.status!=='Cancelled');
+  const rows=[['Order #','Customer','Phone','Items','Total','Advance','Balance','Status','Date']];
+  orders.forEach(o=>rows.push([o.orderNum,o.name,o.phone,(o.items||[]).map(i=>i.name+' x'+i.qty).join('; '),o.total,o.advance,o.total-o.advance,o.status,dateStr(o.createdAt)]));
+  const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='ASR_Pyro_Report_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click(); showToast('CSV exported!');
+}
+
+// ── PRODUCTS ───────────────────────────────────────────────
+function renderProducts(){
+  document.getElementById('products-table').innerHTML=STATE.products.map(p=>`<tr>
+    <td style="font-size:1.4rem">${p.emoji}</td>
+    <td style="font-weight:600">${p.name}</td>
+    <td>₹${p.price}</td><td>${p.unit}</td>
+    <td><input type="checkbox" ${p.active?'checked':''} onchange="toggleProduct('${p.id}',this.checked)"/></td>
+    <td><button class="btn-sm btn-blue" onclick="editProduct('${p.id}')">✏️ Edit</button></td>
+  </tr>`).join('');
+}
+
+function openAddProduct(){
+  STATE.editProductId=null;
+  document.getElementById('productModalTitle').textContent='Add Product';
+  ['pm-emoji','pm-name','pm-price'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pm-unit').value='per box';
+  document.getElementById('productModal').classList.add('open');
+}
+
+function editProduct(id){
+  const p=STATE.products.find(p=>p.id===id);
+  if(!p)return;
+  STATE.editProductId=id;
+  document.getElementById('productModalTitle').textContent='Edit Product';
+  document.getElementById('pm-emoji').value=p.emoji;
+  document.getElementById('pm-name').value=p.name;
+  document.getElementById('pm-price').value=p.price;
+  document.getElementById('pm-unit').value=p.unit;
+  document.getElementById('productModal').classList.add('open');
+}
+
+function saveProduct(){
+  const name=document.getElementById('pm-name').value.trim();
+  const price=parseInt(document.getElementById('pm-price').value)||0;
+  if(!name||!price){showToast('Name and price required!');return;}
+  if(STATE.editProductId){
+    const p=STATE.products.find(p=>p.id===STATE.editProductId);
+    Object.assign(p,{emoji:document.getElementById('pm-emoji').value,name,price,unit:document.getElementById('pm-unit').value});
+  } else {
+    STATE.products.push({id:'p'+Date.now(),emoji:document.getElementById('pm-emoji').value||'🎆',name,price,unit:document.getElementById('pm-unit').value,active:true});
+    STATE.inventory['p'+Date.now()]=0;
+  }
+  saveState();renderProducts();buildOrderModalItems();renderInventory();closeModal('productModal');showToast('Product saved!');
+}
+
+function toggleProduct(id,active){
+  const p=STATE.products.find(p=>p.id===id);
+  if(p){p.active=active;saveState();showToast(active?'Product enabled':'Product disabled');}
+}
+
+// ── WHATSAPP STATUS ────────────────────────────────────────
+function sendWAStatus(id){
+  const o=STATE.orders.find(o=>o.id===id);if(!o)return;
+  const msgs={
+    Pending:`Hi ${o.name}! Your order *${o.orderNum}* has been received. We'll confirm shortly.\n\n– ASR Pyro Park 🎆`,
+    Confirmed:`Hi ${o.name}! Your order *${o.orderNum}* is *confirmed* ✅. We're preparing your crackers.\n\nTotal: ₹${fmt(o.total)} | Balance Due: ₹${fmt(o.total-o.advance)}\n\n– ASR Pyro Park 🎆`,
+    Packed:`Hi ${o.name}! Your order *${o.orderNum}* is *packed* 📦 and ready for dispatch.\n\n– ASR Pyro Park 🎆`,
+    Shipped:`Hi ${o.name}! Your order *${o.orderNum}* has been *shipped* 🚚. You'll receive it soon.\n\nBalance Due on delivery: ₹${fmt(o.total-o.advance)}\n\n– ASR Pyro Park 🎆`,
+    Delivered:`Hi ${o.name}! Your order *${o.orderNum}* has been *delivered* 🎆. Enjoy your celebration!\n\nThank you for choosing ASR Pyro Park 🙏`,
+  };
+  const msg=msgs[o.status]||`Order update for *${o.orderNum}*: Status is now *${o.status}*.`;
+  window.open('https://wa.me/91'+o.phone+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+function sendWAUpdate(){ sendWAStatus(STATE.viewOrderId); closeModal('viewOrderModal'); }
+
+// ── UTILS ──────────────────────────────────────────────────
+function fmt(n){return Number(n||0).toLocaleString('en-IN');}
+function dateStr(ts){return ts?new Date(ts).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'–';}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+
+// close modals on bg click
+document.querySelectorAll('.modal-bg').forEach(bg=>bg.addEventListener('click',e=>{if(e.target===bg)bg.classList.remove('open');}));
+document.getElementById('om-advance').addEventListener('input',calcOrderTotal);
+
+// seed demo data
+function seedDemo(){
+  if(STATE.orders.length>0)return;
+  const demoOrders=[
+    {id:'ord_1',orderNum:'ASR2510001',name:'Ravi Kumar',phone:'9876543210',city:'Chennai',occasion:'Diwali',
+     items:[{id:'p1',name:'Garland (100 Wala)',emoji:'🧨',price:120,qty:5},{id:'p8',name:'Sky Rockets',emoji:'🚀',price:200,qty:3}],
+     total:1200,advance:500,status:'Shipped',createdAt:Date.now()-3*86400000,updatedAt:Date.now()-86400000,notes:''},
+    {id:'ord_2',orderNum:'ASR2510002',name:'Priya Sharma',phone:'9876500001',city:'Coimbatore',occasion:'Wedding',
+     items:[{id:'p9',name:'Aerial Shells',emoji:'🎆',price:350,qty:4},{id:'p11',name:'Fancy Fountain',emoji:'⛲',price:180,qty:6}],
+     total:2480,advance:1000,status:'Confirmed',createdAt:Date.now()-86400000,updatedAt:Date.now()-3600000,notes:''},
+    {id:'ord_3',orderNum:'ASR2510003',name:'Murugan S',phone:'9600000001',city:'Madurai',occasion:'Diwali',
+     items:[{id:'p5',name:'Sparklers (Green)',emoji:'✨',price:60,qty:10},{id:'p6',name:'Sparklers (Colour)',emoji:'🌈',price:75,qty:8}],
+     total:1200,advance:0,status:'Pending',createdAt:Date.now()-1800000,updatedAt:Date.now()-1800000,notes:'COD requested'},
+  ];
+  STATE.orders=demoOrders;
+  saveState();
+}
+
+loadState();
+if(DEMO) seedDemo();
+</script>
+</body>
+</html>

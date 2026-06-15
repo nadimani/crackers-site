@@ -182,6 +182,26 @@
     .f-logo{font-family:var(--display);font-size:1.2rem;color:var(--gold);margin-bottom:.4rem;}
     footer p{font-size:.78rem;color:var(--muted)}
 
+
+    /* ORDER TRACKING */
+    #tracking{background:var(--dark)}
+    .track-form{max-width:480px;margin:2rem auto 0;text-align:center;}
+    .track-input-row{display:flex;gap:.7rem;margin-bottom:1.2rem;}
+    .track-input{flex:1;background:var(--card);border:1.5px solid rgba(255,255,255,.1);border-radius:var(--r);
+      color:var(--light);padding:.7rem 1rem;font-size:.95rem;font-family:var(--body);}
+    .track-input:focus{outline:none;border-color:var(--ember);}
+    .track-result{background:var(--card);border:1px solid rgba(255,215,0,.2);border-radius:var(--r);padding:1.3rem;text-align:left;display:none;}
+    .tr-row{display:flex;justify-content:space-between;font-size:.85rem;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+    .tr-row:last-child{border-bottom:none;}
+    .tr-steps{display:flex;gap:0;margin-top:1rem;justify-content:space-between;position:relative;}
+    .tr-steps::before{content:'';position:absolute;top:12px;left:10%;right:10%;height:2px;background:rgba(255,255,255,.08);}
+    .tr-step{display:flex;flex-direction:column;align-items:center;gap:.35rem;flex:1;z-index:1;}
+    .tr-dot{width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.12);
+      background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:.7rem;}
+    .tr-dot.done{border-color:var(--green);background:rgba(46,204,113,.2);color:var(--green);}
+    .tr-dot.active{border-color:var(--gold);background:rgba(255,215,0,.2);color:var(--gold);}
+    .tr-label{font-size:.65rem;color:var(--muted);text-align:center;}
+
     /* FLOAT WA */
     .wa-float{position:fixed;bottom:1.4rem;right:1.4rem;z-index:999;background:var(--wa);color:#fff;
       width:52px;height:52px;border-radius:50%;font-size:1.55rem;display:flex;align-items:center;
@@ -205,6 +225,7 @@
     <a href="#how">How It Works</a>
     <a href="#quote">Get Quote</a>
     <a href="#payment">Payment</a>
+    <a href="#tracking">Track Order</a>
     <a href="#contact">Contact</a>
     <a class="nav-wa" href="https://wa.me/919962020890">📲 WhatsApp</a>
   </div>
@@ -706,6 +727,26 @@
   </div>
 </section>
 
+
+<!-- ORDER TRACKING -->
+<section id="tracking">
+  <div class="container">
+    <div class="sec-label">Know Your Status</div>
+    <h2 class="sec-title">Track Your Order</h2>
+    <p class="sec-sub">Enter your order number (e.g. ASR2510001) to get live status.</p>
+    <div class="track-form">
+      <div class="track-input-row">
+        <input class="track-input" id="track-input" placeholder="Enter Order Number e.g. ASR2510001" maxlength="14"/>
+        <button class="btn btn-fire" onclick="trackOrder()">Track →</button>
+      </div>
+      <div class="track-result" id="track-result"></div>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:1rem;">
+        Don't have your order number? <a href="https://wa.me/919962020890?text=Can%20you%20share%20my%20order%20number?" style="color:var(--gold)" target="_blank">Ask us on WhatsApp →</a>
+      </p>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
@@ -726,6 +767,7 @@
   <div class="f-logo">🎆 ASR Pyro Park</div>
   <p>3/1255/29, Selvam Nagar, Sivakasi, Tamil Nadu</p>
   <p style="margin-top:.35rem">📞 9962020890 &nbsp;|&nbsp; 💬 9962020870</p>
+  <p style="margin-top:.8rem;"><a href="admin.html" style="font-size:.75rem;color:rgba(255,140,0,.5);border:1px solid rgba(255,140,0,.2);padding:.25rem .7rem;border-radius:10px;">🔐 Admin Login</a></p>
   <p style="margin-top:.7rem;font-size:.72rem">This website is a quotation &amp; lead generation platform. All orders confirmed via WhatsApp.</p>
 </footer>
 
@@ -818,7 +860,43 @@ function clearQ(){
   PRODS.forEach(p=>{qty[p.id]=0;});
   ['cn','cp','cc','cnote'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('co').value='';
-  renderGrids();updSum();showT('Quote cleared');
+  
+/* Order tracking (reads from localStorage — shared with admin panel on same device) */
+function trackOrder(){
+  const num = document.getElementById('track-input').value.trim().toUpperCase();
+  const res = document.getElementById('track-result');
+  if(!num){res.style.display='none';return;}
+  const orders = JSON.parse(localStorage.getItem('asr_orders')||'[]');
+  const o = orders.find(o=>o.orderNum===num);
+  if(!o){
+    res.style.display='block';
+    res.innerHTML='<p style="color:var(--red);text-align:center;font-size:.88rem;">❌ Order not found. Check the number or <a href="https://wa.me/919962020890" style="color:var(--gold)" target="_blank">WhatsApp us</a>.</p>';
+    return;
+  }
+  const statuses=['Pending','Confirmed','Packed','Shipped','Delivered'];
+  const cur=statuses.indexOf(o.status);
+  res.style.display='block';
+  res.innerHTML=`
+    <div style="margin-bottom:.8rem;">
+      <div style="font-family:var(--display);font-size:1rem;font-weight:900;color:var(--gold)">${o.orderNum}</div>
+      <div style="font-size:.82rem;color:var(--muted)">${o.name} &nbsp;|&nbsp; ${o.occasion||''}</div>
+    </div>
+    <div class="tr-row"><span style="color:var(--muted)">Total Amount</span><span style="font-weight:700">₹${Number(o.total).toLocaleString('en-IN')}</span></div>
+    <div class="tr-row"><span style="color:var(--muted)">Advance Paid</span><span style="color:var(--green)">₹${Number(o.advance).toLocaleString('en-IN')}</span></div>
+    <div class="tr-row"><span style="color:var(--muted)">Balance Due</span><span style="color:var(--fire);font-weight:700">₹${Number(o.total-o.advance).toLocaleString('en-IN')}</span></div>
+    <div class="tr-steps" style="margin-top:1.2rem;">
+      ${statuses.map((s,i)=>`<div class="tr-step">
+        <div class="tr-dot ${i<cur?'done':i===cur?'active':''}">${i<cur?'✓':i===cur?'▶':'○'}</div>
+        <div class="tr-label">${s}</div>
+      </div>`).join('')}
+    </div>
+    <div style="margin-top:1rem;text-align:center;">
+      <a href="https://wa.me/919962020890?text=Hi!%20My%20order%20${o.orderNum}%20status%20update%20please." class="btn btn-wa" style="font-size:.82rem;padding:.5rem 1rem;" target="_blank">💬 WhatsApp for Update</a>
+    </div>`;
+}
+document.getElementById('track-input')?.addEventListener('keydown',e=>{if(e.key==='Enter')trackOrder();});
+
+renderGrids();updSum();showT('Quote cleared');
 }
 
 function copyUPI(){
@@ -878,6 +956,42 @@ function showT(msg){
   },700);
   requestAnimationFrame(loop);
 })();
+
+
+/* Order tracking (reads from localStorage — shared with admin panel on same device) */
+function trackOrder(){
+  const num = document.getElementById('track-input').value.trim().toUpperCase();
+  const res = document.getElementById('track-result');
+  if(!num){res.style.display='none';return;}
+  const orders = JSON.parse(localStorage.getItem('asr_orders')||'[]');
+  const o = orders.find(o=>o.orderNum===num);
+  if(!o){
+    res.style.display='block';
+    res.innerHTML='<p style="color:var(--red);text-align:center;font-size:.88rem;">❌ Order not found. Check the number or <a href="https://wa.me/919962020890" style="color:var(--gold)" target="_blank">WhatsApp us</a>.</p>';
+    return;
+  }
+  const statuses=['Pending','Confirmed','Packed','Shipped','Delivered'];
+  const cur=statuses.indexOf(o.status);
+  res.style.display='block';
+  res.innerHTML=`
+    <div style="margin-bottom:.8rem;">
+      <div style="font-family:var(--display);font-size:1rem;font-weight:900;color:var(--gold)">${o.orderNum}</div>
+      <div style="font-size:.82rem;color:var(--muted)">${o.name} &nbsp;|&nbsp; ${o.occasion||''}</div>
+    </div>
+    <div class="tr-row"><span style="color:var(--muted)">Total Amount</span><span style="font-weight:700">₹${Number(o.total).toLocaleString('en-IN')}</span></div>
+    <div class="tr-row"><span style="color:var(--muted)">Advance Paid</span><span style="color:var(--green)">₹${Number(o.advance).toLocaleString('en-IN')}</span></div>
+    <div class="tr-row"><span style="color:var(--muted)">Balance Due</span><span style="color:var(--fire);font-weight:700">₹${Number(o.total-o.advance).toLocaleString('en-IN')}</span></div>
+    <div class="tr-steps" style="margin-top:1.2rem;">
+      ${statuses.map((s,i)=>`<div class="tr-step">
+        <div class="tr-dot ${i<cur?'done':i===cur?'active':''}">${i<cur?'✓':i===cur?'▶':'○'}</div>
+        <div class="tr-label">${s}</div>
+      </div>`).join('')}
+    </div>
+    <div style="margin-top:1rem;text-align:center;">
+      <a href="https://wa.me/919962020890?text=Hi!%20My%20order%20${o.orderNum}%20status%20update%20please." class="btn btn-wa" style="font-size:.82rem;padding:.5rem 1rem;" target="_blank">💬 WhatsApp for Update</a>
+    </div>`;
+}
+document.getElementById('track-input')?.addEventListener('keydown',e=>{if(e.key==='Enter')trackOrder();});
 
 renderGrids();updSum();
 </script>
