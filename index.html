@@ -1,916 +1,885 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>ASR Pyro Park – Premium Crackers & Fireworks, Sivakasi</title>
-  <meta name="description" content="ASR Pyro Park Traders – Best crackers shop in Sivakasi. Get your Diwali, wedding & festival fireworks quote instantly. WhatsApp ordering available." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-
+  <meta name="description" content="ASR Pyro Park – Best crackers from Sivakasi. Diwali, wedding &amp; festival fireworks. WhatsApp ordering. 60% discount."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    /* ─── TOKENS ─────────────────────────────────────────────── */
-    :root {
-      --fire:    #FF4500;   /* deep orange-red — flame */
-      --ember:   #FF8C00;   /* amber — glowing coal */
-      --gold:    #FFD700;   /* gold — sparkle */
-      --night:   #0D0D1A;   /* near-black — night sky */
-      --dark:    #1A1A2E;   /* dark navy */
-      --panel:   #16213E;   /* card bg */
-      --muted:   #8892A4;   /* secondary text */
-      --light:   #F0F4FF;   /* body text on dark */
-      --whatsapp:#25D366;
-      --radius:  10px;
+    :root{
+      --fire:#FF4500;--ember:#FF8C00;--gold:#FFD700;--deepgold:#C8860A;
+      --night:#06060F;--dark:#0E0E1E;--panel:#131325;--card:#1A1A30;
+      --muted:#8892B0;--light:#EEF0FF;--wa:#25D366;--r:10px;
+      --display:'Noto Serif Tamil',serif;
+      --body:'Hind Madurai','Inter',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--body);background:var(--night);color:var(--light);line-height:1.65}
+    a{color:inherit;text-decoration:none}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:200;background:rgba(6,6,15,.9);backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,140,0,.2);display:flex;align-items:center;
+      justify-content:space-between;padding:.65rem 1.4rem;}
+    .nav-logo{font-family:var(--display);font-size:1.1rem;font-weight:900;color:var(--gold);
+      letter-spacing:.03em;display:flex;align-items:center;gap:.4rem;}
+    .nav-logo span{color:var(--fire)}
+    .nav-links{display:flex;gap:1.3rem;align-items:center}
+    .nav-links a{font-size:.82rem;font-weight:500;color:var(--muted);transition:color .2s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-wa{background:var(--wa);color:#fff !important;padding:.38rem .9rem;border-radius:20px;font-size:.8rem !important;}
+    @media(max-width:640px){.nav-links{display:none}}
+
+    /* HERO */
+    .hero{min-height:100vh;position:relative;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:5rem 1.5rem 4rem;}
+    .hero-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
+    .fw-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+    .hero-overlay{position:absolute;inset:0;
+      background:linear-gradient(to bottom,rgba(6,6,15,.4) 0%,rgba(6,6,15,.25) 40%,rgba(6,6,15,.65) 75%,rgba(6,6,15,.95) 100%);z-index:2;}
+    .hero-content{position:relative;z-index:3;max-width:680px;}
+    .hero-eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ember);
+      font-weight:700;border:1px solid rgba(255,140,0,.35);padding:.3rem 1rem;border-radius:20px;
+      display:inline-block;margin-bottom:1rem;}
+    .hero h1{font-family:var(--display);font-size:clamp(1.9rem,6.5vw,4.2rem);font-weight:900;
+      line-height:1.1;color:#fff;margin-bottom:.4rem;}
+    .hero h1 .ft{background:linear-gradient(90deg,var(--fire),var(--gold),var(--ember));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hero-sub-ta{font-family:var(--display);font-size:clamp(.95rem,2.5vw,1.35rem);
+      color:rgba(255,215,0,.82);margin-bottom:.5rem;font-weight:700;}
+    .hero-sub{font-size:.97rem;color:rgba(215,220,255,.75);max-width:440px;margin:0 auto 1.5rem;}
+    .badge{display:inline-block;background:linear-gradient(135deg,var(--fire),var(--ember));
+      color:#fff;font-size:.92rem;font-weight:700;padding:.45rem 1.3rem;border-radius:30px;
+      margin-bottom:1.8rem;box-shadow:0 4px 22px rgba(255,69,0,.45);
+      animation:pulse 2.2s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{box-shadow:0 4px 22px rgba(255,69,0,.45)}50%{box-shadow:0 4px 38px rgba(255,69,0,.75)}}
+    .hero-btns{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.6rem;}
+    .hero-phones{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;}
+    .hero-phones a{font-size:.88rem;color:rgba(200,206,255,.7);display:flex;align-items:center;gap:.35rem;}
+    .hero-phones a:hover{color:var(--gold)}
+
+    /* BUTTONS */
+    .btn{padding:.68rem 1.45rem;border-radius:var(--r);font-size:.9rem;font-weight:600;
+      font-family:var(--body);cursor:pointer;border:none;
+      display:inline-flex;align-items:center;gap:.45rem;transition:transform .15s,box-shadow .15s;}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-fire{background:linear-gradient(135deg,var(--fire),var(--ember));color:#fff;box-shadow:0 4px 18px rgba(255,69,0,.4);}
+    .btn-wa{background:var(--wa);color:#fff;box-shadow:0 4px 18px rgba(37,211,102,.35);}
+    .btn-ghost{background:transparent;color:var(--light);border:1.5px solid rgba(255,255,255,.22);}
+    .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+    /* SECTIONS */
+    section{padding:4.5rem 1.5rem}
+    .container{max-width:1060px;margin:0 auto}
+    .sec-label{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ember);font-weight:700;margin-bottom:.5rem;}
+    .sec-title{font-family:var(--display);font-size:clamp(1.4rem,4vw,2.1rem);font-weight:900;color:#fff;margin-bottom:.65rem;}
+    .sec-sub{color:var(--muted);max-width:500px;font-size:.93rem;}
+
+    /* HOW IT WORKS — compact horizontal strip */
+    #how{background:var(--dark);padding:2rem 1.5rem;}
+    .how-strip{
+      display:flex;align-items:stretch;
+      background:var(--card);
+      border:1px solid rgba(255,140,0,.15);
+      border-radius:var(--r);
+      overflow:hidden;
+      margin-top:1.4rem;
+    }
+    .step{
+      flex:1;display:flex;align-items:center;gap:.75rem;
+      padding:.9rem 1rem;
+      border-right:1px solid rgba(255,255,255,.06);
+      transition:background .2s;
+      position:relative;
+    }
+    .step:last-child{border-right:none;}
+    .step:hover{background:rgba(255,140,0,.06);}
+    /* arrow connector */
+    .step:not(:last-child)::after{
+      content:'›';
+      position:absolute;right:-.6rem;top:50%;transform:translateY(-50%);
+      color:var(--fire);font-size:1.1rem;font-weight:900;z-index:1;
+    }
+    .step-icon{font-size:1.4rem;flex-shrink:0;line-height:1;}
+    .step-body{min-width:0;}
+    .step-num{font-size:.65rem;font-weight:800;color:var(--fire);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.1rem;}
+    .step h3{font-size:.82rem;font-weight:700;margin-bottom:.15rem;white-space:nowrap;}
+    .step p{font-size:.72rem;color:var(--muted);line-height:1.4;margin:0;}
+    @media(max-width:700px){
+      .how-strip{flex-direction:column;}
+      .step{border-right:none;border-bottom:1px solid rgba(255,255,255,.06);}
+      .step:last-child{border-bottom:none;}
+      .step:not(:last-child)::after{content:'↓';right:auto;left:50%;top:auto;bottom:-.7rem;transform:translateX(-50%);}
     }
 
-    /* ─── RESET ──────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--night);
-      color: var(--light);
-      line-height: 1.6;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+    /* PRODUCTS */
+    #products{background:var(--night)}
+    .prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:1rem;margin-top:2.2rem;}
+    .prod-card{background:var(--card);border:1.5px solid rgba(255,255,255,.06);border-radius:var(--r);
+      padding:1.1rem .9rem;text-align:center;cursor:pointer;transition:border-color .2s,transform .15s;}
+    .prod-card:hover{border-color:var(--fire);transform:translateY(-3px)}
+    .prod-card.sel{border-color:var(--gold);background:rgba(255,215,0,.07)}
+    .prod-emoji{font-size:2.1rem;margin-bottom:.45rem}
+    .prod-name{font-size:.88rem;font-weight:700;margin-bottom:.25rem}
+    .prod-price{font-size:.78rem;color:var(--muted)}
+    .qty-row{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.75rem;}
+    .qb{width:26px;height:26px;background:rgba(255,69,0,.2);border:none;border-radius:50%;
+      color:var(--light);cursor:pointer;font-size:1rem;font-weight:700;
+      display:flex;align-items:center;justify-content:center;transition:background .15s;}
+    .qb:hover{background:var(--fire)}
+    .qv{font-size:.9rem;font-weight:700;min-width:20px;text-align:center;}
 
-    /* ─── NAV ────────────────────────────────────────────────── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(13,13,26,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,69,0,0.25);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.75rem 1.5rem;
-    }
-    .nav-logo {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem; font-weight: 900;
-      color: var(--gold);
-      letter-spacing: 0.05em;
-    }
-    .nav-logo span { color: var(--fire); }
-    .nav-links { display: flex; gap: 1.5rem; }
-    .nav-links a {
-      font-size: 0.85rem; font-weight: 500;
-      color: var(--muted);
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-cta {
-      background: var(--whatsapp);
-      color: #fff !important;
-      padding: 0.4rem 0.9rem;
-      border-radius: 20px;
-      font-size: 0.8rem !important;
-    }
-    @media(max-width:600px){
-      .nav-links { display: none; }
-    }
+    /* QUOTE */
+    #quote{background:var(--dark)}
+    .quote-layout{display:grid;grid-template-columns:1fr 340px;gap:2rem;margin-top:2rem;}
+    @media(max-width:720px){.quote-layout{grid-template-columns:1fr}}
+    .fg{margin-bottom:1.1rem}
+    .fg label{display:block;font-size:.78rem;font-weight:700;color:var(--muted);margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.08em;}
+    .fg input,.fg select,.fg textarea{width:100%;background:var(--card);border:1.5px solid rgba(255,255,255,.09);
+      border-radius:var(--r);color:var(--light);padding:.6rem .85rem;font-size:.93rem;font-family:var(--body);transition:border-color .2s;}
+    .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--ember)}
+    .fg textarea{resize:vertical;min-height:80px}
+    .fg select option{background:var(--panel)}
+    .q-summary{background:var(--card);border:1px solid rgba(255,215,0,.18);border-radius:var(--r);padding:1.3rem;position:sticky;top:76px;}
+    .q-summary h3{font-family:var(--display);font-size:.95rem;color:var(--gold);margin-bottom:.9rem;padding-bottom:.65rem;border-bottom:1px solid rgba(255,215,0,.12);}
+    #sum-items{margin-bottom:.8rem;min-height:50px}
+    .si{display:flex;justify-content:space-between;font-size:.83rem;padding:.28rem 0;border-bottom:1px solid rgba(255,255,255,.04);}
+    .sum-empty{font-size:.83rem;color:var(--muted)}
+    .total-row{display:flex;justify-content:space-between;font-size:1rem;font-weight:800;color:var(--gold);margin-top:.7rem;padding-top:.7rem;border-top:1px solid rgba(255,215,0,.15);}
+    .disc-note{font-size:.75rem;color:var(--fire);margin-top:.4rem}
 
-    /* ─── HERO ───────────────────────────────────────────────── */
-    .hero {
-      min-height: 92vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 4rem 1.5rem 3rem;
-      background:
-        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,69,0,0.18) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(255,215,0,0.08) 0%, transparent 60%),
-        var(--night);
-      position: relative;
-      overflow: hidden;
-    }
-    /* animated sparks */
-    .spark {
-      position: absolute;
-      width: 3px; height: 3px;
-      border-radius: 50%;
-      background: var(--gold);
-      animation: float 4s ease-in-out infinite;
-      opacity: 0;
-    }
-    @keyframes float {
-      0%   { opacity:0; transform: translateY(0) scale(1); }
-      20%  { opacity:1; }
-      80%  { opacity:0.6; }
-      100% { opacity:0; transform: translateY(-120px) scale(0.3); }
-    }
+    /* PAYMENT */
+    #payment{background:var(--night)}
+    .pay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.1rem;margin-top:2rem;}
+    .pay-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:1.3rem;}
+    .pay-icon{font-size:1.9rem;margin-bottom:.5rem}
+    .pay-card h3{font-size:.93rem;font-weight:700;margin-bottom:.45rem}
+    .pay-card p{font-size:.83rem;color:var(--muted)}
+    .upi-box{margin-top:.75rem;background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.18);
+      border-radius:7px;padding:.45rem .75rem;font-family:monospace;font-size:.88rem;color:var(--gold);
+      display:flex;align-items:center;justify-content:space-between;}
+    .copy-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:.82rem;transition:color .2s;}
+    .copy-btn:hover{color:var(--gold)}
+    .rzp-box{background:var(--card);border:1.5px dashed rgba(255,215,0,.28);border-radius:var(--r);padding:1.6rem;text-align:center;margin-top:1.8rem;}
+    .rzp-box h3{font-size:.98rem;font-weight:700;color:var(--gold);margin-bottom:.4rem}
+    .rzp-box p{font-size:.83rem;color:var(--muted);margin-bottom:.9rem}
+    .rzp-ph{background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.15);border-radius:7px;padding:.9rem;font-size:.78rem;color:var(--muted);font-family:monospace;text-align:left;}
 
-    .hero-eyebrow {
-      font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--fire);
-      margin-bottom: 1.2rem;
-      border: 1px solid rgba(255,69,0,0.4);
-      padding: 0.3rem 1rem;
-      border-radius: 20px;
-      display: inline-block;
-    }
-    .hero h1 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.4rem, 7vw, 5rem);
-      font-weight: 900;
-      line-height: 1.05;
-      color: #fff;
-      margin-bottom: 0.6rem;
-    }
-    .hero h1 em {
-      font-style: normal;
-      background: linear-gradient(90deg, var(--fire), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero-sub {
-      font-size: 1.05rem; color: var(--muted);
-      max-width: 480px; margin: 0 auto 2rem;
-    }
-    .hero-discount {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--fire), var(--ember));
-      color: #fff;
-      font-size: 1rem; font-weight: 700;
-      padding: 0.5rem 1.4rem;
-      border-radius: 30px;
-      margin-bottom: 2.2rem;
-      box-shadow: 0 4px 20px rgba(255,69,0,0.4);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%,100% { box-shadow: 0 4px 20px rgba(255,69,0,0.4); }
-      50%      { box-shadow: 0 4px 35px rgba(255,69,0,0.7); }
-    }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-    .btn {
-      padding: 0.75rem 1.6rem;
-      border-radius: var(--radius);
-      font-size: 0.95rem; font-weight: 600;
-      cursor: pointer; border: none;
-      transition: transform 0.15s, box-shadow 0.15s;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-    }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-fire {
-      background: linear-gradient(135deg, var(--fire), var(--ember));
-      color: #fff;
-      box-shadow: 0 4px 18px rgba(255,69,0,0.45);
-    }
-    .btn-wa {
-      background: var(--whatsapp);
-      color: #fff;
-      box-shadow: 0 4px 18px rgba(37,211,102,0.35);
-    }
-    .btn-outline {
-      background: transparent;
-      color: var(--light);
-      border: 1.5px solid rgba(255,255,255,0.25);
-    }
-    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-    .hero-phones {
-      margin-top: 2.5rem;
-      display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;
-    }
-    .hero-phones a {
-      color: var(--muted); font-size: 0.9rem;
-      display: flex; align-items: center; gap: 0.4rem;
-    }
-    .hero-phones a:hover { color: var(--gold); }
+    /* CONTACT */
+    #contact{background:var(--dark)}
+    .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:1.1rem;margin-top:2rem;}
+    .cc{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);padding:1.2rem;display:flex;align-items:flex-start;gap:.75rem;}
+    .cc-icon{font-size:1.4rem;flex-shrink:0}
+    .cc h4{font-size:.78rem;color:var(--muted);margin-bottom:.18rem;font-weight:600;}
+    .cc p,.cc a{font-size:.92rem;font-weight:700}
+    .cc a:hover{color:var(--gold)}
 
-    /* ─── SECTION COMMON ─────────────────────────────────────── */
-    section { padding: 4.5rem 1.5rem; }
-    .section-label {
-      font-size: 0.72rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--fire);
-      font-weight: 600; margin-bottom: 0.6rem;
-    }
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      font-weight: 700; color: #fff;
-      margin-bottom: 0.8rem;
-    }
-    .section-sub { color: var(--muted); max-width: 520px; }
-    .container { max-width: 1050px; margin: 0 auto; }
+    /* FOOTER */
+    footer{background:var(--night);border-top:1px solid rgba(255,255,255,.05);padding:2rem 1.5rem;text-align:center;}
+    .f-logo{font-family:var(--display);font-size:1.2rem;color:var(--gold);margin-bottom:.4rem;}
+    footer p{font-size:.78rem;color:var(--muted)}
 
-    /* ─── HOW IT WORKS ───────────────────────────────────────── */
-    #how { background: var(--dark); }
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem; margin-top: 2.5rem;
-    }
-    .step {
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      position: relative;
-    }
-    .step-num {
-      font-family: 'Cinzel', serif;
-      font-size: 2.2rem; font-weight: 900;
-      color: rgba(255,69,0,0.2);
-      line-height: 1;
-      margin-bottom: 0.8rem;
-    }
-    .step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
-    .step p { font-size: 0.85rem; color: var(--muted); }
-    .step-icon { font-size: 1.6rem; margin-bottom: 0.6rem; }
+    /* FLOAT WA */
+    .wa-float{position:fixed;bottom:1.4rem;right:1.4rem;z-index:999;background:var(--wa);color:#fff;
+      width:52px;height:52px;border-radius:50%;font-size:1.55rem;display:flex;align-items:center;
+      justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.45);animation:wab 3s ease-in-out infinite;}
+    @keyframes wab{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 
-    /* ─── PRODUCTS ───────────────────────────────────────────── */
-    #products { background: var(--night); }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 1rem; margin-top: 2.5rem;
-    }
-    .product-card {
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius);
-      padding: 1.2rem 1rem;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.15s;
-    }
-    .product-card:hover { border-color: var(--fire); transform: translateY(-3px); }
-    .product-card.selected { border-color: var(--gold); background: rgba(255,215,0,0.07); }
-    .product-emoji { font-size: 2.2rem; margin-bottom: 0.5rem; }
-    .product-name { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
-    .product-price { font-size: 0.8rem; color: var(--muted); }
-    .product-qty {
-      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-      margin-top: 0.8rem;
-    }
-    .qty-btn {
-      width: 26px; height: 26px;
-      background: rgba(255,69,0,0.2); border: none; border-radius: 50%;
-      color: var(--light); cursor: pointer; font-size: 1rem; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s;
-    }
-    .qty-btn:hover { background: var(--fire); }
-    .qty-val { font-size: 0.9rem; font-weight: 600; min-width: 20px; text-align: center; }
-
-    /* ─── QUOTE BUILDER ──────────────────────────────────────── */
-    #quote { background: var(--dark); }
-    .quote-layout {
-      display: grid;
-      grid-template-columns: 1fr 360px;
-      gap: 2rem; margin-top: 2rem;
-    }
-    @media(max-width:720px){ .quote-layout { grid-template-columns: 1fr; } }
-
-    .form-group { margin-bottom: 1.2rem; }
-    .form-group label {
-      display: block; font-size: 0.82rem;
-      font-weight: 600; color: var(--muted);
-      margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.08em;
-    }
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%;
-      background: var(--panel);
-      border: 1.5px solid rgba(255,255,255,0.1);
-      border-radius: var(--radius);
-      color: var(--light);
-      padding: 0.65rem 0.9rem;
-      font-size: 0.95rem;
-      font-family: inherit;
-      transition: border-color 0.2s;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none; border-color: var(--fire);
-    }
-    .form-group textarea { resize: vertical; min-height: 90px; }
-
-    .quote-summary {
-      background: var(--panel);
-      border: 1px solid rgba(255,215,0,0.2);
-      border-radius: var(--radius);
-      padding: 1.4rem;
-      position: sticky; top: 80px;
-    }
-    .quote-summary h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem; color: var(--gold);
-      margin-bottom: 1rem;
-      padding-bottom: 0.7rem;
-      border-bottom: 1px solid rgba(255,215,0,0.15);
-    }
-    #summary-items { margin-bottom: 1rem; min-height: 60px; }
-    .summary-item {
-      display: flex; justify-content: space-between;
-      font-size: 0.85rem; padding: 0.3rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .summary-empty { font-size: 0.85rem; color: var(--muted); }
-    .total-row {
-      display: flex; justify-content: space-between;
-      font-size: 1rem; font-weight: 700;
-      color: var(--gold); margin-top: 0.8rem;
-      padding-top: 0.8rem;
-      border-top: 1px solid rgba(255,215,0,0.2);
-    }
-    .discount-note {
-      font-size: 0.78rem; color: var(--fire);
-      margin-top: 0.5rem;
-    }
-
-    /* ─── PAYMENT ────────────────────────────────────────────── */
-    #payment { background: var(--night); }
-    .payment-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.2rem; margin-top: 2rem;
-    }
-    .pay-card {
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: var(--radius);
-      padding: 1.4rem;
-    }
-    .pay-icon { font-size: 2rem; margin-bottom: 0.6rem; }
-    .pay-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .pay-card p { font-size: 0.85rem; color: var(--muted); }
-    .upi-id {
-      margin-top: 0.8rem;
-      background: rgba(255,215,0,0.08);
-      border: 1px solid rgba(255,215,0,0.2);
-      border-radius: 6px;
-      padding: 0.5rem 0.8rem;
-      font-family: monospace; font-size: 0.9rem;
-      color: var(--gold);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .copy-btn {
-      background: none; border: none; cursor: pointer;
-      color: var(--muted); font-size: 0.85rem;
-      transition: color 0.2s;
-    }
-    .copy-btn:hover { color: var(--gold); }
-
-    /* Razorpay placeholder */
-    .razorpay-box {
-      background: var(--panel);
-      border: 1.5px dashed rgba(255,215,0,0.3);
-      border-radius: var(--radius);
-      padding: 1.6rem;
-      text-align: center;
-      margin-top: 2rem;
-    }
-    .razorpay-box h3 {
-      font-size: 1rem; font-weight: 700;
-      color: var(--gold); margin-bottom: 0.5rem;
-    }
-    .razorpay-box p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
-    /* ↓ Replace this entire .razorpay-box div with your actual Razorpay snippet */
-    .razorpay-placeholder {
-      background: rgba(255,215,0,0.06);
-      border: 1px solid rgba(255,215,0,0.2);
-      border-radius: 8px;
-      padding: 1rem;
-      font-size: 0.8rem; color: var(--muted);
-      font-family: monospace;
-      text-align: left;
-    }
-
-    /* ─── CONTACT ────────────────────────────────────────────── */
-    #contact { background: var(--dark); }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.2rem; margin-top: 2rem;
-    }
-    .contact-card {
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius);
-      padding: 1.3rem;
-      display: flex; align-items: flex-start; gap: 0.8rem;
-    }
-    .contact-icon { font-size: 1.5rem; flex-shrink: 0; }
-    .contact-card h4 { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.2rem; }
-    .contact-card p, .contact-card a { font-size: 0.95rem; font-weight: 600; }
-    .contact-card a:hover { color: var(--gold); }
-
-    /* ─── FOOTER ─────────────────────────────────────────────── */
-    footer {
-      background: var(--night);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 2rem 1.5rem;
-      text-align: center;
-    }
-    footer .f-logo {
-      font-family: 'Cinzel', serif;
-      font-size: 1.2rem; color: var(--gold);
-      margin-bottom: 0.5rem;
-    }
-    footer p { font-size: 0.8rem; color: var(--muted); }
-
-    /* ─── FLOATING WA BUTTON ─────────────────────────────────── */
-    .wa-float {
-      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999;
-      background: var(--whatsapp);
-      color: #fff; border: none;
-      width: 54px; height: 54px; border-radius: 50%;
-      font-size: 1.6rem;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 18px rgba(37,211,102,0.45);
-      animation: wa-bounce 3s ease-in-out infinite;
-      text-decoration: none;
-    }
-    @keyframes wa-bounce {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
-
-    /* ─── TOAST ──────────────────────────────────────────────── */
-    .toast {
-      position: fixed; bottom: 5rem; left: 50%; transform: translateX(-50%);
-      background: var(--panel); border: 1px solid var(--gold);
-      color: var(--gold); padding: 0.6rem 1.2rem;
-      border-radius: 20px; font-size: 0.85rem; font-weight: 600;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.3s;
-      z-index: 9999;
-    }
-    .toast.show { opacity: 1; }
+    /* TOAST */
+    .toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:var(--card);
+      border:1px solid var(--gold);color:var(--gold);padding:.55rem 1.2rem;border-radius:20px;
+      font-size:.83rem;font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s;z-index:9999;white-space:nowrap;}
+    .toast.show{opacity:1}
   </style>
 </head>
 <body>
 
-<!-- ── NAV ──────────────────────────────────────────────────── -->
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">ASR <span>Pyro</span> Park</div>
+  <div class="nav-logo">🎆 ASR <span>Pyro</span> Park</div>
   <div class="nav-links">
     <a href="#products">Products</a>
     <a href="#how">How It Works</a>
     <a href="#quote">Get Quote</a>
     <a href="#payment">Payment</a>
     <a href="#contact">Contact</a>
-    <a href="https://wa.me/919629308563" class="nav-cta">📲 WhatsApp</a>
+    <a class="nav-wa" href="https://wa.me/919962020890">📲 WhatsApp</a>
   </div>
 </nav>
 
-<!-- ── HERO ──────────────────────────────────────────────────── -->
+<!-- HERO -->
 <section class="hero">
-  <!-- ambient sparks -->
-  <div class="spark" style="left:15%;top:30%;animation-delay:0s;animation-duration:3.5s"></div>
-  <div class="spark" style="left:35%;top:60%;animation-delay:0.8s;animation-duration:4s"></div>
-  <div class="spark" style="left:60%;top:40%;animation-delay:1.4s;animation-duration:3s"></div>
-  <div class="spark" style="left:80%;top:55%;animation-delay:0.4s;animation-duration:4.5s"></div>
-  <div class="spark" style="left:50%;top:70%;animation-delay:2s;animation-duration:3.8s"></div>
-  <div class="spark" style="left:25%;top:50%;animation-delay:1s;animation-duration:5s;background:var(--fire)"></div>
 
-  <div class="hero-eyebrow">🎆 Sivakasi's Finest Since Day One</div>
-  <h1>Light Up Every<br/><em>Celebration</em></h1>
-  <p class="hero-sub">Premium crackers & fireworks for Diwali, weddings, and every occasion — direct from Sivakasi.</p>
-  <div class="hero-discount">🔥 60% Discount — Limited Period Offer</div>
-  <div class="hero-actions">
-    <a href="#quote" class="btn btn-fire">📋 Get Free Quote</a>
-    <a href="https://wa.me/919629308563?text=Hi%20ASR%20Pyro%20Park!%20I%20want%20to%20place%20an%20order." class="btn btn-wa" target="_blank">💬 Order on WhatsApp</a>
-    <a href="tel:9310874480" class="btn btn-outline">📞 Call Now</a>
-  </div>
-  <div class="hero-phones">
-    <a href="tel:9310874480">📞 9310874480</a>
-    <a href="tel:9629308563">📞 9629308563</a>
+  <!-- SVG: Tamil Diwali Night Scene -->
+  <svg class="hero-bg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#01010A"/><stop offset="55%" stop-color="#07071C"/><stop offset="100%" stop-color="#130928"/>
+      </linearGradient>
+      <linearGradient id="gnd" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1A0900"/><stop offset="100%" stop-color="#090400"/>
+      </linearGradient>
+      <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3D1800"/><stop offset="100%" stop-color="#280F00"/>
+      </linearGradient>
+      <radialGradient id="lglow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFD700" stop-opacity=".85"/>
+        <stop offset="60%" stop-color="#FF8C00" stop-opacity=".25"/>
+        <stop offset="100%" stop-color="#FF4500" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="moon" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFFDE0" stop-opacity=".95"/>
+        <stop offset="45%" stop-color="#FFE680" stop-opacity=".3"/>
+        <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="trail" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#FF4500" stop-opacity=".85"/><stop offset="100%" stop-color="#FF4500" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Sky & stars -->
+    <rect width="1440" height="900" fill="url(#sky)"/>
+    <g fill="#fff" opacity=".75">
+      <circle cx="80" cy="55" r="1.2"/><circle cx="200" cy="38" r=".8"/><circle cx="350" cy="88" r="1.1"/>
+      <circle cx="500" cy="28" r=".9"/><circle cx="640" cy="68" r="1"/><circle cx="750" cy="43" r=".7"/>
+      <circle cx="900" cy="52" r="1.2"/><circle cx="1050" cy="33" r=".9"/><circle cx="1200" cy="62" r="1.1"/>
+      <circle cx="1360" cy="48" r=".8"/><circle cx="130" cy="128" r=".7"/><circle cx="420" cy="148" r=".9"/>
+      <circle cx="720" cy="118" r="1.1"/><circle cx="980" cy="138" r=".8"/><circle cx="1280" cy="108" r=".7"/>
+      <circle cx="60" cy="195" r=".6"/><circle cx="310" cy="185" r=".8"/><circle cx="570" cy="208" r=".7"/>
+      <circle cx="850" cy="178" r="1"/><circle cx="1130" cy="198" r=".8"/><circle cx="1330" cy="172" r=".9"/>
+    </g>
+
+    <!-- Moon -->
+    <circle cx="1280" cy="90" r="50" fill="url(#moon)"/>
+    <circle cx="1280" cy="90" r="29" fill="#FFFDE0"/>
+    <circle cx="1272" cy="83" r="5" fill="#F5E680" opacity=".5"/>
+    <circle cx="1290" cy="98" r="3" fill="#F5E680" opacity=".4"/>
+
+    <!-- Distant burst top-left: orange -->
+    <g transform="translate(160,135)" opacity=".55">
+      <line x1="0" y1="0" x2="0" y2="-40" stroke="#FF4500" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="28" y2="-28" stroke="#FF8C00" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="40" y2="0" stroke="#FFD700" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="28" y2="28" stroke="#FF4500" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="0" y2="40" stroke="#FF8C00" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="-28" y2="28" stroke="#FFD700" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="-40" y2="0" stroke="#FF4500" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="-28" y2="-28" stroke="#FF8C00" stroke-width="1.5"/>
+      <circle cx="0" cy="-40" r="3" fill="#FFD700"/><circle cx="28" cy="-28" r="3" fill="#FF8C00"/>
+      <circle cx="40" cy="0" r="3" fill="#FF4500"/><circle cx="28" cy="28" r="3" fill="#FFD700"/>
+      <circle cx="0" cy="40" r="3" fill="#FF8C00"/><circle cx="-28" cy="28" r="3" fill="#FF4500"/>
+      <circle cx="-40" cy="0" r="3" fill="#FFD700"/><circle cx="-28" cy="-28" r="3" fill="#FF8C00"/>
+    </g>
+    <!-- burst top-center: purple+blue -->
+    <g transform="translate(690,95)" opacity=".5">
+      <line x1="0" y1="0" x2="0" y2="-52" stroke="#9B59B6" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="37" y2="-37" stroke="#3498DB" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="52" y2="0" stroke="#9B59B6" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="37" y2="37" stroke="#3498DB" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="0" y2="52" stroke="#9B59B6" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="-37" y2="37" stroke="#3498DB" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="-52" y2="0" stroke="#9B59B6" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="-37" y2="-37" stroke="#3498DB" stroke-width="1.5"/>
+      <circle cx="0" cy="-52" r="4" fill="#9B59B6"/><circle cx="37" cy="-37" r="4" fill="#3498DB"/>
+      <circle cx="52" cy="0" r="4" fill="#9B59B6"/><circle cx="37" cy="37" r="4" fill="#3498DB"/>
+      <circle cx="0" cy="52" r="4" fill="#9B59B6"/><circle cx="-37" cy="37" r="4" fill="#3498DB"/>
+      <circle cx="-52" cy="0" r="4" fill="#9B59B6"/><circle cx="-37" cy="-37" r="4" fill="#3498DB"/>
+    </g>
+    <!-- burst top-right: green+gold -->
+    <g transform="translate(1180,125)" opacity=".5">
+      <line x1="0" y1="0" x2="0" y2="-46" stroke="#2ECC71" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="33" y2="-33" stroke="#FFD700" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="46" y2="0" stroke="#2ECC71" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="33" y2="33" stroke="#FFD700" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="0" y2="46" stroke="#2ECC71" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="-33" y2="33" stroke="#FFD700" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="-46" y2="0" stroke="#2ECC71" stroke-width="1.5"/>
+      <line x1="0" y1="0" x2="-33" y2="-33" stroke="#FFD700" stroke-width="1.5"/>
+      <circle cx="0" cy="-46" r="3.5" fill="#2ECC71"/><circle cx="33" cy="-33" r="3.5" fill="#FFD700"/>
+      <circle cx="46" cy="0" r="3.5" fill="#2ECC71"/><circle cx="33" cy="33" r="3.5" fill="#FFD700"/>
+      <circle cx="0" cy="46" r="3.5" fill="#2ECC71"/><circle cx="-33" cy="33" r="3.5" fill="#FFD700"/>
+      <circle cx="-46" cy="0" r="3.5" fill="#2ECC71"/><circle cx="-33" cy="-33" r="3.5" fill="#FFD700"/>
+    </g>
+
+    <!-- Rocket trails -->
+    <line x1="205" y1="405" x2="160" y2="135" stroke="url(#trail)" stroke-width="2" opacity=".6"/>
+    <line x1="690" y1="490" x2="690" y2="95" stroke="url(#trail)" stroke-width="2" opacity=".5"/>
+    <line x1="1105" y1="375" x2="1180" y2="125" stroke="url(#trail)" stroke-width="2" opacity=".55"/>
+
+    <!-- Ground -->
+    <rect x="0" y="740" width="1440" height="160" fill="url(#gnd)"/>
+
+    <!-- House wall -->
+    <rect x="200" y="480" width="1040" height="270" fill="url(#wall)"/>
+    <rect x="200" y="470" width="1040" height="18" fill="#5C2200"/>
+
+    <!-- Parapet pillars -->
+    <g fill="#4A1C00">
+      <rect x="220" y="455" width="20" height="30" rx="3"/><rect x="280" y="455" width="20" height="30" rx="3"/>
+      <rect x="340" y="455" width="20" height="30" rx="3"/><rect x="400" y="455" width="20" height="30" rx="3"/>
+      <rect x="460" y="455" width="20" height="30" rx="3"/><rect x="520" y="455" width="20" height="30" rx="3"/>
+      <rect x="580" y="455" width="20" height="30" rx="3"/><rect x="640" y="455" width="20" height="30" rx="3"/>
+      <rect x="700" y="455" width="20" height="30" rx="3"/><rect x="760" y="455" width="20" height="30" rx="3"/>
+      <rect x="820" y="455" width="20" height="30" rx="3"/><rect x="880" y="455" width="20" height="30" rx="3"/>
+      <rect x="940" y="455" width="20" height="30" rx="3"/><rect x="1000" y="455" width="20" height="30" rx="3"/>
+      <rect x="1060" y="455" width="20" height="30" rx="3"/><rect x="1120" y="455" width="20" height="30" rx="3"/>
+      <rect x="1180" y="455" width="20" height="30" rx="3"/>
+    </g>
+
+    <!-- Front door -->
+    <rect x="640" y="590" width="160" height="160" fill="#2A0F00" rx="4"/>
+    <ellipse cx="720" cy="590" rx="80" ry="30" fill="#2A0F00"/>
+    <rect x="648" y="600" width="65" height="140" fill="#3D1400" rx="3"/>
+    <rect x="727" y="600" width="65" height="140" fill="#3D1400" rx="3"/>
+    <circle cx="712" cy="670" r="5" fill="#B8860B"/>
+    <circle cx="728" cy="670" r="5" fill="#B8860B"/>
+    <path d="M 640 590 Q 640 548 720 543 Q 800 548 800 590" fill="none" stroke="#5C2200" stroke-width="4"/>
+
+    <!-- Windows left -->
+    <rect x="280" y="540" width="120" height="100" fill="#1A0800" rx="4"/>
+    <rect x="286" y="546" width="52" height="88" fill="rgba(255,140,0,.18)" rx="2"/>
+    <rect x="342" y="546" width="52" height="88" fill="rgba(255,140,0,.18)" rx="2"/>
+    <line x1="312" y1="546" x2="312" y2="634" stroke="#5C2200" stroke-width="3"/>
+    <line x1="286" y1="590" x2="394" y2="590" stroke="#5C2200" stroke-width="3"/>
+    <!-- Windows right -->
+    <rect x="1040" y="540" width="120" height="100" fill="#1A0800" rx="4"/>
+    <rect x="1046" y="546" width="52" height="88" fill="rgba(255,140,0,.18)" rx="2"/>
+    <rect x="1102" y="546" width="52" height="88" fill="rgba(255,140,0,.18)" rx="2"/>
+    <line x1="1072" y1="546" x2="1072" y2="634" stroke="#5C2200" stroke-width="3"/>
+    <line x1="1046" y1="590" x2="1154" y2="590" stroke="#5C2200" stroke-width="3"/>
+
+    <!-- Mango leaf toran -->
+    <path d="M 600 555 Q 610 540 620 555 Q 630 540 640 555 Q 650 540 660 555 Q 670 540 680 555 Q 690 540 700 555 Q 710 540 720 555 Q 730 540 740 555 Q 750 540 760 555 Q 770 540 780 555 Q 790 540 800 555 Q 810 540 820 555 Q 830 540 840 555"
+          fill="none" stroke="#1A7A00" stroke-width="4" opacity=".9"/>
+    <g fill="#1A7A00" opacity=".85">
+      <ellipse cx="610" cy="545" rx="7" ry="12" transform="rotate(-20,610,545)"/>
+      <ellipse cx="630" cy="545" rx="7" ry="12" transform="rotate(15,630,545)"/>
+      <ellipse cx="650" cy="545" rx="7" ry="12" transform="rotate(-20,650,545)"/>
+      <ellipse cx="670" cy="545" rx="7" ry="12" transform="rotate(15,670,545)"/>
+      <ellipse cx="690" cy="545" rx="7" ry="12" transform="rotate(-20,690,545)"/>
+      <ellipse cx="710" cy="545" rx="7" ry="12" transform="rotate(15,710,545)"/>
+      <ellipse cx="730" cy="545" rx="7" ry="12" transform="rotate(-20,730,545)"/>
+      <ellipse cx="750" cy="545" rx="7" ry="12" transform="rotate(15,750,545)"/>
+      <ellipse cx="770" cy="545" rx="7" ry="12" transform="rotate(-20,770,545)"/>
+      <ellipse cx="790" cy="545" rx="7" ry="12" transform="rotate(15,790,545)"/>
+      <ellipse cx="810" cy="545" rx="7" ry="12" transform="rotate(-20,810,545)"/>
+      <ellipse cx="830" cy="545" rx="7" ry="12" transform="rotate(15,830,545)"/>
+    </g>
+    <g>
+      <circle cx="620" cy="556" r="6" fill="#FF8C00" opacity=".9"/>
+      <circle cx="660" cy="556" r="6" fill="#FFD700" opacity=".9"/>
+      <circle cx="700" cy="556" r="6" fill="#FF8C00" opacity=".9"/>
+      <circle cx="740" cy="556" r="6" fill="#FFD700" opacity=".9"/>
+      <circle cx="780" cy="556" r="6" fill="#FF8C00" opacity=".9"/>
+      <circle cx="820" cy="556" r="6" fill="#FFD700" opacity=".9"/>
+    </g>
+
+    <!-- Kolam / Rangoli in front of door -->
+    <g transform="translate(720,732)" opacity=".88">
+      <ellipse cx="0" cy="-35" rx="10" ry="18" fill="rgba(255,69,0,.6)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="18" fill="rgba(255,215,0,.6)" transform="rotate(45,0,0)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="18" fill="rgba(37,211,102,.5)" transform="rotate(90,0,0)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="18" fill="rgba(255,69,0,.6)" transform="rotate(135,0,0)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="18" fill="rgba(255,215,0,.6)" transform="rotate(180,0,0)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="18" fill="rgba(37,211,102,.5)" transform="rotate(225,0,0)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="18" fill="rgba(255,69,0,.6)" transform="rotate(270,0,0)"/>
+      <ellipse cx="0" cy="-35" rx="10" ry="18" fill="rgba(255,215,0,.6)" transform="rotate(315,0,0)"/>
+      <circle cx="0" cy="0" r="11" fill="rgba(255,215,0,.8)"/>
+      <circle cx="0" cy="0" r="5" fill="rgba(255,69,0,.95)"/>
+    </g>
+
+    <!-- Kuthu vilakku left -->
+    <g transform="translate(430,680)">
+      <rect x="-3" y="-120" width="6" height="120" fill="#8B6914"/>
+      <ellipse cx="0" cy="-120" rx="18" ry="8" fill="#B8860B"/>
+      <ellipse cx="0" cy="-128" rx="14" ry="6" fill="#FFD700"/>
+      <ellipse cx="0" cy="-142" rx="5" ry="13" fill="#FF8C00" opacity=".9"/>
+      <ellipse cx="0" cy="-146" rx="3" ry="8" fill="#FFD700"/>
+      <circle cx="0" cy="-136" r="28" fill="url(#lglow)" opacity=".75"/>
+      <ellipse cx="0" cy="-2" rx="22" ry="6" fill="#8B6914"/>
+    </g>
+    <!-- Kuthu vilakku right -->
+    <g transform="translate(1010,680)">
+      <rect x="-3" y="-120" width="6" height="120" fill="#8B6914"/>
+      <ellipse cx="0" cy="-120" rx="18" ry="8" fill="#B8860B"/>
+      <ellipse cx="0" cy="-128" rx="14" ry="6" fill="#FFD700"/>
+      <ellipse cx="0" cy="-142" rx="5" ry="13" fill="#FF8C00" opacity=".9"/>
+      <ellipse cx="0" cy="-146" rx="3" ry="8" fill="#FFD700"/>
+      <circle cx="0" cy="-136" r="28" fill="url(#lglow)" opacity=".75"/>
+      <ellipse cx="0" cy="-2" rx="22" ry="6" fill="#8B6914"/>
+    </g>
+
+    <!-- Diyas on steps -->
+    <g fill="#C8860A">
+      <ellipse cx="580" cy="758" rx="13" ry="5"/><ellipse cx="620" cy="754" rx="13" ry="5"/>
+      <ellipse cx="660" cy="758" rx="13" ry="5"/><ellipse cx="780" cy="758" rx="13" ry="5"/>
+      <ellipse cx="820" cy="754" rx="13" ry="5"/><ellipse cx="860" cy="758" rx="13" ry="5"/>
+    </g>
+    <g>
+      <ellipse cx="580" cy="752" rx="3" ry="6" fill="#FF8C00" opacity=".9"/>
+      <ellipse cx="620" cy="748" rx="3" ry="6" fill="#FFD700" opacity=".9"/>
+      <ellipse cx="660" cy="752" rx="3" ry="6" fill="#FF8C00" opacity=".9"/>
+      <ellipse cx="780" cy="752" rx="3" ry="6" fill="#FFD700" opacity=".9"/>
+      <ellipse cx="820" cy="748" rx="3" ry="6" fill="#FF8C00" opacity=".9"/>
+      <ellipse cx="860" cy="752" rx="3" ry="6" fill="#FFD700" opacity=".9"/>
+    </g>
+    <circle cx="580" cy="750" r="12" fill="rgba(255,140,0,.2)"/>
+    <circle cx="620" cy="746" r="12" fill="rgba(255,140,0,.2)"/>
+    <circle cx="660" cy="750" r="12" fill="rgba(255,140,0,.2)"/>
+    <circle cx="780" cy="750" r="12" fill="rgba(255,140,0,.2)"/>
+    <circle cx="820" cy="746" r="12" fill="rgba(255,140,0,.2)"/>
+    <circle cx="860" cy="750" r="12" fill="rgba(255,140,0,.2)"/>
+
+    <!-- Father silhouette with sparkler -->
+    <g transform="translate(462,730)" fill="#1A0800">
+      <ellipse cx="0" cy="-145" rx="16" ry="18"/>
+      <rect x="-14" y="-126" width="28" height="60" rx="8"/>
+      <path d="M-14 -66 L-20 -10 L0 -8 L20 -10 L14 -66 Z"/>
+      <line x1="-14" y1="-115" x2="-38" y2="-90" stroke="#1A0800" stroke-width="8" stroke-linecap="round"/>
+      <line x1="14" y1="-115" x2="46" y2="-70" stroke="#1A0800" stroke-width="8" stroke-linecap="round"/>
+      <line x1="46" y1="-70" x2="62" y2="-28" stroke="#8B6914" stroke-width="3"/>
+      <circle cx="62" cy="-28" r="5" fill="#FFD700" opacity=".95"/>
+      <circle cx="72" cy="-38" r="3" fill="#FFD700" opacity=".7"/>
+      <circle cx="76" cy="-18" r="2" fill="#FF8C00" opacity=".75"/>
+      <circle cx="56" cy="-13" r="2" fill="#FFD700" opacity=".7"/>
+      <circle cx="82" cy="-28" r="2" fill="#FFD700" opacity=".6"/>
+      <line x1="-8" y1="-10" x2="-12" y2="0" stroke="#1A0800" stroke-width="9" stroke-linecap="round"/>
+      <line x1="8" y1="-10" x2="12" y2="0" stroke="#1A0800" stroke-width="9" stroke-linecap="round"/>
+    </g>
+
+    <!-- Mother silhouette with diya -->
+    <g transform="translate(532,730)" fill="#200B00">
+      <ellipse cx="0" cy="-135" rx="15" ry="17"/>
+      <path d="M-13 -118 Q-20 -80 -22 -20 Q-10 -5 0 0 Q10 -5 22 -20 Q20 -80 13 -118 Z"/>
+      <path d="M13 -118 Q30 -100 36 -75 Q28 -70 22 -80 Q20 -100 13 -110 Z" opacity=".55"/>
+      <line x1="-13" y1="-108" x2="-36" y2="-85" stroke="#200B00" stroke-width="7" stroke-linecap="round"/>
+      <line x1="13" y1="-108" x2="36" y2="-58" stroke="#200B00" stroke-width="7" stroke-linecap="round"/>
+      <ellipse cx="36" cy="-53" rx="8" ry="3" fill="#C8860A"/>
+      <ellipse cx="36" cy="-57" rx="3" ry="6" fill="#FF8C00" opacity=".9"/>
+      <circle cx="36" cy="-55" r="10" fill="rgba(255,140,0,.22)"/>
+    </g>
+
+    <!-- Elder (thatha) watching -->
+    <g transform="translate(382,730)" fill="#150800">
+      <ellipse cx="0" cy="-105" rx="14" ry="15"/>
+      <rect x="-12" y="-90" width="24" height="50" rx="7"/>
+      <path d="M-12 -40 L-16 0 L0 2 L16 0 L12 -40 Z"/>
+      <line x1="-12" y1="-80" x2="-32" y2="-60" stroke="#150800" stroke-width="7" stroke-linecap="round"/>
+      <line x1="12" y1="-80" x2="28" y2="-58" stroke="#150800" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-32" y1="-60" x2="-30" y2="0" stroke="#8B6914" stroke-width="3"/>
+    </g>
+
+    <!-- Child 1 with sparkler, arms raised -->
+    <g transform="translate(602,730)" fill="#200800">
+      <ellipse cx="0" cy="-90" rx="12" ry="13"/>
+      <rect x="-10" y="-76" width="20" height="40" rx="6"/>
+      <path d="M-10 -36 L-14 0 L0 2 L14 0 L10 -36 Z"/>
+      <line x1="-10" y1="-68" x2="-28" y2="-92" stroke="#200800" stroke-width="7" stroke-linecap="round"/>
+      <line x1="10" y1="-68" x2="30" y2="-50" stroke="#200800" stroke-width="7" stroke-linecap="round"/>
+      <line x1="30" y1="-50" x2="44" y2="-24" stroke="#8B6914" stroke-width="2.5"/>
+      <circle cx="44" cy="-24" r="4" fill="#FFD700"/>
+      <circle cx="52" cy="-31" r="2.5" fill="#FFD700" opacity=".7"/>
+      <circle cx="53" cy="-17" r="2" fill="#FF8C00" opacity=".7"/>
+      <circle cx="38" cy="-11" r="2" fill="#FFD700" opacity=".6"/>
+    </g>
+
+    <!-- Child 2 covering ears -->
+    <g transform="translate(852,730)" fill="#1A0800">
+      <ellipse cx="0" cy="-85" rx="11" ry="12"/>
+      <rect x="-9" y="-72" width="18" height="38" rx="6"/>
+      <path d="M-9 -34 L-12 0 L0 2 L12 0 L9 -34 Z"/>
+      <line x1="-9" y1="-65" x2="-22" y2="-78" stroke="#1A0800" stroke-width="6" stroke-linecap="round"/>
+      <line x1="9" y1="-65" x2="22" y2="-78" stroke="#1A0800" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="-22" cy="-82" r="6" fill="#1A0800"/>
+      <circle cx="22" cy="-82" r="6" fill="#1A0800"/>
+    </g>
+
+    <!-- Flower pot cracker on ground -->
+    <g transform="translate(720,740)">
+      <ellipse cx="0" cy="0" rx="12" ry="5" fill="#8B4513"/>
+      <line x1="0" y1="-5" x2="0" y2="-22" stroke="#FFD700" stroke-width="2" opacity=".85"/>
+      <line x1="0" y1="-5" x2="16" y2="-16" stroke="#FF8C00" stroke-width="2" opacity=".8"/>
+      <line x1="0" y1="-5" x2="20" y2="-2" stroke="#FFD700" stroke-width="2" opacity=".75"/>
+      <line x1="0" y1="-5" x2="14" y2="10" stroke="#FF4500" stroke-width="2" opacity=".75"/>
+      <line x1="0" y1="-5" x2="-14" y2="10" stroke="#FFD700" stroke-width="2" opacity=".75"/>
+      <line x1="0" y1="-5" x2="-20" y2="-2" stroke="#FF8C00" stroke-width="2" opacity=".8"/>
+      <line x1="0" y1="-5" x2="-16" y2="-16" stroke="#FFD700" stroke-width="2" opacity=".85"/>
+      <circle cx="0" cy="-5" r="5" fill="#FFD700" opacity=".95"/>
+    </g>
+
+    <!-- Festive light string on roofline -->
+    <path d="M 200 470 Q 260 480 320 470 Q 380 480 440 470 Q 500 480 560 470 Q 620 480 680 470 Q 740 480 800 470 Q 860 480 920 470 Q 980 480 1040 470 Q 1100 480 1160 470 Q 1220 480 1280 470 Q 1340 480 1400 470"
+          fill="none" stroke="rgba(255,215,0,.35)" stroke-width="1.5"/>
+    <g fill="#FFD700" opacity=".82">
+      <circle cx="260" cy="478" r="4"/><circle cx="320" cy="470" r="4"/><circle cx="380" cy="478" r="4"/>
+      <circle cx="440" cy="470" r="4"/><circle cx="500" cy="478" r="4"/><circle cx="560" cy="470" r="4"/>
+      <circle cx="620" cy="478" r="4"/><circle cx="680" cy="470" r="4"/><circle cx="740" cy="478" r="4"/>
+      <circle cx="800" cy="470" r="4"/><circle cx="860" cy="478" r="4"/><circle cx="920" cy="470" r="4"/>
+      <circle cx="980" cy="478" r="4"/><circle cx="1040" cy="470" r="4"/><circle cx="1100" cy="478" r="4"/>
+      <circle cx="1160" cy="470" r="4"/><circle cx="1220" cy="478" r="4"/><circle cx="1280" cy="470" r="4"/>
+      <circle cx="1340" cy="478" r="4"/>
+    </g>
+    <g fill="#FF4500" opacity=".72">
+      <circle cx="290" cy="476" r="3"/><circle cx="350" cy="476" r="3"/><circle cx="410" cy="476" r="3"/>
+      <circle cx="470" cy="476" r="3"/><circle cx="530" cy="476" r="3"/><circle cx="590" cy="476" r="3"/>
+      <circle cx="650" cy="476" r="3"/><circle cx="710" cy="476" r="3"/><circle cx="770" cy="476" r="3"/>
+      <circle cx="830" cy="476" r="3"/><circle cx="890" cy="476" r="3"/><circle cx="950" cy="476" r="3"/>
+      <circle cx="1010" cy="476" r="3"/><circle cx="1070" cy="476" r="3"/><circle cx="1130" cy="476" r="3"/>
+      <circle cx="1190" cy="476" r="3"/><circle cx="1250" cy="476" r="3"/><circle cx="1310" cy="476" r="3"/>
+    </g>
+
+    <!-- Bottom legibility fade -->
+    <rect x="0" y="640" width="1440" height="260" fill="rgba(6,6,15,.55)"/>
+  </svg>
+
+  <!-- Canvas animated fireworks -->
+  <canvas class="fw-canvas" id="fwCanvas"></canvas>
+  <!-- Text readability overlay -->
+  <div class="hero-overlay"></div>
+
+  <!-- Hero text -->
+  <div class="hero-content">
+    <div class="hero-eyebrow">🪔 Sivakasi's Finest Since 1990</div>
+    <h1>
+      <span class="ft">Light Up</span><br/>Every Celebration
+    </h1>
+    
+    <p class="hero-sub">Premium crackers &amp; fireworks for Diwali, weddings &amp; all festivals — direct from Sivakasi</p>
+    <div class="badge">🔥 60% Discount — Limited Period Offer</div>
+    <div class="hero-btns">
+      <a href="#quote" class="btn btn-fire">📋 Get Free Quote</a>
+      <a href="https://wa.me/919962020890?text=Hi%20ASR%20Pyro%20Park!%20I%20want%20to%20place%20an%20order." class="btn btn-wa" target="_blank">💬 Order on WhatsApp</a>
+      <a href="tel:9962020890" class="btn btn-ghost">📞 Call Now</a>
+    </div>
+    <div class="hero-phones">
+      <a href="tel:9962020890">📞 9962020890</a>
+      <a href="tel:9962020870">📞 9962020870</a>
+    </div>
   </div>
 </section>
 
-<!-- ── HOW IT WORKS ───────────────────────────────────────────── -->
+<!-- HOW IT WORKS -->
 <section id="how">
   <div class="container">
-    <div class="section-label">Simple Process</div>
-    <h2 class="section-title">How to Order</h2>
-    <p class="section-sub">No complicated checkout. Pick your items, get a quote, pay advance, we ship.</p>
-    <div class="steps">
+    <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+      <div class="sec-label" style="margin:0">Simple Process</div>
+      <span style="font-family:var(--display);font-size:1.1rem;font-weight:900;color:#fff;">How to Order</span>
+      <span style="font-size:.78rem;color:var(--muted);margin-left:auto;">Pick → Quote → Pay → Ship</span>
+    </div>
+    <div class="how-strip">
       <div class="step">
         <div class="step-icon">📋</div>
-        <div class="step-num">01</div>
-        <h3>Build Your Quote</h3>
-        <p>Select products & quantities on our website to generate an instant price estimate.</p>
+        <div class="step-body">
+          <div class="step-num">Step 01</div>
+          <h3>Build Your Quote</h3>
+          <p>Select products &amp; qty for instant estimate.</p>
+        </div>
       </div>
       <div class="step">
         <div class="step-icon">💬</div>
-        <div class="step-num">02</div>
-        <h3>Send on WhatsApp</h3>
-        <p>Your full order summary auto-formats and opens in WhatsApp. Confirm with us directly.</p>
+        <div class="step-body">
+          <div class="step-num">Step 02</div>
+          <h3>Send on WhatsApp</h3>
+          <p>Order auto-formats &amp; opens WhatsApp.</p>
+        </div>
       </div>
       <div class="step">
         <div class="step-icon">💳</div>
-        <div class="step-num">03</div>
-        <h3>Pay Advance</h3>
-        <p>Pay a small advance via UPI / card through our secure Razorpay link to confirm your order.</p>
+        <div class="step-body">
+          <div class="step-num">Step 03</div>
+          <h3>Pay Advance</h3>
+          <p>UPI / card via Razorpay to confirm.</p>
+        </div>
       </div>
       <div class="step">
         <div class="step-icon">🚚</div>
-        <div class="step-num">04</div>
-        <h3>We Ship</h3>
-        <p>Your crackers are packed and dispatched. Track via WhatsApp updates from us.</p>
+        <div class="step-body">
+          <div class="step-num">Step 04</div>
+          <h3>We Ship</h3>
+          <p>Packed &amp; dispatched. Track via WhatsApp.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PRODUCTS ───────────────────────────────────────────────── -->
+<!-- PRODUCTS -->
 <section id="products">
   <div class="container">
-    <div class="section-label">Our Range</div>
-    <h2 class="section-title">Product Catalogue</h2>
-    <p class="section-sub">All prices shown after 60% discount. Tap a product to add it to your quote.</p>
-    <div class="product-grid" id="product-grid">
-      <!-- injected by JS -->
-    </div>
-    <div style="margin-top:1.5rem;text-align:center;">
+    <div class="sec-label">Our Range</div>
+    <h2 class="sec-title">Product Catalogue</h2>
+    <p class="sec-sub">All prices shown after 60% discount. Tap a product to add it to your quote.</p>
+    <div class="prod-grid" id="prod-grid-main"></div>
+    <div style="margin-top:1.5rem;text-align:center">
       <a href="#quote" class="btn btn-fire">📋 Build My Quote →</a>
     </div>
   </div>
 </section>
 
-<!-- ── QUOTE BUILDER ──────────────────────────────────────────── -->
+<!-- QUOTE -->
 <section id="quote">
   <div class="container">
-    <div class="section-label">Instant Estimate</div>
-    <h2 class="section-title">Build Your Quote</h2>
-    <p class="section-sub">Fill in your details, choose products, then send the quote directly to our WhatsApp.</p>
-
+    <div class="sec-label">Instant Estimate</div>
+    <h2 class="sec-title">Build Your Quote</h2>
+    <p class="sec-sub">Fill in your details, choose products, then send the quote directly to our WhatsApp.</p>
     <div class="quote-layout">
-      <!-- LEFT: form -->
       <div>
-        <div class="form-group">
-          <label>Your Name *</label>
-          <input type="text" id="cust-name" placeholder="e.g. Ravi Kumar" />
-        </div>
-        <div class="form-group">
-          <label>Phone Number *</label>
-          <input type="tel" id="cust-phone" placeholder="e.g. 98400 00000" />
-        </div>
-        <div class="form-group">
-          <label>City / State</label>
-          <input type="text" id="cust-city" placeholder="e.g. Chennai, Tamil Nadu" />
-        </div>
-        <div class="form-group">
-          <label>Occasion</label>
-          <select id="cust-occasion">
+        <div class="fg"><label>Your Name *</label><input type="text" id="cn" placeholder="e.g. Ravi Kumar"/></div>
+        <div class="fg"><label>Phone Number *</label><input type="tel" id="cp" placeholder="e.g. 98400 00000"/></div>
+        <div class="fg"><label>City / State</label><input type="text" id="cc" placeholder="e.g. Chennai, Tamil Nadu"/></div>
+        <div class="fg"><label>Occasion</label>
+          <select id="co">
             <option value="">Select occasion</option>
             <option>Diwali</option>
             <option>Wedding</option>
-            <option>New Year</option>
-            <option>Birthday</option>
-            <option>Other Festival</option>
-            <option>Bulk / Commercial</option>
+            <option>New Year</option><option>Birthday</option>
+            <option>Other Festival</option><option>Bulk / Commercial</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Special Requests (optional)</label>
-          <textarea id="cust-notes" placeholder="Any specific requirements, brands, or custom bundles?"></textarea>
+        <div class="fg"><label>Special Requests (optional)</label><textarea id="cnote" placeholder="Any specific requirements, brands, or custom bundles?"></textarea></div>
+        <h3 style="font-size:.93rem;margin-bottom:1rem;color:var(--gold)">Select Products &amp; Quantities</h3>
+        <div class="prod-grid" id="prod-grid-quote" style="grid-template-columns:repeat(auto-fill,minmax(140px,1fr))"></div>
+        <div style="display:flex;gap:.9rem;margin-top:1.8rem;flex-wrap:wrap">
+          <button class="btn btn-wa" onclick="sendWA()">💬 Send Quote to WhatsApp</button>
+          <button class="btn btn-ghost" onclick="clearQ()">🗑 Clear</button>
         </div>
-
-        <h3 style="font-size:1rem;margin-bottom:1rem;color:var(--gold);">Select Products & Quantities</h3>
-        <div class="product-grid" id="quote-product-grid" style="grid-template-columns:repeat(auto-fill,minmax(140px,1fr));"></div>
-
-        <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap;">
-          <button class="btn btn-wa" onclick="sendToWhatsApp()">
-            💬 Send Quote to WhatsApp
-          </button>
-          <button class="btn btn-outline" onclick="clearQuote()">🗑 Clear</button>
-        </div>
-        <p style="font-size:0.78rem;color:var(--muted);margin-top:0.8rem;">
-          * This generates a lead quote. Our team will confirm final price on WhatsApp.
-        </p>
+        <p style="font-size:.76rem;color:var(--muted);margin-top:.7rem">* This generates a lead quote. Our team will confirm final price on WhatsApp.</p>
       </div>
-
-      <!-- RIGHT: summary -->
-      <div class="quote-summary">
+      <div class="q-summary">
         <h3>📋 Quote Summary</h3>
-        <div id="summary-items">
-          <p class="summary-empty">No items selected yet.</p>
-        </div>
-        <div class="total-row">
-          <span>Estimated Total</span>
-          <span id="summary-total">₹0</span>
-        </div>
-        <p class="discount-note">✅ 60% discount already applied</p>
-        <div style="margin-top:1.2rem;">
-          <button class="btn btn-fire" style="width:100%;" onclick="sendToWhatsApp()">
-            💬 Send to WhatsApp
-          </button>
-        </div>
-        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.07);">
-          <p style="font-size:0.78rem;color:var(--muted);">Need help? Call us directly:</p>
-          <a href="tel:9310874480" style="font-size:0.9rem;font-weight:600;color:var(--gold);">📞 9310874480</a>
+        <div id="sum-items"><p class="sum-empty">No items selected yet.</p></div>
+        <div class="total-row"><span>Estimated Total</span><span id="sum-total">₹0</span></div>
+        <p class="disc-note">✅ 60% discount already applied</p>
+        <div style="margin-top:1.1rem"><button class="btn btn-fire" style="width:100%" onclick="sendWA()">💬 Send to WhatsApp</button></div>
+        <div style="margin-top:.9rem;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.06)">
+          <p style="font-size:.76rem;color:var(--muted)">Need help? Call us directly:</p>
+          <a href="tel:9962020890" style="font-size:.9rem;font-weight:700;color:var(--gold)">📞 9962020890</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PAYMENT ────────────────────────────────────────────────── -->
+<!-- PAYMENT -->
 <section id="payment">
   <div class="container">
-    <div class="section-label">Easy Payments</div>
-    <h2 class="section-title">Payment Options</h2>
-    <p class="section-sub">Pay advance securely. Balance on delivery or before dispatch for outstation orders.</p>
-
-    <div class="payment-cards">
+    <div class="sec-label">Easy Payments</div>
+    <h2 class="sec-title">Payment Options</h2>
+    <p class="sec-sub">Pay advance securely. Balance on delivery or before dispatch for outstation orders.</p>
+    <div class="pay-grid">
       <div class="pay-card">
-        <div class="pay-icon">📱</div>
-        <h3>UPI Payment</h3>
-        <p>PhonePe, Google Pay, Paytm, BHIM all accepted. Instant confirmation.</p>
-        <div class="upi-id">
-          <span id="upi-text">asr@paytm</span>
-          <button class="copy-btn" onclick="copyUPI()">📋 Copy</button>
-        </div>
+        <div class="pay-icon">📱</div><h3>UPI Payment</h3>
+        <p>PhonePe, Google Pay, Paytm, BHIM all accepted.</p>
+        <div class="upi-box"><span id="upi-val">nadimani@icici</span><button class="copy-btn" onclick="copyUPI()">📋 Copy</button></div>
       </div>
       <div class="pay-card">
-        <div class="pay-icon">💳</div>
-        <h3>Card / Net Banking</h3>
+        <div class="pay-icon">💳</div><h3>Card / Net Banking</h3>
         <p>Pay securely via Razorpay — Visa, Mastercard, RuPay, net banking all supported.</p>
-        <button class="btn btn-fire" style="margin-top:1rem;width:100%;font-size:0.85rem;" onclick="openAdvancePayment()">
-          Pay Advance Now
-        </button>
+        <button class="btn btn-fire" style="margin-top:1rem;width:100%;font-size:.84rem" onclick="advPay()">Pay Advance Now</button>
       </div>
       <div class="pay-card">
-        <div class="pay-icon">🏦</div>
-        <h3>Bank Transfer (NEFT/IMPS)</h3>
+        <div class="pay-icon">🏦</div><h3>Bank Transfer</h3>
         <p>For large bulk orders. Account details shared on WhatsApp after quote confirmation.</p>
-        <a href="https://wa.me/919629308563?text=I%20want%20bank%20transfer%20details%20for%20bulk%20order" class="btn btn-wa" style="margin-top:1rem;display:inline-flex;font-size:0.85rem;" target="_blank">
-          Get Bank Details
-        </a>
+        <a href="https://wa.me/919962020890?text=I%20want%20bank%20transfer%20details" class="btn btn-wa" style="margin-top:1rem;font-size:.84rem" target="_blank">Get Bank Details</a>
       </div>
       <div class="pay-card">
-        <div class="pay-icon">💵</div>
-        <h3>Cash on Delivery</h3>
-        <p>Available for local Chennai & Sivakasi deliveries. Confirm availability on WhatsApp.</p>
-        <a href="https://wa.me/919629308563?text=Is%20COD%20available%20for%20my%20location?" class="btn btn-outline" style="margin-top:1rem;display:inline-flex;font-size:0.85rem;" target="_blank">
-          Check COD Availability
-        </a>
+        <div class="pay-icon">💵</div><h3>Cash on Delivery</h3>
+        <p>Available for local Chennai &amp; Sivakasi deliveries.</p>
+        <a href="https://wa.me/919962020890?text=Is%20COD%20available?" class="btn btn-ghost" style="margin-top:1rem;font-size:.84rem" target="_blank">Check COD Availability</a>
       </div>
     </div>
-
-    <!-- Razorpay Payment Button Zone -->
-    <div class="razorpay-box">
+    <div class="rzp-box">
       <h3>💳 Pay Advance Online (UPI / Card / Net Banking)</h3>
-      <p>Pay ₹500 – ₹2000 advance to confirm your order. Balance collected before/on delivery.</p>
-
-      <!-- ═══════════════════════════════════════════════════════════
-           RAZORPAY PAYMENT BUTTON — REPLACE THIS BLOCK
-           Steps:
-           1. Go to razorpay.com → Sign up free
-           2. Dashboard → Payment Buttons → Create Button
-              Title: "Order Advance – ASR Pyro Park"
-              Amount: Custom / Fixed (₹500)
-           3. Copy the <form> snippet they give you
-           4. Paste it here, replacing the div below
-           ═══════════════════════════════════════════════════════════ -->
-      <div class="razorpay-placeholder">
+      <p>Pay ₹500–₹2000 advance to confirm your order. Balance collected before / on delivery.</p>
+      <div class="rzp-ph">
         &lt;!-- PASTE YOUR RAZORPAY PAYMENT BUTTON CODE HERE --&gt;<br/>
         &lt;!-- Get it free at: razorpay.com/payment-button --&gt;<br/><br/>
-        Example snippet Razorpay gives you:<br/>
         &lt;form&gt;<br/>
         &nbsp;&nbsp;&lt;script src="https://checkout.razorpay.com/v1/payment-button.js"<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;data-payment_button_id="YOUR_BUTTON_ID"&gt;<br/>
-        &nbsp;&nbsp;&lt;/script&gt;<br/>
+        &nbsp;&nbsp;&nbsp;data-payment_button_id="YOUR_BUTTON_ID"&gt;&lt;/script&gt;<br/>
         &lt;/form&gt;
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── CONTACT ────────────────────────────────────────────────── -->
+<!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <div class="section-label">Reach Us</div>
-    <h2 class="section-title">Contact ASR Pyro Park</h2>
-    <p class="section-sub">Mon–Sat 9am–9pm · Sunday 10am–6pm</p>
-    <div class="contact-grid" style="margin-top:2rem;">
-      <div class="contact-card">
-        <div class="contact-icon">📍</div>
-        <div>
-          <h4>Address</h4>
-          <p>3/1255/29, Selvam Nagar,<br/>Sivakasi, Tamil Nadu</p>
-        </div>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon">📞</div>
-        <div>
-          <h4>Phone / Order</h4>
-          <a href="tel:9310874480">9310874480</a><br/>
-          <a href="tel:9629308563" style="margin-top:0.2rem;display:block;">9629308563</a>
-        </div>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon">💬</div>
-        <div>
-          <h4>WhatsApp Orders</h4>
-          <a href="https://wa.me/919629308563" target="_blank">9629308563</a>
-          <p style="font-size:0.8rem;color:var(--muted);margin-top:0.2rem;">Tap to open chat</p>
-        </div>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon">⏰</div>
-        <div>
-          <h4>Business Hours</h4>
-          <p>Mon–Sat: 9:00 AM – 9:00 PM</p>
-          <p>Sunday: 10:00 AM – 6:00 PM</p>
-        </div>
-      </div>
+    <div class="sec-label">Reach Us</div>
+    <h2 class="sec-title">Contact ASR Pyro Park</h2>
+    <p class="sec-sub">Mon–Sat 9am–9pm · Sunday 10am–6pm</p>
+    <div class="contact-grid">
+      <div class="cc"><div class="cc-icon">📍</div><div><h4>Address</h4><p>3/1255/29, Selvam Nagar,<br/>Sivakasi, Tamil Nadu</p></div></div>
+      <div class="cc"><div class="cc-icon">📞</div><div><h4>Phone / Order</h4><a href="tel:9962020890">9962020890</a><br/><a href="tel:9962020870" style="display:block;margin-top:.2rem">9962020870</a></div></div>
+      <div class="cc"><div class="cc-icon">💬</div><div><h4>WhatsApp Orders</h4><a href="https://wa.me/919962020890" target="_blank">9962020890</a><p style="font-size:.78rem;color:var(--muted);margin-top:.2rem">Tap to open chat</p></div></div>
+      <div class="cc"><div class="cc-icon">⏰</div><div><h4>Business Hours</h4><p>Mon–Sat: 9:00 AM – 9:00 PM</p><p>Sunday: 10:00 AM – 6:00 PM</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<!-- FOOTER -->
 <footer>
-  <div class="f-logo">ASR Pyro Park</div>
+  <div class="f-logo">🎆 ASR Pyro Park</div>
   <p>3/1255/29, Selvam Nagar, Sivakasi, Tamil Nadu</p>
-  <p style="margin-top:0.4rem;">📞 9310874480 &nbsp;|&nbsp; 💬 9629308563</p>
-  <p style="margin-top:0.8rem;font-size:0.75rem;">
-    This website is a quotation & lead generation platform. All orders are confirmed via WhatsApp.
-  </p>
+  <p style="margin-top:.35rem">📞 9962020890 &nbsp;|&nbsp; 💬 9962020870</p>
+  <p style="margin-top:.7rem;font-size:.72rem">This website is a quotation &amp; lead generation platform. All orders confirmed via WhatsApp.</p>
 </footer>
 
-<!-- ── FLOATING WA ─────────────────────────────────────────────── -->
-<a class="wa-float" href="https://wa.me/919629308563?text=Hi%20ASR%20Pyro%20Park!%20I%20want%20to%20enquire%20about%20crackers." target="_blank" title="Chat on WhatsApp">💬</a>
+<!-- FLOAT WA -->
+<a class="wa-float" href="https://wa.me/919962020890?text=Hi%20ASR%20Pyro%20Park!%20I%20want%20to%20enquire." target="_blank">💬</a>
+<div class="toast" id="toast"></div>
 
-<!-- ── TOAST ───────────────────────────────────────────────────── -->
-<div class="toast" id="toast">Copied!</div>
-
-<!-- ══════════════════════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════════════════════ -->
 <script>
-/* ── Product Data ─────────────────────────────────────────────── */
-const PRODUCTS = [
-  { id:'p1',  name:'Garland (100 Wala)',    emoji:'🧨', price:120,  unit:'per box' },
-  { id:'p2',  name:'Garland (200 Wala)',    emoji:'🧨', price:200,  unit:'per box' },
-  { id:'p3',  name:'Ground Chakkara',       emoji:'🌀', price:85,   unit:'per box' },
-  { id:'p4',  name:'Flower Pots',           emoji:'🌸', price:95,   unit:'per box' },
-  { id:'p5',  name:'Sparklers (Green)',     emoji:'✨', price:60,   unit:'per box' },
-  { id:'p6',  name:'Sparklers (Colour)',    emoji:'🌈', price:75,   unit:'per box' },
-  { id:'p7',  name:'Sound Crackers',        emoji:'💥', price:150,  unit:'per box' },
-  { id:'p8',  name:'Sky Rockets',           emoji:'🚀', price:200,  unit:'per box' },
-  { id:'p9',  name:'Aerial Shells',         emoji:'🎆', price:350,  unit:'per box' },
-  { id:'p10', name:'Bijli Crackers',        emoji:'⚡', price:90,   unit:'per box' },
-  { id:'p11', name:'Fancy Fountain',        emoji:'⛲', price:180,  unit:'per box' },
-  { id:'p12', name:'Phooljhari (Long)',     emoji:'🌟', price:110,  unit:'per box' },
+/* Products */
+const PRODS=[
+  {id:'p1',name:'Garland (100 Wala)',emoji:'🧨',price:120},
+  {id:'p2',name:'Garland (200 Wala)',emoji:'🧨',price:200},
+  {id:'p3',name:'Ground Chakkara',emoji:'🌀',price:85},
+  {id:'p4',name:'Flower Pots',emoji:'🌸',price:95},
+  {id:'p5',name:'Sparklers (Green)',emoji:'✨',price:60},
+  {id:'p6',name:'Sparklers (Colour)',emoji:'🌈',price:75},
+  {id:'p7',name:'Sound Crackers',emoji:'💥',price:150},
+  {id:'p8',name:'Sky Rockets',emoji:'🚀',price:200},
+  {id:'p9',name:'Aerial Shells',emoji:'🎆',price:350},
+  {id:'p10',name:'Bijli Crackers',emoji:'⚡',price:90},
+  {id:'p11',name:'Fancy Fountain',emoji:'⛲',price:180},
+  {id:'p12',name:'Phooljhari (Long)',emoji:'🌟',price:110},
 ];
+const qty={};PRODS.forEach(p=>qty[p.id]=0);
 
-/* ── State ────────────────────────────────────────────────────── */
-const qty = {};
-PRODUCTS.forEach(p => qty[p.id] = 0);
-
-/* ── Render product grids ─────────────────────────────────────── */
-function renderGrids() {
-  ['product-grid', 'quote-product-grid'].forEach(gridId => {
-    const grid = document.getElementById(gridId);
-    if (!grid) return;
-    grid.innerHTML = '';
-    PRODUCTS.forEach(p => {
-      const div = document.createElement('div');
-      div.className = 'product-card' + (qty[p.id] > 0 ? ' selected' : '');
-      div.id = gridId + '-' + p.id;
-      div.innerHTML = `
-        <div class="product-emoji">${p.emoji}</div>
-        <div class="product-name">${p.name}</div>
-        <div class="product-price">₹${p.price} ${p.unit}</div>
-        <div class="product-qty">
-          <button class="qty-btn" onclick="changeQty('${p.id}',-1)">−</button>
-          <span class="qty-val" id="qty-${p.id}">${qty[p.id]}</span>
-          <button class="qty-btn" onclick="changeQty('${p.id}',1)">+</button>
+function renderGrids(){
+  ['prod-grid-main','prod-grid-quote'].forEach(gid=>{
+    const g=document.getElementById(gid);if(!g)return;g.innerHTML='';
+    PRODS.forEach(p=>{
+      const d=document.createElement('div');
+      d.className='prod-card'+(qty[p.id]>0?' sel':'');
+      d.innerHTML=`<div class="prod-emoji">${p.emoji}</div>
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-price">&#x20B9;${p.price} per box</div>
+        <div class="qty-row">
+          <button class="qb" onclick="chg('${p.id}',-1)">&#x2212;</button>
+          <span class="qv" data-id="${p.id}">${qty[p.id]}</span>
+          <button class="qb" onclick="chg('${p.id}',1)">+</button>
         </div>`;
-      grid.appendChild(div);
+      g.appendChild(d);
     });
   });
 }
 
-function changeQty(id, delta) {
-  qty[id] = Math.max(0, (qty[id] || 0) + delta);
-  // update all qty displays for this product
-  document.querySelectorAll('#qty-' + id).forEach(el => el.textContent = qty[id]);
-  // update card highlight
-  document.querySelectorAll('[id$="-' + id + '"]').forEach(card => {
-    if (card.classList.contains('product-card')) {
-      card.classList.toggle('selected', qty[id] > 0);
-    }
+function chg(id,d){
+  qty[id]=Math.max(0,(qty[id]||0)+d);
+  document.querySelectorAll(`.qv[data-id="${id}"]`).forEach(el=>el.textContent=qty[id]);
+  document.querySelectorAll('.prod-card').forEach(c=>{
+    const v=c.querySelector('.qv');
+    if(v&&v.dataset.id===id)c.classList.toggle('sel',qty[id]>0);
   });
-  updateSummary();
+  updSum();
 }
 
-/* ── Summary ──────────────────────────────────────────────────── */
-function updateSummary() {
-  const container = document.getElementById('summary-items');
-  const totalEl   = document.getElementById('summary-total');
-  let total = 0; let html = '';
-  PRODUCTS.forEach(p => {
-    if (qty[p.id] > 0) {
-      const sub = qty[p.id] * p.price;
-      total += sub;
-      html += `<div class="summary-item">
-        <span>${p.emoji} ${p.name} ×${qty[p.id]}</span>
-        <span>₹${sub}</span>
-      </div>`;
-    }
+function updSum(){
+  let total=0,html='';
+  PRODS.forEach(p=>{
+    if(qty[p.id]>0){const s=qty[p.id]*p.price;total+=s;
+      html+=`<div class="si"><span>${p.emoji} ${p.name} &#xD7;${qty[p.id]}</span><span>&#x20B9;${s}</span></div>`;}
   });
-  container.innerHTML = html || '<p class="summary-empty">No items selected yet.</p>';
-  totalEl.textContent = '₹' + total.toLocaleString('en-IN');
+  document.getElementById('sum-items').innerHTML=html||'<p class="sum-empty">No items selected yet.</p>';
+  document.getElementById('sum-total').textContent='&#x20B9;'+total.toLocaleString('en-IN');
 }
 
-/* ── WhatsApp message builder ─────────────────────────────────── */
-function sendToWhatsApp() {
-  const name     = document.getElementById('cust-name').value.trim();
-  const phone    = document.getElementById('cust-phone').value.trim();
-  const city     = document.getElementById('cust-city').value.trim();
-  const occasion = document.getElementById('cust-occasion').value;
-  const notes    = document.getElementById('cust-notes').value.trim();
+function sendWA(){
+  const name=document.getElementById('cn').value.trim();
+  const phone=document.getElementById('cp').value.trim();
+  const city=document.getElementById('cc').value.trim();
+  const occ=document.getElementById('co').value;
+  const note=document.getElementById('cnote').value.trim();
+  if(!name||!phone){showT('Please enter your name and phone first!');document.getElementById('cn').focus();return;}
+  let items=[],total=0;
+  PRODS.forEach(p=>{if(qty[p.id]>0){const s=qty[p.id]*p.price;total+=s;items.push('  \u2022 '+p.name+' \xd7 '+qty[p.id]+' = \u20b9'+s);}});
+  if(!items.length){showT('Please select at least one product!');return;}
+  const msg=[
+    '\uD83C\uDF86 *ASR Pyro Park \u2014 New Quote Request*','',
+    '\uD83D\uDC64 *Customer:* '+name,'\uD83D\uDCDE *Phone:* '+phone,
+    city?'\uD83D\uDCCD *City:* '+city:null,
+    occ?'\uD83C\uDF89 *Occasion:* '+occ:null,'',
+    '\uD83D\uDCE6 *Order Details:*',...items,'',
+    '\uD83D\uDCB0 *Estimated Total: \u20b9'+total.toLocaleString('en-IN')+'*',
+    '   _(60% discount already applied)_',
+    note?'\n\uD83D\uDCDD *Special Request:* '+note:null,'',
+    '_Please confirm availability and payment details._',
+  ].filter(l=>l!==null).join('\n');
+  window.open('https://wa.me/919962020890?text='+encodeURIComponent(msg),'_blank');
+}
 
-  if (!name || !phone) {
-    showToast('⚠️ Please enter your name and phone first!');
-    document.getElementById('cust-name').focus();
-    return;
+function clearQ(){
+  PRODS.forEach(p=>{qty[p.id]=0;});
+  ['cn','cp','cc','cnote'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('co').value='';
+  renderGrids();updSum();showT('Quote cleared');
+}
+
+function copyUPI(){
+  navigator.clipboard.writeText(document.getElementById('upi-val').textContent)
+    .then(()=>showT('UPI ID copied!'));
+}
+
+function advPay(){
+  showT('Razorpay link coming soon! WhatsApp us now.');
+  setTimeout(()=>window.open('https://wa.me/919962020890?text=I%20want%20to%20pay%20advance','_blank'),1200);
+}
+
+function showT(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+/* Canvas fireworks */
+(function(){
+  const canvas=document.getElementById('fwCanvas');
+  const ctx=canvas.getContext('2d');
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  const COLS=['#FFD700','#FF4500','#FF8C00','#2ECC71','#9B59B6','#3498DB','#E74C3C','#ffffff'];
+  const pts=[];
+  class P{
+    constructor(x,y,c){
+      this.x=x;this.y=y;this.c=c;
+      const a=Math.random()*Math.PI*2,s=Math.random()*5+1.5;
+      this.vx=Math.cos(a)*s;this.vy=Math.sin(a)*s;
+      this.a=1;this.dec=1/(Math.random()*60+40);this.r=Math.random()*2.5+1;
+    }
+    upd(){this.x+=this.vx;this.y+=this.vy;this.vy+=0.05;this.vx*=0.97;this.vy*=0.97;this.a-=this.dec;}
+    drw(){ctx.save();ctx.globalAlpha=this.a;ctx.fillStyle=this.c;ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fill();ctx.restore();}
   }
-
-  let items = [];
-  let total = 0;
-  PRODUCTS.forEach(p => {
-    if (qty[p.id] > 0) {
-      const sub = qty[p.id] * p.price;
-      total += sub;
-      items.push(`  • ${p.name} × ${qty[p.id]} = ₹${sub}`);
-    }
-  });
-
-  if (items.length === 0) {
-    showToast('⚠️ Please select at least one product!');
-    return;
+  function burst(x,y){
+    const c1=COLS[Math.floor(Math.random()*COLS.length)];
+    const c2=COLS[Math.floor(Math.random()*COLS.length)];
+    for(let i=0;i<80;i++)pts.push(new P(x,y,i%2===0?c1:c2));
   }
+  let last=0;
+  function loop(ts){
+    if(ts-last>2800){
+      burst(Math.random()*window.innerWidth*.8+window.innerWidth*.1,
+            Math.random()*window.innerHeight*.42+50);
+      last=ts;
+    }
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let i=pts.length-1;i>=0;i--){pts[i].upd();pts[i].drw();if(pts[i].a<=0)pts.splice(i,1);}
+    requestAnimationFrame(loop);
+  }
+  setTimeout(()=>{
+    burst(window.innerWidth*.15,window.innerHeight*.18);
+    burst(window.innerWidth*.5,window.innerHeight*.12);
+    burst(window.innerWidth*.83,window.innerHeight*.16);
+  },700);
+  requestAnimationFrame(loop);
+})();
 
-  const lines = [
-    `🎆 *ASR Pyro Park — New Quote Request*`,
-    ``,
-    `👤 *Customer:* ${name}`,
-    `📞 *Phone:* ${phone}`,
-    city     ? `📍 *City:* ${city}` : null,
-    occasion ? `🎉 *Occasion:* ${occasion}` : null,
-    ``,
-    `📦 *Order Details:*`,
-    ...items,
-    ``,
-    `💰 *Estimated Total: ₹${total.toLocaleString('en-IN')}*`,
-    `   _(60% discount already applied)_`,
-    notes ? `\n📝 *Special Request:* ${notes}` : null,
-    ``,
-    `_Please confirm availability and payment details._`,
-  ].filter(l => l !== null).join('\n');
-
-  const url = 'https://wa.me/919629308563?text=' + encodeURIComponent(lines);
-  window.open(url, '_blank');
-}
-
-/* ── Clear form ───────────────────────────────────────────────── */
-function clearQuote() {
-  PRODUCTS.forEach(p => { qty[p.id] = 0; });
-  document.getElementById('cust-name').value = '';
-  document.getElementById('cust-phone').value = '';
-  document.getElementById('cust-city').value = '';
-  document.getElementById('cust-occasion').value = '';
-  document.getElementById('cust-notes').value = '';
-  renderGrids();
-  updateSummary();
-  showToast('✅ Quote cleared');
-}
-
-/* ── Copy UPI ID ──────────────────────────────────────────────── */
-function copyUPI() {
-  const upi = document.getElementById('upi-text').textContent;
-  navigator.clipboard.writeText(upi).then(() => showToast('✅ UPI ID copied!'));
-}
-
-/* ── Advance payment placeholder ─────────────────────────────── */
-function openAdvancePayment() {
-  // Once you have a Razorpay Payment Link, replace this alert with:
-  // window.open('YOUR_RAZORPAY_LINK', '_blank');
-  showToast('💳 Razorpay link coming soon! WhatsApp us for now.');
-  setTimeout(() => {
-    window.open('https://wa.me/919629308563?text=I%20want%20to%20pay%20advance%20for%20my%20order', '_blank');
-  }, 1200);
-}
-
-/* ── Toast ────────────────────────────────────────────────────── */
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-/* ── Init ─────────────────────────────────────────────────────── */
-renderGrids();
-updateSummary();
+renderGrids();updSum();
 </script>
 </body>
 </html>
