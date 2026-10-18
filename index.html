@@ -32,7 +32,8 @@
     .nav-links a{font-size:.82rem;font-weight:500;color:var(--muted);transition:color .2s}
     .nav-links a:hover{color:var(--gold)}
     .nav-wa{background:var(--wa);color:#fff !important;padding:.38rem .9rem;border-radius:20px;font-size:.8rem !important;}
-    @media(max-width:640px){.nav-links{display:none}}
+    @media(max-width:640px){.nav-links a:not(.nav-cta){display:none}.nav-links{gap:0}.nav-logo div{font-size:.85rem;line-height:1.25}.nav-cta{padding:.4rem .8rem;font-size:.78rem !important}}
+    html,body{overflow-x:clip}
 
     /* HERO */
     .hero{min-height:100vh;position:relative;display:flex;flex-direction:column;
@@ -243,6 +244,75 @@
     .outlet-pics img{width:100%;border-radius:var(--r);border:1px solid rgba(255,255,255,.08)}
     .dl-btn{margin-top:1rem}
     @media(max-width:760px){.offer-wrap{grid-template-columns:1fr}.hero-logo{height:78px}}
+
+    /* QUOTE-FIRST ADDITIONS */
+    section{scroll-margin-top:68px}
+    .nav-cta{white-space:nowrap;background:linear-gradient(135deg,var(--fire),var(--ember));color:#fff !important;font-weight:700 !important;padding:.4rem 1rem;border-radius:20px;box-shadow:0 2px 14px rgba(255,69,0,.45);font-size:.82rem !important}
+    .btn-xl{font-size:1.15rem;padding:1rem 2.4rem;border-radius:14px;font-weight:800;box-shadow:0 6px 30px rgba(255,69,0,.6);animation:pulse 2.2s ease-in-out infinite}
+    .hero-tag{font-size:.95rem;color:var(--gold);margin:0 0 1rem;font-weight:600}
+    .hero-btns2{margin-top:-.6rem}
+    .quote-float{position:fixed;left:1rem;bottom:1.2rem;z-index:998;background:linear-gradient(135deg,var(--fire),var(--ember));color:#fff;font-weight:800;font-size:.95rem;padding:.8rem 1.3rem;border-radius:30px;box-shadow:0 6px 26px rgba(255,69,0,.6);transition:opacity .25s,transform .25s}
+    .quote-float.hide{opacity:0;pointer-events:none;transform:translateY(20px)}
+    .quote-layout{grid-template-columns:minmax(0,1fr) 340px}
+    @media(max-width:720px){.quote-layout{grid-template-columns:minmax(0,1fr)}}
+    .qcard{background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:var(--r);padding:1.2rem 1.2rem .4rem;margin-bottom:1.2rem}
+    .qcard h3{font-family:var(--display);font-size:1rem;color:var(--gold);margin-bottom:1rem}
+    .qcard h3 .sn{display:inline-block;background:var(--fire);color:#fff;border-radius:50%;width:24px;height:24px;line-height:24px;text-align:center;font-size:.78rem;margin-right:.5rem;font-family:var(--body)}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+    @media(max-width:560px){.row2{grid-template-columns:1fr}}
+    .chips{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem}
+    .prefs{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+    @media(max-width:560px){.prefs{grid-template-columns:1fr}}
+    .pref input{display:none}
+    .pref span{display:block;border:1.5px solid rgba(255,255,255,.12);border-radius:var(--r);padding:.7rem .8rem;cursor:pointer;font-size:.85rem;background:var(--card);height:100%}
+    .pref span b{display:block;color:#fff;font-size:.92rem}
+    .pref span small{color:var(--muted);font-size:.74rem}
+    .pref input:checked+span{border-color:var(--gold);background:rgba(255,215,0,.09)}
+    .tools{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:.8rem}
+    .tools label.chk{font-size:.8rem;color:var(--muted);display:flex;gap:.35rem;align-items:center;cursor:pointer}
+    .pcount{font-size:.76rem;color:var(--muted);margin-left:auto}
+    .tbl-wrap{overflow:auto;max-height:560px;border:1px solid rgba(255,255,255,.07);border-radius:8px;margin-bottom:1rem}
+    .ptable{width:100%;border-collapse:collapse;font-size:.84rem}
+    .ptable th{position:sticky;top:0;background:#1d1d38;color:var(--gold);text-align:left;padding:.55rem .6rem;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;z-index:2}
+    .ptable td{padding:.42rem .6rem;border-top:1px solid rgba(255,255,255,.05);vertical-align:middle}
+    .ptable tr.ch td{background:linear-gradient(90deg,#5a1020,#3a0b16);color:#ffe9a8;font-weight:800;font-family:var(--display);font-size:.82rem;letter-spacing:.03em}
+    .ptable tr.sel td{background:rgba(255,215,0,.07)}
+    .ptable td.c-sl{color:var(--muted);width:2.4rem}
+    .ptable td.c-rt{white-space:nowrap;font-weight:700}
+    .ptable td.c-rt small{color:var(--muted);font-weight:400}
+    .ptable td.c-am{text-align:right;white-space:nowrap;color:var(--gold);font-weight:700}
+    .ptable th.r{text-align:right}
+    .stp{display:inline-flex;align-items:center;gap:.25rem}
+    .stp button{width:26px;height:26px;background:rgba(255,69,0,.22);border:none;border-radius:50%;color:#fff;font-size:1rem;cursor:pointer;line-height:1}
+    .stp button:hover{background:var(--fire)}
+    .stp input{width:52px;text-align:center;background:var(--card);border:1px solid rgba(255,255,255,.14);border-radius:6px;color:#fff;padding:.28rem .2rem;font-size:.85rem;font-family:var(--body)}
+    @media(max-width:620px){
+      .ptable .c-sl,.ptable .c-am,.ptable th.h-sl,.ptable th.h-am{display:none}
+      .ptable{font-size:.8rem}
+      .ptable td,.ptable th{padding:.4rem .3rem}
+      .ptable td.c-rt small{display:block;font-size:.7rem}
+      .stp{gap:.15rem}.stp button{width:24px;height:24px}.stp input{width:38px;padding:.25rem 0}
+      .qcard{padding:1rem .7rem .3rem}
+      #quote{padding-left:.8rem;padding-right:.8rem}
+    }
+    #sum-items{max-height:250px;overflow:auto}
+    .bud-line{font-size:.8rem;margin-top:.5rem;color:var(--muted)}
+    .bud-line b.ok{color:var(--green,#2ECC71)} .bud-line b.over{color:var(--fire)}
+    .quote-out{margin-top:1.6rem}
+    .qdoc{background:#fff;color:#222;border-radius:10px;padding:1.4rem 1.5rem;max-width:780px;font-size:.88rem;line-height:1.5}
+    .qd-head{display:flex;gap:.9rem;align-items:center;border-bottom:2px solid #8b1a2b;padding-bottom:.8rem;margin-bottom:.8rem}
+    .qd-head img{height:62px;width:auto}
+    .qd-head b{font-size:1.2rem;color:#8b1a2b}
+    .qd-head small{color:#555;display:block}
+    .qd-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.3rem;margin-bottom:.5rem}
+    .qdoc table{width:100%;border-collapse:collapse;margin:.6rem 0}
+    .qdoc th{background:#8b1a2b;color:#fff;text-align:left;padding:.4rem .5rem;font-size:.78rem}
+    .qdoc td{padding:.35rem .5rem;border-bottom:1px solid #e5e5e5}
+    .qdoc .r{text-align:right}
+    .qdoc .tot{font-size:1.1rem;font-weight:800;text-align:right;color:#8b1a2b;margin-top:.4rem}
+    .qdoc .offer{background:#fff6dc;border:1px solid #f0d27a;border-radius:6px;padding:.5rem .7rem;margin-top:.6rem}
+    .qdoc .fine{font-size:.75rem;color:#666;margin-top:.7rem}
+    .qo-btns{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}
   </style>
 </head>
 <body>
@@ -252,12 +322,12 @@
   <div class="nav-logo"><img src="images/logo-kuberaa.png" alt="Kuberaa"/><div>Amutham <span>Mega</span> Crackers</div></div>
   <div class="nav-links">
     <a href="#offers">Offers</a>
-    <a href="#products">Products</a>
+    <a href="#pricelist">Price List</a>
     <a href="#how">How It Works</a>
-    <a href="#quote">Get Quote</a>
     <a href="#payment">Payment</a>
     <a href="#tracking">Track Order</a>
     <a href="#contact">Contact</a>
+    <a class="nav-cta" href="#quote">📋 Build My Quote</a>
     <a class="nav-wa" href="https://wa.me/918122373416">📲 WhatsApp</a>
   </div>
 </nav>
@@ -602,8 +672,11 @@
     
     <p class="hero-sub">Factory outlet crackers &amp; fireworks for Diwali, weddings &amp; all festivals. We sell only CSIR-NEERI green crackers — Less Pollution, More Celebration.</p>
     <a href="#offers" class="badge">🎁 Diwali Special Offers — Tap to see</a>
+    <p class="hero-tag">Tell us your budget &amp; what you like &mdash; get a ready quote in a minute.</p>
     <div class="hero-btns">
-      <a href="#quote" class="btn btn-fire">📋 Get Free Quote</a>
+      <a href="#quote" class="btn btn-fire btn-xl">📋 Build My Quote</a>
+    </div>
+    <div class="hero-btns hero-btns2">
       <a href="https://wa.me/918122373416?text=Hi%20Amutham%20Mega%20Crackers!%20I%20want%20to%20place%20an%20order." class="btn btn-wa" target="_blank">💬 Order on WhatsApp</a>
       <a href="tel:8122373416" class="btn btn-ghost">📞 Call Now</a>
     </div>
@@ -627,8 +700,8 @@
         <div class="step-icon">📋</div>
         <div class="step-body">
           <div class="step-num">Step 01</div>
-          <h3>Build Your Quote</h3>
-          <p>Select products &amp; qty for instant estimate.</p>
+          <h3>Build My Quote</h3>
+          <p>Share budget &amp; preference, pick items, get an instant quote.</p>
         </div>
       </div>
       <div class="step">
@@ -685,64 +758,92 @@
   </div>
 </section>
 
-<!-- PRODUCTS -->
-<section id="products">
-  <div class="container">
-    <div class="sec-label">Our Range</div>
-    <h2 class="sec-title">Product Catalogue</h2>
-    <p class="sec-sub">Factory outlet price list &mdash; 143 items. Tap + on a product to add it to your quote. Gift boxes are net rate, no discount.</p>
-    <div class="filters" id="filter-main"></div>
-    <div class="prod-grid" id="prod-grid-main"></div>
-    <div style="margin-top:1.5rem;text-align:center">
-      <a href="#quote" class="btn btn-fire">📋 Build My Quote →</a>
-      <a href="Amutham_Price_List.pdf" class="btn btn-ghost" target="_blank" download>⬇ Download Price List (PDF)</a>
-    </div>
-  </div>
-</section>
-
 <!-- QUOTE -->
 <section id="quote">
   <div class="container">
     <div class="sec-label">Instant Estimate</div>
-    <h2 class="sec-title">Build Your Quote</h2>
-    <p class="sec-sub">Fill in your details, choose products, then send the quote directly to our WhatsApp.</p>
+    <h2 class="sec-title">Build My Quote</h2>
+    <p class="sec-sub" style="max-width:660px">Tell us your budget and what you like &mdash; we can suggest a combo for you. Or pick items yourself from the price list. Change any quantity, then generate your quote.</p>
     <div class="quote-layout">
       <div>
-        <div class="fg"><label>Your Name *</label><input type="text" id="cn" placeholder="e.g. Ravi Kumar"/></div>
-        <div class="fg"><label>Phone Number *</label><input type="tel" id="cp" placeholder="e.g. 98400 00000"/></div>
-        <div class="fg"><label>City / State</label><input type="text" id="cc" placeholder="e.g. Chennai, Tamil Nadu"/></div>
-        <div class="fg"><label>Occasion</label>
-          <select id="co">
-            <option value="">Select occasion</option>
-            <option>Diwali</option>
-            <option>Wedding</option>
-            <option>New Year</option><option>Birthday</option>
-            <option>Other Festival</option><option>Bulk / Commercial</option>
-          </select>
+        <div class="qcard">
+          <h3><span class="sn">1</span>Your details</h3>
+          <div class="row2">
+            <div class="fg"><label>Your Name *</label><input type="text" id="cn" placeholder="e.g. Ravi Kumar"/></div>
+            <div class="fg"><label>Phone Number *</label><input type="tel" id="cp" placeholder="e.g. 98400 00000"/></div>
+            <div class="fg"><label>City / State</label><input type="text" id="cc" placeholder="e.g. Chennai, Tamil Nadu"/></div>
+            <div class="fg"><label>Occasion</label>
+              <select id="co">
+                <option value="">Select occasion</option>
+                <option>Diwali</option><option>Wedding</option><option>New Year</option><option>Birthday</option>
+                <option>Other Festival</option><option>Bulk / Commercial</option>
+              </select>
+            </div>
+          </div>
         </div>
+
+        <div class="qcard">
+          <h3><span class="sn">2</span>Your budget &amp; preference</h3>
+          <div class="fg">
+            <label>Budget (&#x20B9;)</label>
+            <input type="number" id="cb" min="0" step="100" inputmode="numeric" placeholder="e.g. 5000" oninput="updSum()"/>
+            <div class="chips">
+              <button class="fchip" onclick="setBudget(2000)">&#x20B9;2,000</button>
+              <button class="fchip" onclick="setBudget(5000)">&#x20B9;5,000</button>
+              <button class="fchip" onclick="setBudget(10000)">&#x20B9;10,000</button>
+              <button class="fchip" onclick="setBudget(20000)">&#x20B9;20,000</button>
+            </div>
+          </div>
+          <div class="fg">
+            <label>What do you prefer?</label>
+            <div class="prefs">
+              <label class="pref"><input type="radio" name="pref" value="crackers"/><span><b>💥 Crackers</b><small>Sound, bijili, bombs, garlands, chakkars, flower pots, sparklers</small></span></label>
+              <label class="pref"><input type="radio" name="pref" value="fancy"/><span><b>🎆 Fancy items</b><small>Multi-shots, rockets, fountains, peacock, new arrivals</small></span></label>
+              <label class="pref"><input type="radio" name="pref" value="mix" checked/><span><b>🎉 Mix of both</b><small>Half crackers, half fancy</small></span></label>
+            </div>
+          </div>
+          <div class="fg"><button class="btn btn-fire" onclick="suggestQuote()">✨ Suggest items for my budget</button>
+            <p style="font-size:.76rem;color:var(--muted);margin-top:.5rem">We fill the price list below with a balanced combo within your budget. You can edit any quantity.</p></div>
+        </div>
+
+        <div class="qcard" id="pricelist">
+          <h3><span class="sn">3</span>Price list &mdash; search &amp; pick items</h3>
+          <div class="tools">
+            <input class="fsearch" id="fq" type="search" placeholder="Search by item or number (e.g. sparkler, 25 shot, 109)" oninput="setQ(this.value)"/>
+            <select class="fsel" id="fc" onchange="setCat(this.value)"></select>
+            <label class="chk"><input type="checkbox" id="fs" onchange="setSel(this.checked)"/> Selected only</label>
+            <span class="pcount" id="pcount"></span>
+          </div>
+          <div class="tbl-wrap">
+            <table class="ptable">
+              <thead><tr><th class="h-sl">No.</th><th>Item</th><th>Rate</th><th>Qty</th><th class="r h-am">Amount</th></tr></thead>
+              <tbody id="ptbody"></tbody>
+            </table>
+          </div>
+          <p style="font-size:.76rem;color:var(--muted);margin-bottom:1rem">Factory outlet rates in &#x20B9;. Gift boxes are net rate, no discount.
+            <a href="Amutham_Price_List.pdf" target="_blank" download style="color:var(--gold)">⬇ Download price list (PDF)</a></p>
+        </div>
+
         <div class="fg"><label>Special Requests (optional)</label><textarea id="cnote" placeholder="Any specific requirements, brands, or custom bundles?"></textarea></div>
-        <h3 style="font-size:.93rem;margin-bottom:1rem;color:var(--gold)">Select Products &amp; Quantities</h3>
-        <div class="filters filters-q" id="filter-quote"></div>
-        <div class="prod-grid" id="prod-grid-quote" style="grid-template-columns:repeat(auto-fill,minmax(140px,1fr))"></div>
-        <div style="display:flex;gap:.9rem;margin-top:1.8rem;flex-wrap:wrap">
-          <button class="btn btn-wa" onclick="sendWA(0)">💬 Send to 8122373416</button>
-          <button class="btn btn-wa" onclick="sendWA(1)">💬 Send to 7358684740</button>
-          <button class="btn btn-ghost" onclick="clearQ()">🗑 Clear</button>
-        </div>
-        <p style="font-size:.76rem;color:var(--muted);margin-top:.7rem">* This generates a lead quote. Our team will confirm final price on WhatsApp.</p>
       </div>
+
       <div class="q-summary">
         <h3>📋 Quote Summary</h3>
         <div id="sum-items"><p class="sum-empty">No items selected yet.</p></div>
-        <div class="total-row"><span>Estimated Total</span><span id="sum-total">₹0</span></div>
+        <div class="total-row"><span>Estimated Total</span><span id="sum-total">&#x20B9;0</span></div>
+        <p class="bud-line" id="bud-line"></p>
         <p class="disc-note" id="disc-note">Factory outlet rates</p>
-        <div style="margin-top:1.1rem"><button class="btn btn-fire" style="width:100%" onclick="sendWA()">💬 Send to WhatsApp</button></div>
+        <div style="margin-top:1.1rem;display:grid;gap:.6rem">
+          <button class="btn btn-fire" style="width:100%" onclick="generateQuote()">📋 Generate Quote</button>
+          <button class="btn btn-ghost" style="width:100%" onclick="clearQ()">🗑 Clear</button>
+        </div>
         <div style="margin-top:.9rem;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.06)">
           <p style="font-size:.76rem;color:var(--muted)">Need help? Call us directly:</p>
           <a href="tel:8122373416" style="font-size:.9rem;font-weight:700;color:var(--gold)">📞 8122373416</a> &nbsp; <a href="tel:7358684740" style="font-size:.9rem;font-weight:700;color:var(--gold)">📞 7358684740</a>
         </div>
       </div>
     </div>
+    <div class="quote-out" id="quote-out" style="display:none"></div>
   </div>
 </section>
 
@@ -838,6 +939,7 @@
   <p style="margin-top:.7rem;font-size:.72rem">This website is a quotation &amp; lead generation platform. All orders confirmed via WhatsApp.</p>
 </footer>
 
+<a class="quote-float" id="qfloat" href="#quote">📋 Build My Quote</a>
 <!-- FLOAT WA -->
 <a class="wa-float" href="https://wa.me/918122373416?text=Hi%20Amutham%20Mega%20Crackers!%20I%20want%20to%20enquire." target="_blank">💬</a>
 <div class="toast" id="toast"></div>
@@ -848,107 +950,209 @@ const CE={"One Sound Crackers": "💥", "Bijili Crackers": "⚡", "Children's Sp
 const PRODS=[{"id":"p1","cat":"One Sound Crackers","name":"2.75\" Kuruvi","price":23,"unit":"Pkt"},{"id":"p2","cat":"One Sound Crackers","name":"3.5 \" Lakshmi / Horse","price":40,"unit":"Pkt"},{"id":"p3","cat":"One Sound Crackers","name":"4\" Lakshmi / Spider Man","price":55,"unit":"Pkt"},{"id":"p4","cat":"One Sound Crackers","name":"4\" Dlx Lakshmi / Kubera","price":72,"unit":"Pkt"},{"id":"p5","cat":"One Sound Crackers","name":"5\" Kubera / Lakshmi","price":120,"unit":"Pkt"},{"id":"p6","cat":"Bijili Crackers","name":"Red Bijili 50's","price":60,"unit":"Bag"},{"id":"p7","cat":"Bijili Crackers","name":"Red Bijili 100's","price":90,"unit":"Bag"},{"id":"p8","cat":"Bijili Crackers","name":"Stipped Bijili 50 Pcs","price":65,"unit":"Bag"},{"id":"p9","cat":"Bijili Crackers","name":"Stipeed Bijili 100 Pcs","price":100,"unit":"Bag"},{"id":"p10","cat":"Children's Special","name":"7\" pencil","price":70,"unit":"Box"},{"id":"p11","cat":"Children's Special","name":"12\" Pencil (10 Pcs)","price":220,"unit":"Box"},{"id":"p12","cat":"Children's Special","name":"1.5' Twinkling Star","price":76,"unit":"Box"},{"id":"p13","cat":"Children's Special","name":"4' Dlx Twinkling Star","price":227,"unit":"Box"},{"id":"p14","cat":"Children's Special","name":"Jil Jil Twinkling Star","price":84,"unit":"Pkt"},{"id":"p15","cat":"Children's Special","name":"Kitkat","price":92,"unit":"Box"},{"id":"p16","cat":"Children's Special","name":"Bada Kitkat","price":105,"unit":"Box"},{"id":"p17","cat":"Atom Bombs Green","name":"Jug Mug 3000 / Kargil Bomb/Gypsy Bomb (3Ply)","price":270,"unit":"Box"},{"id":"p18","cat":"Atom Bombs Green","name":"AXN Bomb / Jugmug 5000 / Classic (5Ply)","price":330,"unit":"Box"},{"id":"p19","cat":"Atom Bombs Green","name":"Titanic Bomb / Digital Bomb / Jurassic Bomb","price":540,"unit":"Box"},{"id":"p20","cat":"Atom Bombs Green","name":"Mega Bomb","price":750,"unit":"Box"},{"id":"p21","cat":"Atom Bombs Green","name":"Super Mega","price":825,"unit":"Box"},{"id":"p22","cat":"Atom Bombs Foils","name":"King Bullet Bomb Foils ( 1.25 inch )","price":116,"unit":"Box"},{"id":"p23","cat":"Rockets","name":"Rocket Bomb","price":168,"unit":"Box"},{"id":"p24","cat":"Rockets","name":"Navrang Rocket","price":357,"unit":"Box"},{"id":"p25","cat":"Rockets","name":"Multicolour Rocket","price":378,"unit":"Box"},{"id":"p26","cat":"Rockets","name":"Air Whisling Rocket","price":420,"unit":"Box"},{"id":"p27","cat":"Special Varieties","name":"Assam Apple (1Pcs) Shower Crackling","price":97,"unit":"Box"},{"id":"p28","cat":"Special Varieties","name":"4\" Tin Fountain 6 Colour (5Pcs) Packing","price":315,"unit":"Tin"},{"id":"p29","cat":"Special Varieties","name":"6\" Tin Fountain 6 Variety Colour","price":525,"unit":"Tin"},{"id":"p30","cat":"Special Varieties","name":"9\" Tin Fountain 6 Variety Colour","price":670,"unit":"Tin"},{"id":"p31","cat":"Special Varieties","name":"Barath Collection (5Pcs) 5 Variety Colour","price":378,"unit":"Box"},{"id":"p32","cat":"Special Varieties","name":"Sky Colour Collection (5Pcs) 5 Variety Colour","price":336,"unit":"Box"},{"id":"p33","cat":"Special Varieties","name":"Valenties Days (5Pcs) Crackling King Rider","price":336,"unit":"Box"},{"id":"p34","cat":"Fancy Items","name":"7 Shot","price":294,"unit":"Box"},{"id":"p35","cat":"Fancy Items","name":"12 Shot Multi Color Ranjinikantha ( Square )","price":462,"unit":"Box"},{"id":"p36","cat":"Fancy Items","name":"15 Shot Multi Color Long","price":756,"unit":"Box"},{"id":"p37","cat":"Fancy Items","name":"25 Shot Rangeela Multi Color ( Square )","price":945,"unit":"Box"},{"id":"p38","cat":"Fancy Items","name":"25 Shot Multi Color Juno ( Long )","price":1050,"unit":"Box"},{"id":"p39","cat":"Fancy Items","name":"25 Shot Multi Color Long Legend","price":1155,"unit":"Box"},{"id":"p40","cat":"Fancy Items","name":"30 Shot Multi Color","price":1155,"unit":"Box"},{"id":"p41","cat":"Fancy Items","name":"50 Shot Multi Color Manasand","price":1820,"unit":"Box"},{"id":"p42","cat":"Fancy Items","name":"50 Shot Multi Color Galaxy","price":2050,"unit":"Box"},{"id":"p43","cat":"Fancy Items","name":"60 Shot Multi Color","price":2310,"unit":"Box"},{"id":"p44","cat":"Fancy Items","name":"100 Shot Multi Color","price":3990,"unit":"Box"},{"id":"p45","cat":"Fancy Items","name":"120 Shot Multi Color","price":4620,"unit":"Box"},{"id":"p46","cat":"Fancy Items","name":"240 Shot Multi Color","price":9240,"unit":"Box"},{"id":"p47","cat":"Fancy Items","name":"500 Shot Multi Color","price":19320,"unit":"Box"},{"id":"p48","cat":"Fancy Items","name":"2\" Fancy Set Out","price":5250,"unit":"Box"},{"id":"p49","cat":"Fancy Items","name":"52 Mega Set Out","price":6090,"unit":"Box"},{"id":"p50","cat":"Fancy Items","name":"1\" Chota Fancy 6 Variety Colours","price":118,"unit":"Box"},{"id":"p51","cat":"Fancy Items","name":"2\" Fancy IPL 3 Pcs","price":546,"unit":"Box"},{"id":"p52","cat":"Fancy Items","name":"Penta Barath Collection","price":378,"unit":"Box"},{"id":"p53","cat":"Fancy Items","name":"2\" Single Pce","price":336,"unit":"Box"},{"id":"p54","cat":"Fancy Items","name":"2\" Double Pcs","price":672,"unit":"Box"},{"id":"p55","cat":"Fancy Items","name":"3\" Single Pce","price":714,"unit":"Box"},{"id":"p56","cat":"Fancy Items","name":"3\" Double Pcs","price":1428,"unit":"Box"},{"id":"p57","cat":"Fancy Items","name":"Mini Siren ( 5 Piece )","price":546,"unit":"Box"},{"id":"p58","cat":"Fancy Items","name":"Siren ( 3 Piece )","price":756,"unit":"Box"},{"id":"p59","cat":"Fancy Items","name":"Small Peacock","price":462,"unit":"Pce"},{"id":"p60","cat":"Fancy Items","name":"Bada Peacock","price":1525,"unit":"Pce"},{"id":"p61","cat":"Garland Crackers","name":"100 Wala","price":140,"unit":"Pkt"},{"id":"p62","cat":"Garland Crackers","name":"200 Wala","price":280,"unit":"Pkt"},{"id":"p63","cat":"Garland Crackers","name":"300 Wala","price":420,"unit":"Box"},{"id":"p64","cat":"Garland Crackers","name":"600 Wala","price":750,"unit":"Box"},{"id":"p65","cat":"Garland Crackers","name":"1000 Wala","price":1000,"unit":"Box"},{"id":"p66","cat":"Garland Crackers","name":"2000 Wala","price":2000,"unit":"Box"},{"id":"p67","cat":"Garland Crackers","name":"3000 Wala","price":3000,"unit":"Box"},{"id":"p68","cat":"Garland Crackers","name":"5000 Wala","price":5000,"unit":"Box"},{"id":"p69","cat":"Garland Crackers","name":"10000 Wala","price":10000,"unit":"Box"},{"id":"p70","cat":"Garland Crackers","name":"1000 Mega Giant","price":2900,"unit":"Box"},{"id":"p71","cat":"Garland Crackers","name":"600 Mega Giant","price":2100,"unit":"Box"},{"id":"p72","cat":"Deluxe Crackers","name":"2.75\" x 24 Deluxe","price":135,"unit":"Pkt"},{"id":"p73","cat":"Deluxe Crackers","name":"2.75\" x 50 Deluxe","price":330,"unit":"Pkt"},{"id":"p74","cat":"Deluxe Crackers","name":"2.75\" x 100 Deluxe","price":660,"unit":"Pkt"},{"id":"p75","cat":"Ground Chakkars","name":"Chakkar Big (10Pcs)","price":95,"unit":"Box"},{"id":"p76","cat":"Ground Chakkars","name":"Chakkar Big (25Pcs)","price":210,"unit":"Box"},{"id":"p77","cat":"Ground Chakkars","name":"Chakkar Special","price":168,"unit":"Box"},{"id":"p78","cat":"Ground Chakkars","name":"Chakkar Deluxe","price":336,"unit":"Box"},{"id":"p79","cat":"Ground Chakkars","name":"Chakkar Mega","price":504,"unit":"Box"},{"id":"p80","cat":"Ground Chakkars","name":"Spinner Super Deluxe","price":672,"unit":"Box"},{"id":"p81","cat":"Flower Pots","name":"Flowerpots Small","price":126,"unit":"Box"},{"id":"p82","cat":"Flower Pots","name":"Flowerpots Big","price":168,"unit":"Box"},{"id":"p83","cat":"Flower Pots","name":"Flowerpots Special","price":210,"unit":"Box"},{"id":"p84","cat":"Flower Pots","name":"Flowerpots Asoka Super","price":294,"unit":"Box"},{"id":"p85","cat":"Flower Pots","name":"Flowerpots Asoka Giant","price":357,"unit":"Box"},{"id":"p86","cat":"Flower Pots","name":"Flowerpots Deluxe","price":462,"unit":"Box"},{"id":"p87","cat":"Flower Pots","name":"Flowerpots Super Deluxe","price":378,"unit":"Box"},{"id":"p88","cat":"Flower Pots","name":"Cololurkoti Giant","price":588,"unit":"Box"},{"id":"p89","cat":"Flower Pots","name":"MotiMahal (10Pcs)","price":1050,"unit":"Box"},{"id":"p90","cat":"Flower Pots","name":"MahaUtsav (5Pcs)","price":1050,"unit":"Box"},{"id":"p91","cat":"Flower Pots","name":"Ganga Jamuna / Laila Majnu","price":180,"unit":"Box"},{"id":"p92","cat":"Electric Crackers Chorsa","name":"28 Chorsa","price":40,"unit":"Pkt"},{"id":"p93","cat":"Electric Crackers Chorsa","name":"56 Chorsa","price":80,"unit":"Pkt"},{"id":"p94","cat":"Electric Crackers Chorsa","name":"28 Goa","price":46,"unit":"Pkt"},{"id":"p95","cat":"Electric Crackers Chorsa","name":"28 Giant","price":65,"unit":"Pkt"},{"id":"p96","cat":"Electric Crackers Chorsa","name":"56 Giant","price":130,"unit":"Pkt"},{"id":"p97","cat":"Electric Crackers Giant","name":"28 Super Giant","price":76,"unit":"Pkt"},{"id":"p98","cat":"Electric Crackers Giant","name":"56 Super Giant","price":152,"unit":"Pkt"},{"id":"p99","cat":"New Arrivals","name":"Photo Flash (5Pcs)","price":177,"unit":"Box"},{"id":"p100","cat":"New Arrivals","name":"1/4Kg Paper Bomb","price":135,"unit":"Box"},{"id":"p101","cat":"New Arrivals","name":"1/2 Kg Paper Bomb","price":269,"unit":"Box"},{"id":"p102","cat":"New Arrivals","name":"1 Kg Paper Bomb","price":546,"unit":"Box"},{"id":"p103","cat":"New Arrivals","name":"Helicopter (5Pcs)","price":265,"unit":"Box"},{"id":"p104","cat":"New Arrivals","name":"Butterfly (5Pcs)","price":147,"unit":"Box"},{"id":"p105","cat":"New Arrivals","name":"Butterfly(10Pcs)","price":252,"unit":"Box"},{"id":"p106","cat":"New Arrivals","name":"Pambaram (5Pcs)","price":180,"unit":"Box"},{"id":"p107","cat":"New Arrivals","name":"4x4 Colourwheel","price":420,"unit":"Box"},{"id":"p108","cat":"New Arrivals","name":"Drone ( 5 Pcs )","price":420,"unit":"Box"},{"id":"p109","cat":"Sparklers","name":"7Cm Electric","price":20,"unit":"Box"},{"id":"p110","cat":"Sparklers","name":"7Cm Colour","price":22,"unit":"Box"},{"id":"p111","cat":"Sparklers","name":"7Cm Green","price":30,"unit":"Box"},{"id":"p112","cat":"Sparklers","name":"7Cm Red","price":34,"unit":"Box"},{"id":"p113","cat":"Sparklers","name":"7Cm Multimix","price":34,"unit":"Box"},{"id":"p114","cat":"Sparklers","name":"10Cm Ganga Electric","price":45,"unit":"Box"},{"id":"p115","cat":"Sparklers","name":"10Cm Ganga Colour","price":50,"unit":"Box"},{"id":"p116","cat":"Sparklers","name":"10Cm Ganga Green","price":60,"unit":"Box"},{"id":"p117","cat":"Sparklers","name":"10Cm Ganga Red","price":70,"unit":"Box"},{"id":"p118","cat":"Sparklers","name":"10Cm Ganga Multimix","price":70,"unit":"Box"},{"id":"p119","cat":"Sparklers","name":"12Cm Electric","price":65,"unit":"Box"},{"id":"p120","cat":"Sparklers","name":"12Cm Colour","price":70,"unit":"Box"},{"id":"p121","cat":"Sparklers","name":"12Cm Green","price":80,"unit":"Box"},{"id":"p122","cat":"Sparklers","name":"12Cm Red","price":85,"unit":"Box"},{"id":"p123","cat":"Sparklers","name":"12Cm Multimix","price":85,"unit":"Box"},{"id":"p124","cat":"Sparklers","name":"12Cm Fancy Sparklers 50-50 / Silver Rain / London","price":105,"unit":"Box"},{"id":"p125","cat":"Sparklers","name":"15Cm Electric","price":105,"unit":"Box"},{"id":"p126","cat":"Sparklers","name":"15Cm Colour","price":110,"unit":"Box"},{"id":"p127","cat":"Sparklers","name":"15Cm Green","price":130,"unit":"Box"},{"id":"p128","cat":"Sparklers","name":"15Cm Red","price":135,"unit":"Box"},{"id":"p129","cat":"Sparklers","name":"15Cm Multicolour","price":135,"unit":"Box"},{"id":"p130","cat":"Sparklers","name":"30Cm Electric","price":110,"unit":"Box"},{"id":"p131","cat":"Sparklers","name":"30Cm Colour","price":120,"unit":"Box"},{"id":"p132","cat":"Sparklers","name":"30Cm Green","price":135,"unit":"Box"},{"id":"p133","cat":"Sparklers","name":"30Cm Red","price":140,"unit":"Box"},{"id":"p134","cat":"Sparklers","name":"30Cm Multimix","price":140,"unit":"Box"},{"id":"p135","cat":"Sparklers","name":"55Cm Electric","price":400,"unit":"Pcs"},{"id":"p136","cat":"Sparklers","name":"55Cm Multicolour","price":550,"unit":"Pcs"},{"id":"p137","cat":"Gift Boxes (Net Rate, No Discount)","name":"UNIBIC Gift Box - 25 Items","price":850,"unit":"Box"},{"id":"p138","cat":"Gift Boxes (Net Rate, No Discount)","name":"SILK Gift Box - 30 Items","price":1020,"unit":"Box"},{"id":"p139","cat":"Gift Boxes (Net Rate, No Discount)","name":"BALAJI Gift Box 30 Items","price":1020,"unit":"Box"},{"id":"p140","cat":"Gift Boxes (Net Rate, No Discount)","name":"DARK FANTASY Gift Box - 35 Items","price":1280,"unit":"Box"},{"id":"p141","cat":"Gift Boxes (Net Rate, No Discount)","name":"BOURNVILLE Gift Box - 40 Items","price":1480,"unit":"Box"},{"id":"p142","cat":"Gift Boxes (Net Rate, No Discount)","name":"VIP Gift Box - 50 Items","price":1980,"unit":"Box"},{"id":"p143","cat":"Gift Boxes (Net Rate, No Discount)","name":"Family JUMBO Pack - 65 Items","price":2800,"unit":"Box"}];
 const CATS=[...new Set(PRODS.map(p=>p.cat))];
 const qty={};PRODS.forEach(p=>qty[p.id]=0);
-const FS={main:{cat:'All',q:''},quote:{cat:'All',q:''}};
-const GRIDS={main:'prod-grid-main',quote:'prod-grid-quote'};
+const FS={cat:'All',q:'',sel:false};
 const WA_NUMS=['918122373416','917358684740'];
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+const GROUPS={
+  crackers:['One Sound Crackers','Bijili Crackers',"Children's Special",'Atom Bombs Green','Atom Bombs Foils','Garland Crackers','Deluxe Crackers','Electric Crackers Chorsa','Electric Crackers Giant','Ground Chakkars','Flower Pots','Sparklers'],
+  fancy:['Fancy Items','Special Varieties','Rockets','New Arrivals']
+};
+const PREF_LABEL={crackers:'Crackers',fancy:'Fancy items',mix:'Mix of both'};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function rs(n){return '\u20B9'+Number(n).toLocaleString('en-IN');}
+function $(id){return document.getElementById(id);}
 
-function initFilters(){
-  const m=document.getElementById('filter-main');
-  if(m){m.innerHTML='<input class="fsearch" type="search" placeholder="Search crackers..." oninput="setQ(\'main\',this.value)"/>'+
-    ['All',...CATS].map(c=>`<button class="fchip${c==='All'?' on':''}" data-c="${esc(c)}" onclick="setCat('main',this.dataset.c)">${esc(c)}</button>`).join('');}
-  const q=document.getElementById('filter-quote');
-  if(q){q.innerHTML='<select class="fsel" onchange="setCat(\'quote\',this.value)"><option value="All">All categories</option>'+
-    CATS.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('')+'</select><input class="fsearch" type="search" placeholder="Search items..." oninput="setQ(\'quote\',this.value)"/>';}
+/* ---------- price list table ---------- */
+function setCat(c){FS.cat=c;renderTable();}
+function setQ(v){FS.q=v.trim().toLowerCase();renderTable();}
+function setSel(v){FS.sel=v;renderTable();}
+function renderTable(){
+  let html='',last='',n=0;
+  PRODS.forEach(p=>{
+    if(FS.cat!=='All'&&p.cat!==FS.cat)return;
+    if(FS.sel&&!qty[p.id])return;
+    if(FS.q&&!((p.name+' '+p.cat).toLowerCase().includes(FS.q)||p.id==='p'+FS.q))return;
+    n++;
+    if(p.cat!==last){last=p.cat;html+=`<tr class="ch"><td colspan="5">${CE[p.cat]} ${esc(p.cat)}</td></tr>`;}
+    html+=`<tr id="r-${p.id}" class="${qty[p.id]?'sel':''}">
+      <td class="c-sl">${p.id.slice(1)}</td>
+      <td class="c-nm">${esc(p.name)}</td>
+      <td class="c-rt">${rs(p.price)} <small>/ ${p.unit}</small></td>
+      <td class="c-q"><div class="stp"><button onclick="chg('${p.id}',-1)" aria-label="less">&#x2212;</button><input id="q-${p.id}" type="number" min="0" inputmode="numeric" value="${qty[p.id]}" onchange="setQty('${p.id}',this.value)"/><button onclick="chg('${p.id}',1)" aria-label="more">+</button></div></td>
+      <td class="c-am" id="a-${p.id}">${qty[p.id]?rs(qty[p.id]*p.price):'&ndash;'}</td></tr>`;
+  });
+  $('ptbody').innerHTML=html||'<tr><td colspan="5" class="sum-empty" style="padding:1rem">No matching items.</td></tr>';
+  $('pcount').textContent=n+' of '+PRODS.length+' items';
 }
-function setCat(w,c){
-  FS[w].cat=c;
-  if(w==='main')document.querySelectorAll('#filter-main .fchip').forEach(b=>b.classList.toggle('on',b.dataset.c===c));
-  renderGrids();
+function refreshRow(id){
+  const p=PRODS.find(x=>x.id===id),r=$('r-'+id);
+  if(!r)return;
+  r.classList.toggle('sel',qty[id]>0);
+  const q=$('q-'+id);if(q)q.value=qty[id];
+  const a=$('a-'+id);if(a)a.innerHTML=qty[id]?rs(qty[id]*p.price):'&ndash;';
 }
-function setQ(w,v){FS[w].q=v.trim().toLowerCase();renderGrids();}
+function setQty(id,v){qty[id]=Math.max(0,Math.min(9999,parseInt(v,10)||0));refreshRow(id);updSum();}
+function chg(id,d){setQty(id,(qty[id]||0)+d);}
 
-function renderGrids(){
-  Object.keys(GRIDS).forEach(w=>{
-    const g=document.getElementById(GRIDS[w]);if(!g)return;
-    const f=FS[w];let html='',last='';
-    PRODS.forEach(p=>{
-      if(f.cat!=='All'&&p.cat!==f.cat)return;
-      if(f.q&&!(p.name+' '+p.cat).toLowerCase().includes(f.q))return;
-      if(p.cat!==last){last=p.cat;html+=`<div class="cat-h">${CE[p.cat]} ${esc(p.cat)}</div>`;}
-      html+=`<div class="prod-card${qty[p.id]>0?' sel':''}">
-        <div class="prod-emoji">${CE[p.cat]}</div>
-        <div class="prod-name">${esc(p.name)}</div>
-        <div class="prod-price">&#x20B9;${p.price.toLocaleString('en-IN')} per ${p.unit}</div>
-        <div class="qty-row">
-          <button class="qb" onclick="chg('${p.id}',-1)">&#x2212;</button>
-          <span class="qv" data-id="${p.id}">${qty[p.id]}</span>
-          <button class="qb" onclick="chg('${p.id}',1)">+</button>
-        </div></div>`;
+/* ---------- budget / preference ---------- */
+function getBudget(){return Math.max(0,parseInt($('cb').value,10)||0);}
+function getPref(){const r=document.querySelector('input[name="pref"]:checked');return r?r.value:'mix';}
+function setBudget(n){$('cb').value=n;updSum();}
+
+function fillGroup(cats,budget){
+  const cap=Math.max(budget*0.3,150);
+  const lists=cats.map(c=>{
+    const l=PRODS.filter(p=>p.cat===c&&p.price<=cap).sort((a,b)=>a.price-b.price);
+    const m=Math.floor(l.length/2);
+    return l.map((p,i)=>[Math.abs(i-m),i,p]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]).map(x=>x[2]);
+  }).filter(l=>l.length);
+  let rem=budget,ptr=lists.map(()=>0),prog=true,guard=0;
+  while(prog&&guard++<600){
+    prog=false;
+    lists.forEach((l,i)=>{
+      for(let t=0;t<l.length;t++){
+        const p=l[(ptr[i]+t)%l.length];
+        if(p.price<=rem){qty[p.id]++;rem-=p.price;ptr[i]=(ptr[i]+t+1)%l.length;prog=true;break;}
+      }
     });
-    g.innerHTML=html||'<p class="sum-empty" style="grid-column:1/-1">No matching items.</p>';
-  });
+  }
+  return rem;
+}
+function suggestQuote(){
+  const b=getBudget();
+  if(b<100){showT('Please enter your budget (min \u20B9100) first!');$('cb').focus();return;}
+  PRODS.forEach(p=>qty[p.id]=0);
+  const pref=getPref();
+  if(pref==='crackers')fillGroup(GROUPS.crackers,b);
+  else if(pref==='fancy')fillGroup(GROUPS.fancy,b);
+  else{const left=fillGroup(GROUPS.crackers,b*0.5);fillGroup(GROUPS.fancy,b*0.5+left);}
+  FS.sel=false;$('fs').checked=false;renderTable();updSum();
+  showT('Suggested a combo for '+rs(b)+' \u2014 edit quantities as you like');
+  $('pricelist').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function chg(id,d){
-  qty[id]=Math.max(0,(qty[id]||0)+d);
-  document.querySelectorAll(`.qv[data-id="${id}"]`).forEach(el=>el.textContent=qty[id]);
-  document.querySelectorAll('.prod-card').forEach(c=>{
-    const v=c.querySelector('.qv');
-    if(v&&v.dataset.id===id)c.classList.toggle('sel',qty[id]>0);
-  });
-  updSum();
-}
-
+/* ---------- summary ---------- */
 function offerNote(total){
   if(total>=9999)return '\uD83C\uDF81 Offer: you get a Silk Gift Box (30 items) on \u20B99,999+ (T&C apply)';
   if(total>=4999)return '\uD83C\uDF81 Offer: you get a Juno 25 Shots (multi color) box on \u20B94,999+ (T&C apply)';
   return null;
 }
+function getRows(){
+  const rows=[];
+  PRODS.forEach(p=>{if(qty[p.id]>0)rows.push({sl:p.id.slice(1),name:p.name,qty:qty[p.id],unit:p.unit,rate:p.price,amt:qty[p.id]*p.price,cat:p.cat});});
+  return rows;
+}
 function updSum(){
-  let total=0,html='';
-  PRODS.forEach(p=>{
-    if(qty[p.id]>0){const s=qty[p.id]*p.price;total+=s;
-      html+=`<div class="si"><span>${CE[p.cat]} ${esc(p.name)} &#xD7;${qty[p.id]}</span><span>${rs(s)}</span></div>`;}
-  });
-  document.getElementById('sum-items').innerHTML=html||'<p class="sum-empty">No items selected yet.</p>';
-  document.getElementById('sum-total').textContent=rs(total);
-  const dn=document.getElementById('disc-note');
-  if(dn)dn.textContent=offerNote(total)||'Factory outlet rates \u00B7 \u20B94,999+ and \u20B99,999+ unlock Diwali offers';
+  const rows=getRows();let total=0,html='';
+  rows.forEach(r=>{total+=r.amt;html+=`<div class="si"><span>${CE[r.cat]} ${esc(r.name)} &#xD7;${r.qty}</span><span>${rs(r.amt)}</span></div>`;});
+  $('sum-items').innerHTML=html||'<p class="sum-empty">No items selected yet.</p>';
+  $('sum-total').textContent=rs(total);
+  const b=getBudget(),bl=$('bud-line');
+  if(b>0&&total>0){const d=b-total;bl.innerHTML='Budget '+rs(b)+' &middot; '+(d>=0?'<b class="ok">'+rs(d)+' left</b>':'<b class="over">over by '+rs(-d)+'</b>');}
+  else if(b>0){bl.innerHTML='Budget '+rs(b);}
+  else bl.textContent='';
+  const dn=$('disc-note');
+  let hint=null;
+  if(total>0&&total<4999&&4999-total<=1500)hint='Add '+rs(4999-total)+' more to get a Juno 25 Shots box (Diwali offer)';
+  else if(total>=4999&&total<9999&&9999-total<=2000)hint='Add '+rs(9999-total)+' more to get a Silk Gift Box (30 items) instead';
+  dn.textContent=hint||offerNote(total)||'Factory outlet rates \u00B7 \u20B94,999+ and \u20B99,999+ unlock Diwali offers';
+  const qo=$('quote-out');if(qo)qo.style.display='none';
 }
 
-function sendWA(i){
-  const name=document.getElementById('cn').value.trim();
-  const phone=document.getElementById('cp').value.trim();
-  const city=document.getElementById('cc').value.trim();
-  const occ=document.getElementById('co').value;
-  const note=document.getElementById('cnote').value.trim();
-  if(!name||!phone){showT('Please enter your name and phone first!');document.getElementById('cn').focus();return;}
-  let items=[],total=0;
-  PRODS.forEach(p=>{if(qty[p.id]>0){const s=qty[p.id]*p.price;total+=s;items.push('  \u2022 '+p.name+' \xd7 '+qty[p.id]+' '+p.unit+' = '+rs(s));}});
-  if(!items.length){showT('Please select at least one product!');return;}
-  const on=offerNote(total);
-  const msg=[
-    '\uD83C\uDF86 *Amutham Mega Crackers \u2014 New Quote Request*','',
-    '\uD83D\uDC64 *Customer:* '+name,'\uD83D\uDCDE *Phone:* '+phone,
-    city?'\uD83D\uDCCD *City:* '+city:null,
-    occ?'\uD83C\uDF89 *Occasion:* '+occ:null,'',
-    '\uD83D\uDCE6 *Order Details:*',...items,'',
-    '\uD83D\uDCB0 *Estimated Total: '+rs(total)+'*',
+/* ---------- generate quote ---------- */
+function buildQuote(){
+  const name=$('cn').value.trim(),phone=$('cp').value.trim();
+  if(!name||!phone){showT('Please enter your name and phone first!');$('cn').scrollIntoView({behavior:'smooth',block:'center'});$('cn').focus();return null;}
+  const rows=getRows();
+  if(!rows.length){showT('Please select at least one product!');return null;}
+  const total=rows.reduce((a,r)=>a+r.amt,0),d=new Date(),z=n=>String(n).padStart(2,'0');
+  return {
+    ref:'AMQ'+String(d.getFullYear()).slice(2)+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes()),
+    date:d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}),
+    name,phone,city:$('cc').value.trim(),occ:$('co').value,note:$('cnote').value.trim(),
+    budget:getBudget(),pref:getPref(),rows,total,offer:offerNote(total)
+  };
+}
+function quoteDocHtml(q){
+  const logo=new URL('images/logo-kuberaa.png',location.href).href;
+  return `<div class="qdoc">
+    <div class="qd-head"><img src="${logo}" alt=""/><div><b>Amutham Mega Crackers</b>
+      <small>Vasantha Fireworks Factory, Sivakasi</small>
+      <small>No. 39/3, Near Naidu hall, Redhills Road, Ambattur, Chennai &ndash; 600053</small>
+      <small>&#x1F4DE; 8122373416 | 7358684740</small></div></div>
+    <div class="qd-meta"><div><b>Quote:</b> ${q.ref}</div><div><b>Date:</b> ${q.date}</div></div>
+    <div><b>Customer:</b> ${esc(q.name)} &nbsp;|&nbsp; <b>Phone:</b> ${esc(q.phone)}${q.city?' &nbsp;|&nbsp; <b>City:</b> '+esc(q.city):''}${q.occ?' &nbsp;|&nbsp; <b>Occasion:</b> '+esc(q.occ):''}</div>
+    <div><b>Preference:</b> ${PREF_LABEL[q.pref]}${q.budget?' &nbsp;|&nbsp; <b>Budget:</b> '+rs(q.budget):''}</div>
+    <table><thead><tr><th>#</th><th>Item</th><th class="r">Qty</th><th class="r">Rate</th><th class="r">Amount</th></tr></thead><tbody>
+    ${q.rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td class="r">${r.qty} ${r.unit}</td><td class="r">${rs(r.rate)}</td><td class="r">${rs(r.amt)}</td></tr>`).join('')}
+    </tbody></table>
+    <div class="tot">Estimated Total: ${rs(q.total)}</div>
+    ${q.budget?`<div class="fine" style="text-align:right">${q.total<=q.budget?rs(q.budget-q.total)+' within your budget':'Over your budget by '+rs(q.total-q.budget)}</div>`:''}
+    ${q.offer?`<div class="offer">${esc(q.offer)}</div>`:''}
+    ${q.note?`<div class="fine"><b>Special request:</b> ${esc(q.note)}</div>`:''}
+    <div class="fine">Rates as per Amutham Mega Crackers factory outlet price list. Final availability and price will be confirmed on WhatsApp.</div>
+  </div>`;
+}
+function generateQuote(){
+  const q=buildQuote();if(!q)return;
+  const out=$('quote-out');
+  out.innerHTML='<h3 style="font-family:var(--display);color:var(--gold);margin-bottom:.8rem">Your Quote is Ready</h3>'+quoteDocHtml(q)+
+   `<div class="qo-btns">
+      <button class="btn btn-wa" onclick="sendQuote(0)">💬 Send to 8122373416</button>
+      <button class="btn btn-wa" onclick="sendQuote(1)">💬 Send to 7358684740</button>
+      <button class="btn btn-ghost" onclick="copyQuote()">📋 Copy text</button>
+      <button class="btn btn-ghost" onclick="printQuote()">🖨 Print / Save PDF</button>
+    </div>`;
+  out.style.display='block';
+  out.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function quoteText(q){
+  return [
+    '\uD83C\uDF86 *Amutham Mega Crackers \u2014 Quote '+q.ref+'*','',
+    '\uD83D\uDC64 *Customer:* '+q.name,'\uD83D\uDCDE *Phone:* '+q.phone,
+    q.city?'\uD83D\uDCCD *City:* '+q.city:null,
+    q.occ?'\uD83C\uDF89 *Occasion:* '+q.occ:null,
+    q.budget?'\uD83D\uDCB0 *Budget:* '+rs(q.budget):null,
+    '\uD83C\uDFAF *Preference:* '+PREF_LABEL[q.pref],'',
+    '\uD83D\uDCE6 *Items:*',
+    ...q.rows.map((r,i)=>'  '+(i+1)+'. '+r.name+' \xd7 '+r.qty+' '+r.unit+' @ '+rs(r.rate)+' = '+rs(r.amt)),'',
+    '\uD83D\uDCB0 *Estimated Total: '+rs(q.total)+'*',
     '   _(Factory outlet rates)_',
-    on?on:null,
-    note?'\n\uD83D\uDCDD *Special Request:* '+note:null,'',
-    '_Please confirm availability and payment details._',
+    q.offer?q.offer:null,
+    q.note?'\n\uD83D\uDCDD *Special Request:* '+q.note:null,'',
+    '_Please confirm availability and payment details._'
   ].filter(l=>l!==null).join('\n');
-  window.open('https://wa.me/'+WA_NUMS[i||0]+'?text='+encodeURIComponent(msg),'_blank');
 }
-
+function sendQuote(i){const q=buildQuote();if(!q)return;window.open('https://wa.me/'+WA_NUMS[i||0]+'?text='+encodeURIComponent(quoteText(q)),'_blank');}
+function copyQuote(){
+  const q=buildQuote();if(!q)return;
+  if(navigator.clipboard)navigator.clipboard.writeText(quoteText(q)).then(()=>showT('Quote copied!'),()=>showT('Could not copy'));
+  else showT('Copy not supported on this browser');
+}
+function printQuote(){
+  const q=buildQuote();if(!q)return;
+  const css='body{font-family:Arial,sans-serif;padding:24px;color:#222}.qdoc{max-width:780px;margin:auto;font-size:13px;line-height:1.5}.qd-head{display:flex;gap:14px;align-items:center;border-bottom:2px solid #8b1a2b;padding-bottom:10px;margin-bottom:10px}.qd-head img{height:62px}.qd-head b{font-size:18px;color:#8b1a2b}.qd-head small{display:block;color:#555}.qd-meta{display:flex;justify-content:space-between;margin-bottom:6px}table{width:100%;border-collapse:collapse;margin:10px 0}th{background:#8b1a2b;color:#fff;text-align:left;padding:6px;font-size:12px}td{padding:5px 6px;border-bottom:1px solid #ddd}.r{text-align:right}.tot{font-size:16px;font-weight:bold;text-align:right;color:#8b1a2b}.offer{background:#fff6dc;border:1px solid #f0d27a;padding:6px 10px;margin-top:8px}.fine{font-size:11px;color:#666;margin-top:8px}';
+  const w=window.open('','_blank');
+  if(!w){showT('Please allow pop-ups to print');return;}
+  w.document.write('<html><head><title>Quote '+q.ref+'</title><style>'+css+'</style></head><body>'+quoteDocHtml(q)+'</body></html>');
+  w.document.close();w.focus();setTimeout(()=>w.print(),500);
+}
 function clearQ(){
   PRODS.forEach(p=>{qty[p.id]=0;});
-  ['cn','cp','cc','cnote'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('co').value='';
-  renderGrids();updSum();showT('Quote cleared');
+  ['cn','cp','cc','cnote','cb'].forEach(id=>$(id).value='');
+  $('co').value='';
+  document.querySelector('input[name="pref"][value="mix"]').checked=true;
+  FS.cat='All';FS.q='';FS.sel=false;$('fc').value='All';$('fq').value='';$('fs').checked=false;
+  renderTable();updSum();showT('Quote cleared');
+}
+function initQuote(){
+  $('fc').innerHTML='<option value="All">All categories</option>'+CATS.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  renderTable();updSum();
+  const qf=$('qfloat'),vis={};
+  if(qf&&'IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{vis[e.target.id||'hero']=e.isIntersecting;});qf.classList.toggle('hide',!!(vis.hero||vis.quote));},{threshold:0.05});
+    const hero=document.querySelector('.hero');if(hero)io.observe(hero);
+    const qs=$('quote');if(qs)io.observe(qs);
+  }
 }
 
 function copyUPI(){
@@ -1045,7 +1249,7 @@ function trackOrder(){
 }
 document.getElementById('track-input')?.addEventListener('keydown',e=>{if(e.key==='Enter')trackOrder();});
 
-initFilters();renderGrids();updSum();
+initQuote();
 </script>
 </body>
 </html>
