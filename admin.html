@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>ASR Pyro Park – Admin Panel</title>
+  <title>Amutham Mega Crackers – Admin Panel</title>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@700;900&display=swap" rel="stylesheet"/>
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -206,7 +206,7 @@
 <!-- LOGIN -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo">🎆 ASR Pyro Park</div>
+    <div class="login-logo">🎆 Amutham Mega Crackers</div>
     <div class="login-sub">Admin &amp; Finance Portal</div>
     <div class="role-tabs">
       <button class="role-tab active" onclick="setRole('admin',this)">🔧 Admin</button>
@@ -223,7 +223,7 @@
 <div class="shell" id="shell">
   <!-- TOPBAR -->
   <div class="topbar">
-    <div class="tb-logo">🎆 ASR Pyro Park</div>
+    <div class="tb-logo">🎆 Amutham Mega Crackers</div>
     <div class="tb-right">
       <span class="tb-role" id="roleLabel">Admin</span>
       <span style="font-size:.82rem;color:var(--muted)" id="userEmail"></span>
@@ -522,18 +522,149 @@ if (!DEMO) {
 
 // ── Default products ───────────────────────────────────────
 const DEFAULT_PRODUCTS = [
-  {id:'p1',emoji:'🧨',name:'Garland (100 Wala)',price:120,unit:'per box',active:true},
-  {id:'p2',emoji:'🧨',name:'Garland (200 Wala)',price:200,unit:'per box',active:true},
-  {id:'p3',emoji:'🌀',name:'Ground Chakkara',price:85,unit:'per box',active:true},
-  {id:'p4',emoji:'🌸',name:'Flower Pots',price:95,unit:'per box',active:true},
-  {id:'p5',emoji:'✨',name:'Sparklers (Green)',price:60,unit:'per box',active:true},
-  {id:'p6',emoji:'🌈',name:'Sparklers (Colour)',price:75,unit:'per box',active:true},
-  {id:'p7',emoji:'💥',name:'Sound Crackers',price:150,unit:'per box',active:true},
-  {id:'p8',emoji:'🚀',name:'Sky Rockets',price:200,unit:'per box',active:true},
-  {id:'p9',emoji:'🎆',name:'Aerial Shells',price:350,unit:'per box',active:true},
-  {id:'p10',emoji:'⚡',name:'Bijli Crackers',price:90,unit:'per box',active:true},
-  {id:'p11',emoji:'⛲',name:'Fancy Fountain',price:180,unit:'per box',active:true},
-  {id:'p12',emoji:'🌟',name:'Phooljhari (Long)',price:110,unit:'per box',active:true},
+  {id:'p1',emoji:'💥',name:"2.75\" Kuruvi",price:23,unit:'per pkt',active:true},
+  {id:'p2',emoji:'💥',name:"3.5 \" Lakshmi / Horse",price:40,unit:'per pkt',active:true},
+  {id:'p3',emoji:'💥',name:"4\" Lakshmi / Spider Man",price:55,unit:'per pkt',active:true},
+  {id:'p4',emoji:'💥',name:"4\" Dlx Lakshmi / Kubera",price:72,unit:'per pkt',active:true},
+  {id:'p5',emoji:'💥',name:"5\" Kubera / Lakshmi",price:120,unit:'per pkt',active:true},
+  {id:'p6',emoji:'⚡',name:"Red Bijili 50's",price:60,unit:'per bag',active:true},
+  {id:'p7',emoji:'⚡',name:"Red Bijili 100's",price:90,unit:'per bag',active:true},
+  {id:'p8',emoji:'⚡',name:"Stipped Bijili 50 Pcs",price:65,unit:'per bag',active:true},
+  {id:'p9',emoji:'⚡',name:"Stipeed Bijili 100 Pcs",price:100,unit:'per bag',active:true},
+  {id:'p10',emoji:'🌟',name:"7\" pencil",price:70,unit:'per box',active:true},
+  {id:'p11',emoji:'🌟',name:"12\" Pencil (10 Pcs)",price:220,unit:'per box',active:true},
+  {id:'p12',emoji:'🌟',name:"1.5' Twinkling Star",price:76,unit:'per box',active:true},
+  {id:'p13',emoji:'🌟',name:"4' Dlx Twinkling Star",price:227,unit:'per box',active:true},
+  {id:'p14',emoji:'🌟',name:"Jil Jil Twinkling Star",price:84,unit:'per pkt',active:true},
+  {id:'p15',emoji:'🌟',name:"Kitkat",price:92,unit:'per box',active:true},
+  {id:'p16',emoji:'🌟',name:"Bada Kitkat",price:105,unit:'per box',active:true},
+  {id:'p17',emoji:'💣',name:"Jug Mug 3000 / Kargil Bomb/Gypsy Bomb (3Ply)",price:270,unit:'per box',active:true},
+  {id:'p18',emoji:'💣',name:"AXN Bomb / Jugmug 5000 / Classic (5Ply)",price:330,unit:'per box',active:true},
+  {id:'p19',emoji:'💣',name:"Titanic Bomb / Digital Bomb / Jurassic Bomb",price:540,unit:'per box',active:true},
+  {id:'p20',emoji:'💣',name:"Mega Bomb",price:750,unit:'per box',active:true},
+  {id:'p21',emoji:'💣',name:"Super Mega",price:825,unit:'per box',active:true},
+  {id:'p22',emoji:'💣',name:"King Bullet Bomb Foils ( 1.25 inch )",price:116,unit:'per box',active:true},
+  {id:'p23',emoji:'🚀',name:"Rocket Bomb",price:168,unit:'per box',active:true},
+  {id:'p24',emoji:'🚀',name:"Navrang Rocket",price:357,unit:'per box',active:true},
+  {id:'p25',emoji:'🚀',name:"Multicolour Rocket",price:378,unit:'per box',active:true},
+  {id:'p26',emoji:'🚀',name:"Air Whisling Rocket",price:420,unit:'per box',active:true},
+  {id:'p27',emoji:'⛲',name:"Assam Apple (1Pcs) Shower Crackling",price:97,unit:'per box',active:true},
+  {id:'p28',emoji:'⛲',name:"4\" Tin Fountain 6 Colour (5Pcs) Packing",price:315,unit:'per tin',active:true},
+  {id:'p29',emoji:'⛲',name:"6\" Tin Fountain 6 Variety Colour",price:525,unit:'per tin',active:true},
+  {id:'p30',emoji:'⛲',name:"9\" Tin Fountain 6 Variety Colour",price:670,unit:'per tin',active:true},
+  {id:'p31',emoji:'⛲',name:"Barath Collection (5Pcs) 5 Variety Colour",price:378,unit:'per box',active:true},
+  {id:'p32',emoji:'⛲',name:"Sky Colour Collection (5Pcs) 5 Variety Colour",price:336,unit:'per box',active:true},
+  {id:'p33',emoji:'⛲',name:"Valenties Days (5Pcs) Crackling King Rider",price:336,unit:'per box',active:true},
+  {id:'p34',emoji:'🎆',name:"7 Shot",price:294,unit:'per box',active:true},
+  {id:'p35',emoji:'🎆',name:"12 Shot Multi Color Ranjinikantha ( Square )",price:462,unit:'per box',active:true},
+  {id:'p36',emoji:'🎆',name:"15 Shot Multi Color Long",price:756,unit:'per box',active:true},
+  {id:'p37',emoji:'🎆',name:"25 Shot Rangeela Multi Color ( Square )",price:945,unit:'per box',active:true},
+  {id:'p38',emoji:'🎆',name:"25 Shot Multi Color Juno ( Long )",price:1050,unit:'per box',active:true},
+  {id:'p39',emoji:'🎆',name:"25 Shot Multi Color Long Legend",price:1155,unit:'per box',active:true},
+  {id:'p40',emoji:'🎆',name:"30 Shot Multi Color",price:1155,unit:'per box',active:true},
+  {id:'p41',emoji:'🎆',name:"50 Shot Multi Color Manasand",price:1820,unit:'per box',active:true},
+  {id:'p42',emoji:'🎆',name:"50 Shot Multi Color Galaxy",price:2050,unit:'per box',active:true},
+  {id:'p43',emoji:'🎆',name:"60 Shot Multi Color",price:2310,unit:'per box',active:true},
+  {id:'p44',emoji:'🎆',name:"100 Shot Multi Color",price:3990,unit:'per box',active:true},
+  {id:'p45',emoji:'🎆',name:"120 Shot Multi Color",price:4620,unit:'per box',active:true},
+  {id:'p46',emoji:'🎆',name:"240 Shot Multi Color",price:9240,unit:'per box',active:true},
+  {id:'p47',emoji:'🎆',name:"500 Shot Multi Color",price:19320,unit:'per box',active:true},
+  {id:'p48',emoji:'🎆',name:"2\" Fancy Set Out",price:5250,unit:'per box',active:true},
+  {id:'p49',emoji:'🎆',name:"52 Mega Set Out",price:6090,unit:'per box',active:true},
+  {id:'p50',emoji:'🎆',name:"1\" Chota Fancy 6 Variety Colours",price:118,unit:'per box',active:true},
+  {id:'p51',emoji:'🎆',name:"2\" Fancy IPL 3 Pcs",price:546,unit:'per box',active:true},
+  {id:'p52',emoji:'🎆',name:"Penta Barath Collection",price:378,unit:'per box',active:true},
+  {id:'p53',emoji:'🎆',name:"2\" Single Pce",price:336,unit:'per box',active:true},
+  {id:'p54',emoji:'🎆',name:"2\" Double Pcs",price:672,unit:'per box',active:true},
+  {id:'p55',emoji:'🎆',name:"3\" Single Pce",price:714,unit:'per box',active:true},
+  {id:'p56',emoji:'🎆',name:"3\" Double Pcs",price:1428,unit:'per box',active:true},
+  {id:'p57',emoji:'🎆',name:"Mini Siren ( 5 Piece )",price:546,unit:'per box',active:true},
+  {id:'p58',emoji:'🎆',name:"Siren ( 3 Piece )",price:756,unit:'per box',active:true},
+  {id:'p59',emoji:'🎆',name:"Small Peacock",price:462,unit:'per pce',active:true},
+  {id:'p60',emoji:'🎆',name:"Bada Peacock",price:1525,unit:'per pce',active:true},
+  {id:'p61',emoji:'🧨',name:"100 Wala",price:140,unit:'per pkt',active:true},
+  {id:'p62',emoji:'🧨',name:"200 Wala",price:280,unit:'per pkt',active:true},
+  {id:'p63',emoji:'🧨',name:"300 Wala",price:420,unit:'per box',active:true},
+  {id:'p64',emoji:'🧨',name:"600 Wala",price:750,unit:'per box',active:true},
+  {id:'p65',emoji:'🧨',name:"1000 Wala",price:1000,unit:'per box',active:true},
+  {id:'p66',emoji:'🧨',name:"2000 Wala",price:2000,unit:'per box',active:true},
+  {id:'p67',emoji:'🧨',name:"3000 Wala",price:3000,unit:'per box',active:true},
+  {id:'p68',emoji:'🧨',name:"5000 Wala",price:5000,unit:'per box',active:true},
+  {id:'p69',emoji:'🧨',name:"10000 Wala",price:10000,unit:'per box',active:true},
+  {id:'p70',emoji:'🧨',name:"1000 Mega Giant",price:2900,unit:'per box',active:true},
+  {id:'p71',emoji:'🧨',name:"600 Mega Giant",price:2100,unit:'per box',active:true},
+  {id:'p72',emoji:'💥',name:"2.75\" x 24 Deluxe",price:135,unit:'per pkt',active:true},
+  {id:'p73',emoji:'💥',name:"2.75\" x 50 Deluxe",price:330,unit:'per pkt',active:true},
+  {id:'p74',emoji:'💥',name:"2.75\" x 100 Deluxe",price:660,unit:'per pkt',active:true},
+  {id:'p75',emoji:'🌀',name:"Chakkar Big (10Pcs)",price:95,unit:'per box',active:true},
+  {id:'p76',emoji:'🌀',name:"Chakkar Big (25Pcs)",price:210,unit:'per box',active:true},
+  {id:'p77',emoji:'🌀',name:"Chakkar Special",price:168,unit:'per box',active:true},
+  {id:'p78',emoji:'🌀',name:"Chakkar Deluxe",price:336,unit:'per box',active:true},
+  {id:'p79',emoji:'🌀',name:"Chakkar Mega",price:504,unit:'per box',active:true},
+  {id:'p80',emoji:'🌀',name:"Spinner Super Deluxe",price:672,unit:'per box',active:true},
+  {id:'p81',emoji:'🌸',name:"Flowerpots Small",price:126,unit:'per box',active:true},
+  {id:'p82',emoji:'🌸',name:"Flowerpots Big",price:168,unit:'per box',active:true},
+  {id:'p83',emoji:'🌸',name:"Flowerpots Special",price:210,unit:'per box',active:true},
+  {id:'p84',emoji:'🌸',name:"Flowerpots Asoka Super",price:294,unit:'per box',active:true},
+  {id:'p85',emoji:'🌸',name:"Flowerpots Asoka Giant",price:357,unit:'per box',active:true},
+  {id:'p86',emoji:'🌸',name:"Flowerpots Deluxe",price:462,unit:'per box',active:true},
+  {id:'p87',emoji:'🌸',name:"Flowerpots Super Deluxe",price:378,unit:'per box',active:true},
+  {id:'p88',emoji:'🌸',name:"Cololurkoti Giant",price:588,unit:'per box',active:true},
+  {id:'p89',emoji:'🌸',name:"MotiMahal (10Pcs)",price:1050,unit:'per box',active:true},
+  {id:'p90',emoji:'🌸',name:"MahaUtsav (5Pcs)",price:1050,unit:'per box',active:true},
+  {id:'p91',emoji:'🌸',name:"Ganga Jamuna / Laila Majnu",price:180,unit:'per box',active:true},
+  {id:'p92',emoji:'⚡',name:"28 Chorsa",price:40,unit:'per pkt',active:true},
+  {id:'p93',emoji:'⚡',name:"56 Chorsa",price:80,unit:'per pkt',active:true},
+  {id:'p94',emoji:'⚡',name:"28 Goa",price:46,unit:'per pkt',active:true},
+  {id:'p95',emoji:'⚡',name:"28 Giant",price:65,unit:'per pkt',active:true},
+  {id:'p96',emoji:'⚡',name:"56 Giant",price:130,unit:'per pkt',active:true},
+  {id:'p97',emoji:'⚡',name:"28 Super Giant",price:76,unit:'per pkt',active:true},
+  {id:'p98',emoji:'⚡',name:"56 Super Giant",price:152,unit:'per pkt',active:true},
+  {id:'p99',emoji:'🆕',name:"Photo Flash (5Pcs)",price:177,unit:'per box',active:true},
+  {id:'p100',emoji:'🆕',name:"1/4Kg Paper Bomb",price:135,unit:'per box',active:true},
+  {id:'p101',emoji:'🆕',name:"1/2 Kg Paper Bomb",price:269,unit:'per box',active:true},
+  {id:'p102',emoji:'🆕',name:"1 Kg Paper Bomb",price:546,unit:'per box',active:true},
+  {id:'p103',emoji:'🆕',name:"Helicopter (5Pcs)",price:265,unit:'per box',active:true},
+  {id:'p104',emoji:'🆕',name:"Butterfly (5Pcs)",price:147,unit:'per box',active:true},
+  {id:'p105',emoji:'🆕',name:"Butterfly(10Pcs)",price:252,unit:'per box',active:true},
+  {id:'p106',emoji:'🆕',name:"Pambaram (5Pcs)",price:180,unit:'per box',active:true},
+  {id:'p107',emoji:'🆕',name:"4x4 Colourwheel",price:420,unit:'per box',active:true},
+  {id:'p108',emoji:'🆕',name:"Drone ( 5 Pcs )",price:420,unit:'per box',active:true},
+  {id:'p109',emoji:'✨',name:"7Cm Electric",price:20,unit:'per box',active:true},
+  {id:'p110',emoji:'✨',name:"7Cm Colour",price:22,unit:'per box',active:true},
+  {id:'p111',emoji:'✨',name:"7Cm Green",price:30,unit:'per box',active:true},
+  {id:'p112',emoji:'✨',name:"7Cm Red",price:34,unit:'per box',active:true},
+  {id:'p113',emoji:'✨',name:"7Cm Multimix",price:34,unit:'per box',active:true},
+  {id:'p114',emoji:'✨',name:"10Cm Ganga Electric",price:45,unit:'per box',active:true},
+  {id:'p115',emoji:'✨',name:"10Cm Ganga Colour",price:50,unit:'per box',active:true},
+  {id:'p116',emoji:'✨',name:"10Cm Ganga Green",price:60,unit:'per box',active:true},
+  {id:'p117',emoji:'✨',name:"10Cm Ganga Red",price:70,unit:'per box',active:true},
+  {id:'p118',emoji:'✨',name:"10Cm Ganga Multimix",price:70,unit:'per box',active:true},
+  {id:'p119',emoji:'✨',name:"12Cm Electric",price:65,unit:'per box',active:true},
+  {id:'p120',emoji:'✨',name:"12Cm Colour",price:70,unit:'per box',active:true},
+  {id:'p121',emoji:'✨',name:"12Cm Green",price:80,unit:'per box',active:true},
+  {id:'p122',emoji:'✨',name:"12Cm Red",price:85,unit:'per box',active:true},
+  {id:'p123',emoji:'✨',name:"12Cm Multimix",price:85,unit:'per box',active:true},
+  {id:'p124',emoji:'✨',name:"12Cm Fancy Sparklers 50-50 / Silver Rain / London",price:105,unit:'per box',active:true},
+  {id:'p125',emoji:'✨',name:"15Cm Electric",price:105,unit:'per box',active:true},
+  {id:'p126',emoji:'✨',name:"15Cm Colour",price:110,unit:'per box',active:true},
+  {id:'p127',emoji:'✨',name:"15Cm Green",price:130,unit:'per box',active:true},
+  {id:'p128',emoji:'✨',name:"15Cm Red",price:135,unit:'per box',active:true},
+  {id:'p129',emoji:'✨',name:"15Cm Multicolour",price:135,unit:'per box',active:true},
+  {id:'p130',emoji:'✨',name:"30Cm Electric",price:110,unit:'per box',active:true},
+  {id:'p131',emoji:'✨',name:"30Cm Colour",price:120,unit:'per box',active:true},
+  {id:'p132',emoji:'✨',name:"30Cm Green",price:135,unit:'per box',active:true},
+  {id:'p133',emoji:'✨',name:"30Cm Red",price:140,unit:'per box',active:true},
+  {id:'p134',emoji:'✨',name:"30Cm Multimix",price:140,unit:'per box',active:true},
+  {id:'p135',emoji:'✨',name:"55Cm Electric",price:400,unit:'per pcs',active:true},
+  {id:'p136',emoji:'✨',name:"55Cm Multicolour",price:550,unit:'per pcs',active:true},
+  {id:'p137',emoji:'🎁',name:"UNIBIC Gift Box - 25 Items",price:850,unit:'per box',active:true},
+  {id:'p138',emoji:'🎁',name:"SILK Gift Box - 30 Items",price:1020,unit:'per box',active:true},
+  {id:'p139',emoji:'🎁',name:"BALAJI Gift Box 30 Items",price:1020,unit:'per box',active:true},
+  {id:'p140',emoji:'🎁',name:"DARK FANTASY Gift Box - 35 Items",price:1280,unit:'per box',active:true},
+  {id:'p141',emoji:'🎁',name:"BOURNVILLE Gift Box - 40 Items",price:1480,unit:'per box',active:true},
+  {id:'p142',emoji:'🎁',name:"VIP Gift Box - 50 Items",price:1980,unit:'per box',active:true},
+  {id:'p143',emoji:'🎁',name:"Family JUMBO Pack - 65 Items",price:2800,unit:'per box',active:true},
 ];
 
 // ── Local state (demo + cache) ─────────────────────────────
@@ -550,16 +681,16 @@ let STATE = {
 
 function loadState(){
   STATE.orders   = JSON.parse(localStorage.getItem('asr_orders') || '[]');
-  STATE.products = JSON.parse(localStorage.getItem('asr_products') || JSON.stringify(DEFAULT_PRODUCTS));
-  STATE.inventory= JSON.parse(localStorage.getItem('asr_inventory') || '{}');
+  STATE.products = JSON.parse(localStorage.getItem('amc_products') || JSON.stringify(DEFAULT_PRODUCTS));
+  STATE.inventory= JSON.parse(localStorage.getItem('amc_inventory') || '{}');
   // seed inventory
   STATE.products.forEach(p=>{ if(STATE.inventory[p.id]==null) STATE.inventory[p.id]=50; });
 }
 
 function saveState(){
   localStorage.setItem('asr_orders',    JSON.stringify(STATE.orders));
-  localStorage.setItem('asr_products',  JSON.stringify(STATE.products));
-  localStorage.setItem('asr_inventory', JSON.stringify(STATE.inventory));
+  localStorage.setItem('amc_products',  JSON.stringify(STATE.products));
+  localStorage.setItem('amc_inventory', JSON.stringify(STATE.inventory));
 }
 
 // ── Order number generator ─────────────────────────────────
@@ -568,7 +699,7 @@ function genOrderNum(){
   const yy = String(d.getFullYear()).slice(2);
   const mm = String(d.getMonth()+1).padStart(2,'0');
   const seq = String(STATE.orders.length+1).padStart(4,'0');
-  return `ASR${yy}${mm}${seq}`;
+  return `AMC${yy}${mm}${seq}`;
 }
 
 // ── Auth ───────────────────────────────────────────────────
@@ -948,9 +1079,9 @@ function showInvoice(oid){
   <div class="invoice-preview" id="inv-printable">
     <div class="inv-header">
       <div>
-        <div class="inv-company">🎆 ASR Pyro Park</div>
-        <div style="font-size:.8rem;color:#555;margin-top:.3rem;">3/1255/29, Selvam Nagar, Sivakasi, Tamil Nadu</div>
-        <div style="font-size:.8rem;color:#555;">📞 9962020890 | 💬 9962020870</div>
+        <div class="inv-company">🎆 Amutham Mega Crackers</div>
+        <div style="font-size:.8rem;color:#555;margin-top:.3rem;">No. 39/3, Near Naidu hall, Redhills Road, Ambattur, Chennai – 600053 | Vasantha Fireworks Factory, Sivakasi</div>
+        <div style="font-size:.8rem;color:#555;">📞 8122373416 | 📞 7358684740</div>
         <div style="font-size:.8rem;color:#555;">UPI: nadimani@icici</div>
       </div>
       <div class="inv-meta">
@@ -984,7 +1115,7 @@ function showInvoice(oid){
       <div class="inv-total-row inv-grand"><span>Balance Due</span><span>₹${fmt(o.total-o.advance)}</span></div>
     </div>
     <div class="inv-footer">
-      Thank you for your order! Pay balance via UPI: <strong>nadimani@icici</strong> | Questions? WhatsApp 9962020890<br/>
+      Thank you for your order! Pay balance via UPI: <strong>nadimani@icici</strong> | Questions? WhatsApp 8122373416 / 7358684740<br/>
       <em>This is a computer-generated quotation invoice. All orders confirmed via WhatsApp.</em>
     </div>
   </div>`;
@@ -1004,7 +1135,7 @@ function printInvoice(){
 function sendInvoiceWA(){
   const o=STATE.orders.find(o=>o.id===STATE.viewOrderId);
   if(!o)return;
-  const msg=`🧾 *Invoice – ASR Pyro Park*\n\nOrder: *${o.orderNum}*\nCustomer: ${o.name}\nTotal: ₹${fmt(o.total)}\nAdvance: ₹${fmt(o.advance)}\nBalance Due: ₹${fmt(o.total-o.advance)}\n\nPay balance via UPI: *nadimani@icici*\nQuestions? Call 9962020890`;
+  const msg=`🧾 *Invoice – Amutham Mega Crackers*\n\nOrder: *${o.orderNum}*\nCustomer: ${o.name}\nTotal: ₹${fmt(o.total)}\nAdvance: ₹${fmt(o.advance)}\nBalance Due: ₹${fmt(o.total-o.advance)}\n\nPay balance via UPI: *nadimani@icici*\nQuestions? Call 8122373416`;
   window.open('https://wa.me/91'+o.phone+'?text='+encodeURIComponent(msg),'_blank');
 }
 function sendInvoiceWAById(id){STATE.viewOrderId=id;sendInvoiceWA();}
@@ -1074,7 +1205,7 @@ function exportCSV(){
   const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
   const a=document.createElement('a');
   a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='ASR_Pyro_Report_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.download='Amutham_Report_'+new Date().toISOString().slice(0,10)+'.csv';
   a.click(); showToast('CSV exported!');
 }
 
@@ -1132,11 +1263,11 @@ function toggleProduct(id,active){
 function sendWAStatus(id){
   const o=STATE.orders.find(o=>o.id===id);if(!o)return;
   const msgs={
-    Pending:`Hi ${o.name}! Your order *${o.orderNum}* has been received. We'll confirm shortly.\n\n– ASR Pyro Park 🎆`,
-    Confirmed:`Hi ${o.name}! Your order *${o.orderNum}* is *confirmed* ✅. We're preparing your crackers.\n\nTotal: ₹${fmt(o.total)} | Balance Due: ₹${fmt(o.total-o.advance)}\n\n– ASR Pyro Park 🎆`,
-    Packed:`Hi ${o.name}! Your order *${o.orderNum}* is *packed* 📦 and ready for dispatch.\n\n– ASR Pyro Park 🎆`,
-    Shipped:`Hi ${o.name}! Your order *${o.orderNum}* has been *shipped* 🚚. You'll receive it soon.\n\nBalance Due on delivery: ₹${fmt(o.total-o.advance)}\n\n– ASR Pyro Park 🎆`,
-    Delivered:`Hi ${o.name}! Your order *${o.orderNum}* has been *delivered* 🎆. Enjoy your celebration!\n\nThank you for choosing ASR Pyro Park 🙏`,
+    Pending:`Hi ${o.name}! Your order *${o.orderNum}* has been received. We'll confirm shortly.\n\n– Amutham Mega Crackers 🎆`,
+    Confirmed:`Hi ${o.name}! Your order *${o.orderNum}* is *confirmed* ✅. We're preparing your crackers.\n\nTotal: ₹${fmt(o.total)} | Balance Due: ₹${fmt(o.total-o.advance)}\n\n– Amutham Mega Crackers 🎆`,
+    Packed:`Hi ${o.name}! Your order *${o.orderNum}* is *packed* 📦 and ready for dispatch.\n\n– Amutham Mega Crackers 🎆`,
+    Shipped:`Hi ${o.name}! Your order *${o.orderNum}* has been *shipped* 🚚. You'll receive it soon.\n\nBalance Due on delivery: ₹${fmt(o.total-o.advance)}\n\n– Amutham Mega Crackers 🎆`,
+    Delivered:`Hi ${o.name}! Your order *${o.orderNum}* has been *delivered* 🎆. Enjoy your celebration!\n\nThank you for choosing Amutham Mega Crackers 🙏`,
   };
   const msg=msgs[o.status]||`Order update for *${o.orderNum}*: Status is now *${o.status}*.`;
   window.open('https://wa.me/91'+o.phone+'?text='+encodeURIComponent(msg),'_blank');
@@ -1158,13 +1289,13 @@ document.getElementById('om-advance').addEventListener('input',calcOrderTotal);
 function seedDemo(){
   if(STATE.orders.length>0)return;
   const demoOrders=[
-    {id:'ord_1',orderNum:'ASR2510001',name:'Ravi Kumar',phone:'9876543210',city:'Chennai',occasion:'Diwali',
+    {id:'ord_1',orderNum:'AMC2610001',name:'Ravi Kumar',phone:'9876543210',city:'Chennai',occasion:'Diwali',
      items:[{id:'p1',name:'Garland (100 Wala)',emoji:'🧨',price:120,qty:5},{id:'p8',name:'Sky Rockets',emoji:'🚀',price:200,qty:3}],
      total:1200,advance:500,status:'Shipped',createdAt:Date.now()-3*86400000,updatedAt:Date.now()-86400000,notes:''},
-    {id:'ord_2',orderNum:'ASR2510002',name:'Priya Sharma',phone:'9876500001',city:'Coimbatore',occasion:'Wedding',
+    {id:'ord_2',orderNum:'AMC2610002',name:'Priya Sharma',phone:'9876500001',city:'Coimbatore',occasion:'Wedding',
      items:[{id:'p9',name:'Aerial Shells',emoji:'🎆',price:350,qty:4},{id:'p11',name:'Fancy Fountain',emoji:'⛲',price:180,qty:6}],
      total:2480,advance:1000,status:'Confirmed',createdAt:Date.now()-86400000,updatedAt:Date.now()-3600000,notes:''},
-    {id:'ord_3',orderNum:'ASR2510003',name:'Murugan S',phone:'9600000001',city:'Madurai',occasion:'Diwali',
+    {id:'ord_3',orderNum:'AMC2610003',name:'Murugan S',phone:'9600000001',city:'Madurai',occasion:'Diwali',
      items:[{id:'p5',name:'Sparklers (Green)',emoji:'✨',price:60,qty:10},{id:'p6',name:'Sparklers (Colour)',emoji:'🌈',price:75,qty:8}],
      total:1200,advance:0,status:'Pending',createdAt:Date.now()-1800000,updatedAt:Date.now()-1800000,notes:'COD requested'},
   ];
