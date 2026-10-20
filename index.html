@@ -412,6 +412,15 @@
     .pill.tel{background:linear-gradient(#FFE88A,#F5C842);color:#4a0818;border:2px solid #C9962B}
     @media(max-width:640px){.mast{padding:1rem .8rem .9rem}.mast::before,.mast::after{display:none}.mast-contact{max-width:none;width:100%}}
     .mast-title .am,.qd-head .qa{text-transform:uppercase;letter-spacing:.05em}
+    /* ===== LARGER ITEM LIST + QUOTE TEXT ===== */
+    .ptable{font-size:1.09rem} .ptable th{font-size:.9rem} .ptable td{padding:.6rem .7rem}
+    .ptable tr.ch td{font-size:1.05rem} .ptable td.c-rt small{font-size:.85rem}
+    .stp button{width:32px;height:32px;font-size:1.2rem} .stp input{width:62px;font-size:1.05rem;padding:.4rem .2rem}
+    .pcount{font-size:.95rem} .tbl-wrap{max-height:680px}
+    .si{font-size:1.05rem} .total-row{font-size:1.3rem} .q-summary h3{font-size:1.15rem}
+    .disc-note,.save-line,.bud-line{font-size:.98rem} .sum-empty{font-size:1rem}
+    .qdoc{font-size:1.1rem} .qdoc th{font-size:.95rem} .qdoc .tot{font-size:1.4rem} .qdoc .fine{font-size:.95rem} .qd-head small{font-size:.95rem}
+    @media(max-width:620px){.ptable{font-size:1rem}.ptable td{padding:.5rem .35rem}.ptable th{padding:.5rem .35rem;font-size:.8rem}.stp button{width:30px;height:30px}.stp input{width:46px}}
   </style>
 </head>
 <body>
@@ -943,7 +952,7 @@ function copyQuote(){
 }
 function printQuote(){
   const q=buildQuote();if(!q)return;
-  const css='body{font-family:Arial,sans-serif;padding:24px;color:#222}.qdoc{max-width:780px;margin:auto;font-size:13px;line-height:1.5}.qd-head{display:flex;gap:14px;align-items:center;border-bottom:2px solid #8b1a2b;padding-bottom:10px;margin-bottom:10px}.qd-head img{height:62px}.qd-head b{font-family:Georgia,serif;font-size:21px;color:#7B1020}.qd-head .qm{color:#14532D;letter-spacing:.1em;font-size:15px}.qd-head .qa{text-transform:uppercase}.qd-head small{display:block;color:#555}.qd-meta{display:flex;justify-content:space-between;margin-bottom:6px}table{width:100%;border-collapse:collapse;margin:10px 0}th{background:#8b1a2b;color:#fff;text-align:left;padding:6px;font-size:12px}td{padding:5px 6px;border-bottom:1px solid #ddd}.r{text-align:right}.tot{font-size:16px;font-weight:bold;text-align:right;color:#8b1a2b}.offer{background:#fff6dc;border:1px solid #f0d27a;padding:6px 10px;margin-top:8px}.fine{font-size:11px;color:#666;margin-top:8px}';
+  const css='body{font-family:Arial,sans-serif;padding:24px;color:#222}.qdoc{max-width:780px;margin:auto;font-size:17px;line-height:1.5}.qd-head{display:flex;gap:14px;align-items:center;border-bottom:2px solid #8b1a2b;padding-bottom:10px;margin-bottom:10px}.qd-head img{height:62px}.qd-head b{font-family:Georgia,serif;font-size:21px;color:#7B1020}.qd-head .qm{color:#14532D;letter-spacing:.1em;font-size:15px}.qd-head .qa{text-transform:uppercase}.qd-head small{display:block;color:#555}.qd-meta{display:flex;justify-content:space-between;margin-bottom:6px}table{width:100%;border-collapse:collapse;margin:10px 0}th{background:#8b1a2b;color:#fff;text-align:left;padding:8px;font-size:15px}td{padding:7px 8px;border-bottom:1px solid #ddd}.r{text-align:right}.tot{font-size:21px;font-weight:bold;text-align:right;color:#8b1a2b}.offer{background:#fff6dc;border:1px solid #f0d27a;padding:6px 10px;margin-top:8px}.fine{font-size:14px;color:#666;margin-top:8px}';
   const w=window.open('','_blank');
   if(!w){showT('Please allow pop-ups to print');return;}
   w.document.write('<html><head><title>Quote '+q.ref+'</title><style>'+css+'</style></head><body>'+quoteDocHtml(q)+'</body></html>');
