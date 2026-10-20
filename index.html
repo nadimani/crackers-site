@@ -313,6 +313,25 @@
     .qdoc .offer{background:#fff6dc;border:1px solid #f0d27a;border-radius:6px;padding:.5rem .7rem;margin-top:.6rem}
     .qdoc .fine{font-size:.75rem;color:#666;margin-top:.7rem}
     .qo-btns{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1rem}
+
+    /* 50% OFF + POPUP */
+    .promo{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.8);align-items:center;justify-content:center;padding:1rem}
+    .promo-card{position:relative;max-width:430px;width:100%;text-align:center;border-radius:26px;padding:1.5rem 1.2rem 1.1rem;color:#4a0010;border:4px solid #fff3b0;background:radial-gradient(circle at 50% 28%,#ffe600 0%,#ffa200 40%,#ff3d00 74%,#b5001a 100%);box-shadow:0 0 0 6px rgba(255,212,0,.35),0 0 80px rgba(255,140,0,.95);animation:promopop .55s cubic-bezier(.2,1.4,.4,1)}
+    @keyframes promopop{from{transform:scale(.55);opacity:0}to{transform:scale(1);opacity:1}}
+    .promo-x{position:absolute;top:.5rem;right:.7rem;background:#7a0019;color:#fff;border:none;border-radius:50%;width:34px;height:34px;font-size:1.4rem;line-height:1;cursor:pointer}
+    .promo-top{font-weight:900;letter-spacing:.18em;font-size:.95rem;color:#7a0019}
+    .promo-big{font-family:var(--display);font-weight:900;color:#fff;line-height:.95;text-shadow:3px 3px 0 #b5001a,6px 6px 0 rgba(0,0,0,.25);margin:.2rem 0}
+    .promo-big span{font-size:clamp(5rem,26vw,8rem)} .promo-big small{display:block;font-size:clamp(2.2rem,12vw,3.4rem);letter-spacing:.12em}
+    .promo-sub{font-weight:900;font-size:1.05rem;color:#4a0010;margin-bottom:.8rem}
+    .promo-gifts{display:grid;gap:.45rem;margin-bottom:.9rem}
+    .promo-gifts div{background:rgba(255,255,255,.88);border-radius:12px;padding:.5rem .6rem;font-size:.92rem;font-weight:700;color:#7a0019}
+    .promo-cta{display:block;background:#7a0019;color:#ffe45c;font-weight:900;font-size:1.15rem;padding:.9rem 1rem;border-radius:14px;box-shadow:0 5px 0 #3d000c;animation:pulse 1.8s ease-in-out infinite}
+    .promo-fine{font-size:.72rem;margin-top:.7rem;color:#5a0012;font-weight:600}
+    .save-line{font-size:.8rem;color:#2ECC71;margin-top:.4rem;font-weight:700}
+    .ptable s{color:var(--muted)} .ptable td.c-rt{color:#ffd400}
+    .offer-card.big{background:linear-gradient(135deg,#ff3d00,#ffa200);border-color:#ffe600}
+    .offer-card.big .ob,.offer-card.big .og,.offer-card.big .ov{color:#fff}
+    @media(max-width:620px){.ptable .c-mrp,.ptable th.h-mrp{display:none}}
   </style>
 </head>
 <body>
@@ -671,7 +690,7 @@
     </h1>
     
     <p class="hero-sub">Factory outlet crackers &amp; fireworks for Diwali, weddings &amp; all festivals. We sell only CSIR-NEERI green crackers — Less Pollution, More Celebration.</p>
-    <a href="#offers" class="badge">🎁 Diwali Special Offers — Tap to see</a>
+    <a href="#offers" class="badge">🔥 FLAT 50% OFF — Diwali Special Offers</a>
     <p class="hero-tag">Tell us your budget &amp; what you like &mdash; get a ready quote in a minute.</p>
     <div class="hero-btns">
       <a href="#quote" class="btn btn-fire btn-xl">📋 Build My Quote</a>
@@ -740,6 +759,7 @@
     <p class="sec-sub">Shop more, get a bonus box. T&amp;C apply.</p>
     <div class="offer-wrap">
       <div class="offer-cards">
+        <div class="offer-card big"><div class="ov">Diwali 2026</div><div class="ob">FLAT 50% OFF</div><div class="og">on all crackers &mdash; gift boxes at net rate</div></div>
         <div class="offer-card">
           <div class="ov">On purchase value of</div>
           <div class="ob">&#x20B9;4,999/-</div>
@@ -816,12 +836,12 @@
           </div>
           <div class="tbl-wrap">
             <table class="ptable">
-              <thead><tr><th class="h-sl">No.</th><th>Item</th><th>Rate</th><th>Qty</th><th class="r h-am">Amount</th></tr></thead>
+              <thead><tr><th class="h-sl">No.</th><th>Item</th><th class="h-mrp">List Rate</th><th>50% Off Price</th><th>Qty</th><th class="r h-am">Amount</th></tr></thead>
               <tbody id="ptbody"></tbody>
             </table>
           </div>
-          <p style="font-size:.76rem;color:var(--muted);margin-bottom:1rem">Factory outlet rates in &#x20B9;. Gift boxes are net rate, no discount.
-            <a href="Amutham_Price_List.pdf" target="_blank" download style="color:var(--gold)">⬇ Download price list (PDF)</a></p>
+          <p style="font-size:.76rem;color:var(--muted);margin-bottom:1rem">Prices in &#x20B9;. 50% Diwali discount on all items except gift boxes (net rate).
+            <a href="Amutham_Price_List.pdf" target="_blank" download style="color:var(--gold)">⬇ Download price list (PDF, list rates)</a></p>
         </div>
 
         <div class="fg"><label>Special Requests (optional)</label><textarea id="cnote" placeholder="Any specific requirements, brands, or custom bundles?"></textarea></div>
@@ -830,9 +850,10 @@
       <div class="q-summary">
         <h3>📋 Quote Summary</h3>
         <div id="sum-items"><p class="sum-empty">No items selected yet.</p></div>
-        <div class="total-row"><span>Estimated Total</span><span id="sum-total">&#x20B9;0</span></div>
+        <div class="total-row"><span>Total after 50% off</span><span id="sum-total">&#x20B9;0</span></div>
+        <p class="save-line" id="save-line"></p>
         <p class="bud-line" id="bud-line"></p>
-        <p class="disc-note" id="disc-note">Factory outlet rates</p>
+        <p class="disc-note" id="disc-note">50% Diwali discount applied</p>
         <div style="margin-top:1.1rem;display:grid;gap:.6rem">
           <button class="btn btn-fire" style="width:100%" onclick="generateQuote()">📋 Generate Quote</button>
           <button class="btn btn-ghost" style="width:100%" onclick="clearQ()">🗑 Clear</button>
@@ -940,6 +961,17 @@
 </footer>
 
 <a class="quote-float" id="qfloat" href="#quote">📋 Build My Quote</a>
+<div id="promo" class="promo" role="dialog" aria-modal="true" aria-label="Diwali 50% off" onclick="if(event.target===this)closePromo()">
+  <div class="promo-card">
+    <button class="promo-x" onclick="closePromo()" aria-label="Close">&times;</button>
+    <div class="promo-top">&#x1FA94; HAPPY DIWALI 2026 &#x1FA94;</div>
+    <div class="promo-big"><span>50%</span><small>OFF</small></div>
+    <div class="promo-sub">FLAT 50% DISCOUNT ON ALL CRACKERS</div>
+    <div class="promo-gifts"><div>&#x1F381; Shop &#x20B9;4,999+ &rarr; get Juno 25 Shots</div><div>&#x1F381; Shop &#x20B9;9,999+ &rarr; get Silk Gift Box (30 items)</div></div>
+    <a href="#quote" class="promo-cta" onclick="closePromo()">&#x1F4CB; Build My Quote</a>
+    <div class="promo-fine">Gift boxes at net rate &middot; CSIR-NEERI green crackers only &middot; T&amp;C apply</div>
+  </div>
+</div>
 <!-- FLOAT WA -->
 <a class="wa-float" href="https://wa.me/918122373416?text=Hi%20Amutham%20Mega%20Crackers!%20I%20want%20to%20enquire." target="_blank">💬</a>
 <div class="toast" id="toast"></div>
@@ -948,6 +980,7 @@
 /* Products — Amutham Mega Crackers factory outlet price list (Oct 2026) */
 const CE={"One Sound Crackers": "💥", "Bijili Crackers": "⚡", "Children's Special": "🌟", "Atom Bombs Green": "💣", "Atom Bombs Foils": "💣", "Rockets": "🚀", "Special Varieties": "⛲", "Fancy Items": "🎆", "Garland Crackers": "🧨", "Deluxe Crackers": "💥", "Ground Chakkars": "🌀", "Flower Pots": "🌸", "Electric Crackers Chorsa": "⚡", "Electric Crackers Giant": "⚡", "New Arrivals": "🆕", "Sparklers": "✨", "Gift Boxes (Net Rate, No Discount)": "🎁"};
 const PRODS=[{"id":"p1","cat":"One Sound Crackers","name":"2.75\" Kuruvi","price":23,"unit":"Pkt"},{"id":"p2","cat":"One Sound Crackers","name":"3.5 \" Lakshmi / Horse","price":40,"unit":"Pkt"},{"id":"p3","cat":"One Sound Crackers","name":"4\" Lakshmi / Spider Man","price":55,"unit":"Pkt"},{"id":"p4","cat":"One Sound Crackers","name":"4\" Dlx Lakshmi / Kubera","price":72,"unit":"Pkt"},{"id":"p5","cat":"One Sound Crackers","name":"5\" Kubera / Lakshmi","price":120,"unit":"Pkt"},{"id":"p6","cat":"Bijili Crackers","name":"Red Bijili 50's","price":60,"unit":"Bag"},{"id":"p7","cat":"Bijili Crackers","name":"Red Bijili 100's","price":90,"unit":"Bag"},{"id":"p8","cat":"Bijili Crackers","name":"Stipped Bijili 50 Pcs","price":65,"unit":"Bag"},{"id":"p9","cat":"Bijili Crackers","name":"Stipeed Bijili 100 Pcs","price":100,"unit":"Bag"},{"id":"p10","cat":"Children's Special","name":"7\" pencil","price":70,"unit":"Box"},{"id":"p11","cat":"Children's Special","name":"12\" Pencil (10 Pcs)","price":220,"unit":"Box"},{"id":"p12","cat":"Children's Special","name":"1.5' Twinkling Star","price":76,"unit":"Box"},{"id":"p13","cat":"Children's Special","name":"4' Dlx Twinkling Star","price":227,"unit":"Box"},{"id":"p14","cat":"Children's Special","name":"Jil Jil Twinkling Star","price":84,"unit":"Pkt"},{"id":"p15","cat":"Children's Special","name":"Kitkat","price":92,"unit":"Box"},{"id":"p16","cat":"Children's Special","name":"Bada Kitkat","price":105,"unit":"Box"},{"id":"p17","cat":"Atom Bombs Green","name":"Jug Mug 3000 / Kargil Bomb/Gypsy Bomb (3Ply)","price":270,"unit":"Box"},{"id":"p18","cat":"Atom Bombs Green","name":"AXN Bomb / Jugmug 5000 / Classic (5Ply)","price":330,"unit":"Box"},{"id":"p19","cat":"Atom Bombs Green","name":"Titanic Bomb / Digital Bomb / Jurassic Bomb","price":540,"unit":"Box"},{"id":"p20","cat":"Atom Bombs Green","name":"Mega Bomb","price":750,"unit":"Box"},{"id":"p21","cat":"Atom Bombs Green","name":"Super Mega","price":825,"unit":"Box"},{"id":"p22","cat":"Atom Bombs Foils","name":"King Bullet Bomb Foils ( 1.25 inch )","price":116,"unit":"Box"},{"id":"p23","cat":"Rockets","name":"Rocket Bomb","price":168,"unit":"Box"},{"id":"p24","cat":"Rockets","name":"Navrang Rocket","price":357,"unit":"Box"},{"id":"p25","cat":"Rockets","name":"Multicolour Rocket","price":378,"unit":"Box"},{"id":"p26","cat":"Rockets","name":"Air Whisling Rocket","price":420,"unit":"Box"},{"id":"p27","cat":"Special Varieties","name":"Assam Apple (1Pcs) Shower Crackling","price":97,"unit":"Box"},{"id":"p28","cat":"Special Varieties","name":"4\" Tin Fountain 6 Colour (5Pcs) Packing","price":315,"unit":"Tin"},{"id":"p29","cat":"Special Varieties","name":"6\" Tin Fountain 6 Variety Colour","price":525,"unit":"Tin"},{"id":"p30","cat":"Special Varieties","name":"9\" Tin Fountain 6 Variety Colour","price":670,"unit":"Tin"},{"id":"p31","cat":"Special Varieties","name":"Barath Collection (5Pcs) 5 Variety Colour","price":378,"unit":"Box"},{"id":"p32","cat":"Special Varieties","name":"Sky Colour Collection (5Pcs) 5 Variety Colour","price":336,"unit":"Box"},{"id":"p33","cat":"Special Varieties","name":"Valenties Days (5Pcs) Crackling King Rider","price":336,"unit":"Box"},{"id":"p34","cat":"Fancy Items","name":"7 Shot","price":294,"unit":"Box"},{"id":"p35","cat":"Fancy Items","name":"12 Shot Multi Color Ranjinikantha ( Square )","price":462,"unit":"Box"},{"id":"p36","cat":"Fancy Items","name":"15 Shot Multi Color Long","price":756,"unit":"Box"},{"id":"p37","cat":"Fancy Items","name":"25 Shot Rangeela Multi Color ( Square )","price":945,"unit":"Box"},{"id":"p38","cat":"Fancy Items","name":"25 Shot Multi Color Juno ( Long )","price":1050,"unit":"Box"},{"id":"p39","cat":"Fancy Items","name":"25 Shot Multi Color Long Legend","price":1155,"unit":"Box"},{"id":"p40","cat":"Fancy Items","name":"30 Shot Multi Color","price":1155,"unit":"Box"},{"id":"p41","cat":"Fancy Items","name":"50 Shot Multi Color Manasand","price":1820,"unit":"Box"},{"id":"p42","cat":"Fancy Items","name":"50 Shot Multi Color Galaxy","price":2050,"unit":"Box"},{"id":"p43","cat":"Fancy Items","name":"60 Shot Multi Color","price":2310,"unit":"Box"},{"id":"p44","cat":"Fancy Items","name":"100 Shot Multi Color","price":3990,"unit":"Box"},{"id":"p45","cat":"Fancy Items","name":"120 Shot Multi Color","price":4620,"unit":"Box"},{"id":"p46","cat":"Fancy Items","name":"240 Shot Multi Color","price":9240,"unit":"Box"},{"id":"p47","cat":"Fancy Items","name":"500 Shot Multi Color","price":19320,"unit":"Box"},{"id":"p48","cat":"Fancy Items","name":"2\" Fancy Set Out","price":5250,"unit":"Box"},{"id":"p49","cat":"Fancy Items","name":"52 Mega Set Out","price":6090,"unit":"Box"},{"id":"p50","cat":"Fancy Items","name":"1\" Chota Fancy 6 Variety Colours","price":118,"unit":"Box"},{"id":"p51","cat":"Fancy Items","name":"2\" Fancy IPL 3 Pcs","price":546,"unit":"Box"},{"id":"p52","cat":"Fancy Items","name":"Penta Barath Collection","price":378,"unit":"Box"},{"id":"p53","cat":"Fancy Items","name":"2\" Single Pce","price":336,"unit":"Box"},{"id":"p54","cat":"Fancy Items","name":"2\" Double Pcs","price":672,"unit":"Box"},{"id":"p55","cat":"Fancy Items","name":"3\" Single Pce","price":714,"unit":"Box"},{"id":"p56","cat":"Fancy Items","name":"3\" Double Pcs","price":1428,"unit":"Box"},{"id":"p57","cat":"Fancy Items","name":"Mini Siren ( 5 Piece )","price":546,"unit":"Box"},{"id":"p58","cat":"Fancy Items","name":"Siren ( 3 Piece )","price":756,"unit":"Box"},{"id":"p59","cat":"Fancy Items","name":"Small Peacock","price":462,"unit":"Pce"},{"id":"p60","cat":"Fancy Items","name":"Bada Peacock","price":1525,"unit":"Pce"},{"id":"p61","cat":"Garland Crackers","name":"100 Wala","price":140,"unit":"Pkt"},{"id":"p62","cat":"Garland Crackers","name":"200 Wala","price":280,"unit":"Pkt"},{"id":"p63","cat":"Garland Crackers","name":"300 Wala","price":420,"unit":"Box"},{"id":"p64","cat":"Garland Crackers","name":"600 Wala","price":750,"unit":"Box"},{"id":"p65","cat":"Garland Crackers","name":"1000 Wala","price":1000,"unit":"Box"},{"id":"p66","cat":"Garland Crackers","name":"2000 Wala","price":2000,"unit":"Box"},{"id":"p67","cat":"Garland Crackers","name":"3000 Wala","price":3000,"unit":"Box"},{"id":"p68","cat":"Garland Crackers","name":"5000 Wala","price":5000,"unit":"Box"},{"id":"p69","cat":"Garland Crackers","name":"10000 Wala","price":10000,"unit":"Box"},{"id":"p70","cat":"Garland Crackers","name":"1000 Mega Giant","price":2900,"unit":"Box"},{"id":"p71","cat":"Garland Crackers","name":"600 Mega Giant","price":2100,"unit":"Box"},{"id":"p72","cat":"Deluxe Crackers","name":"2.75\" x 24 Deluxe","price":135,"unit":"Pkt"},{"id":"p73","cat":"Deluxe Crackers","name":"2.75\" x 50 Deluxe","price":330,"unit":"Pkt"},{"id":"p74","cat":"Deluxe Crackers","name":"2.75\" x 100 Deluxe","price":660,"unit":"Pkt"},{"id":"p75","cat":"Ground Chakkars","name":"Chakkar Big (10Pcs)","price":95,"unit":"Box"},{"id":"p76","cat":"Ground Chakkars","name":"Chakkar Big (25Pcs)","price":210,"unit":"Box"},{"id":"p77","cat":"Ground Chakkars","name":"Chakkar Special","price":168,"unit":"Box"},{"id":"p78","cat":"Ground Chakkars","name":"Chakkar Deluxe","price":336,"unit":"Box"},{"id":"p79","cat":"Ground Chakkars","name":"Chakkar Mega","price":504,"unit":"Box"},{"id":"p80","cat":"Ground Chakkars","name":"Spinner Super Deluxe","price":672,"unit":"Box"},{"id":"p81","cat":"Flower Pots","name":"Flowerpots Small","price":126,"unit":"Box"},{"id":"p82","cat":"Flower Pots","name":"Flowerpots Big","price":168,"unit":"Box"},{"id":"p83","cat":"Flower Pots","name":"Flowerpots Special","price":210,"unit":"Box"},{"id":"p84","cat":"Flower Pots","name":"Flowerpots Asoka Super","price":294,"unit":"Box"},{"id":"p85","cat":"Flower Pots","name":"Flowerpots Asoka Giant","price":357,"unit":"Box"},{"id":"p86","cat":"Flower Pots","name":"Flowerpots Deluxe","price":462,"unit":"Box"},{"id":"p87","cat":"Flower Pots","name":"Flowerpots Super Deluxe","price":378,"unit":"Box"},{"id":"p88","cat":"Flower Pots","name":"Cololurkoti Giant","price":588,"unit":"Box"},{"id":"p89","cat":"Flower Pots","name":"MotiMahal (10Pcs)","price":1050,"unit":"Box"},{"id":"p90","cat":"Flower Pots","name":"MahaUtsav (5Pcs)","price":1050,"unit":"Box"},{"id":"p91","cat":"Flower Pots","name":"Ganga Jamuna / Laila Majnu","price":180,"unit":"Box"},{"id":"p92","cat":"Electric Crackers Chorsa","name":"28 Chorsa","price":40,"unit":"Pkt"},{"id":"p93","cat":"Electric Crackers Chorsa","name":"56 Chorsa","price":80,"unit":"Pkt"},{"id":"p94","cat":"Electric Crackers Chorsa","name":"28 Goa","price":46,"unit":"Pkt"},{"id":"p95","cat":"Electric Crackers Chorsa","name":"28 Giant","price":65,"unit":"Pkt"},{"id":"p96","cat":"Electric Crackers Chorsa","name":"56 Giant","price":130,"unit":"Pkt"},{"id":"p97","cat":"Electric Crackers Giant","name":"28 Super Giant","price":76,"unit":"Pkt"},{"id":"p98","cat":"Electric Crackers Giant","name":"56 Super Giant","price":152,"unit":"Pkt"},{"id":"p99","cat":"New Arrivals","name":"Photo Flash (5Pcs)","price":177,"unit":"Box"},{"id":"p100","cat":"New Arrivals","name":"1/4Kg Paper Bomb","price":135,"unit":"Box"},{"id":"p101","cat":"New Arrivals","name":"1/2 Kg Paper Bomb","price":269,"unit":"Box"},{"id":"p102","cat":"New Arrivals","name":"1 Kg Paper Bomb","price":546,"unit":"Box"},{"id":"p103","cat":"New Arrivals","name":"Helicopter (5Pcs)","price":265,"unit":"Box"},{"id":"p104","cat":"New Arrivals","name":"Butterfly (5Pcs)","price":147,"unit":"Box"},{"id":"p105","cat":"New Arrivals","name":"Butterfly(10Pcs)","price":252,"unit":"Box"},{"id":"p106","cat":"New Arrivals","name":"Pambaram (5Pcs)","price":180,"unit":"Box"},{"id":"p107","cat":"New Arrivals","name":"4x4 Colourwheel","price":420,"unit":"Box"},{"id":"p108","cat":"New Arrivals","name":"Drone ( 5 Pcs )","price":420,"unit":"Box"},{"id":"p109","cat":"Sparklers","name":"7Cm Electric","price":20,"unit":"Box"},{"id":"p110","cat":"Sparklers","name":"7Cm Colour","price":22,"unit":"Box"},{"id":"p111","cat":"Sparklers","name":"7Cm Green","price":30,"unit":"Box"},{"id":"p112","cat":"Sparklers","name":"7Cm Red","price":34,"unit":"Box"},{"id":"p113","cat":"Sparklers","name":"7Cm Multimix","price":34,"unit":"Box"},{"id":"p114","cat":"Sparklers","name":"10Cm Ganga Electric","price":45,"unit":"Box"},{"id":"p115","cat":"Sparklers","name":"10Cm Ganga Colour","price":50,"unit":"Box"},{"id":"p116","cat":"Sparklers","name":"10Cm Ganga Green","price":60,"unit":"Box"},{"id":"p117","cat":"Sparklers","name":"10Cm Ganga Red","price":70,"unit":"Box"},{"id":"p118","cat":"Sparklers","name":"10Cm Ganga Multimix","price":70,"unit":"Box"},{"id":"p119","cat":"Sparklers","name":"12Cm Electric","price":65,"unit":"Box"},{"id":"p120","cat":"Sparklers","name":"12Cm Colour","price":70,"unit":"Box"},{"id":"p121","cat":"Sparklers","name":"12Cm Green","price":80,"unit":"Box"},{"id":"p122","cat":"Sparklers","name":"12Cm Red","price":85,"unit":"Box"},{"id":"p123","cat":"Sparklers","name":"12Cm Multimix","price":85,"unit":"Box"},{"id":"p124","cat":"Sparklers","name":"12Cm Fancy Sparklers 50-50 / Silver Rain / London","price":105,"unit":"Box"},{"id":"p125","cat":"Sparklers","name":"15Cm Electric","price":105,"unit":"Box"},{"id":"p126","cat":"Sparklers","name":"15Cm Colour","price":110,"unit":"Box"},{"id":"p127","cat":"Sparklers","name":"15Cm Green","price":130,"unit":"Box"},{"id":"p128","cat":"Sparklers","name":"15Cm Red","price":135,"unit":"Box"},{"id":"p129","cat":"Sparklers","name":"15Cm Multicolour","price":135,"unit":"Box"},{"id":"p130","cat":"Sparklers","name":"30Cm Electric","price":110,"unit":"Box"},{"id":"p131","cat":"Sparklers","name":"30Cm Colour","price":120,"unit":"Box"},{"id":"p132","cat":"Sparklers","name":"30Cm Green","price":135,"unit":"Box"},{"id":"p133","cat":"Sparklers","name":"30Cm Red","price":140,"unit":"Box"},{"id":"p134","cat":"Sparklers","name":"30Cm Multimix","price":140,"unit":"Box"},{"id":"p135","cat":"Sparklers","name":"55Cm Electric","price":400,"unit":"Pcs"},{"id":"p136","cat":"Sparklers","name":"55Cm Multicolour","price":550,"unit":"Pcs"},{"id":"p137","cat":"Gift Boxes (Net Rate, No Discount)","name":"UNIBIC Gift Box - 25 Items","price":850,"unit":"Box"},{"id":"p138","cat":"Gift Boxes (Net Rate, No Discount)","name":"SILK Gift Box - 30 Items","price":1020,"unit":"Box"},{"id":"p139","cat":"Gift Boxes (Net Rate, No Discount)","name":"BALAJI Gift Box 30 Items","price":1020,"unit":"Box"},{"id":"p140","cat":"Gift Boxes (Net Rate, No Discount)","name":"DARK FANTASY Gift Box - 35 Items","price":1280,"unit":"Box"},{"id":"p141","cat":"Gift Boxes (Net Rate, No Discount)","name":"BOURNVILLE Gift Box - 40 Items","price":1480,"unit":"Box"},{"id":"p142","cat":"Gift Boxes (Net Rate, No Discount)","name":"VIP Gift Box - 50 Items","price":1980,"unit":"Box"},{"id":"p143","cat":"Gift Boxes (Net Rate, No Discount)","name":"Family JUMBO Pack - 65 Items","price":2800,"unit":"Box"}];
+const DISC=0.5;PRODS.forEach(p=>{p.mrp=p.price;p.net=p.cat.indexOf("Gift Boxes")===0?p.mrp:p.mrp*(1-DISC);});
 const CATS=[...new Set(PRODS.map(p=>p.cat))];
 const qty={};PRODS.forEach(p=>qty[p.id]=0);
 const FS={cat:'All',q:'',sel:false};
@@ -958,7 +991,7 @@ const GROUPS={
 };
 const PREF_LABEL={crackers:'Crackers',fancy:'Fancy items',mix:'Mix of both'};
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function rs(n){return '\u20B9'+Number(n).toLocaleString('en-IN');}
+function rs(n){n=Math.round(n*100)/100;return '\u20B9'+n.toLocaleString('en-IN',{minimumFractionDigits:Number.isInteger(n)?0:2,maximumFractionDigits:2});}
 function $(id){return document.getElementById(id);}
 
 /* ---------- price list table ---------- */
@@ -972,15 +1005,16 @@ function renderTable(){
     if(FS.sel&&!qty[p.id])return;
     if(FS.q&&!((p.name+' '+p.cat).toLowerCase().includes(FS.q)||p.id==='p'+FS.q))return;
     n++;
-    if(p.cat!==last){last=p.cat;html+=`<tr class="ch"><td colspan="5">${CE[p.cat]} ${esc(p.cat)}</td></tr>`;}
+    if(p.cat!==last){last=p.cat;html+=`<tr class="ch"><td colspan="6">${CE[p.cat]} ${esc(p.cat)}</td></tr>`;}
     html+=`<tr id="r-${p.id}" class="${qty[p.id]?'sel':''}">
       <td class="c-sl">${p.id.slice(1)}</td>
       <td class="c-nm">${esc(p.name)}</td>
-      <td class="c-rt">${rs(p.price)} <small>/ ${p.unit}</small></td>
+      <td class="c-mrp">${p.net<p.mrp?"<s>"+rs(p.mrp)+"</s>":"Net"}</td>
+      <td class="c-rt">${rs(p.net)} <small>/ ${p.unit}</small></td>
       <td class="c-q"><div class="stp"><button onclick="chg('${p.id}',-1)" aria-label="less">&#x2212;</button><input id="q-${p.id}" type="number" min="0" inputmode="numeric" value="${qty[p.id]}" onchange="setQty('${p.id}',this.value)"/><button onclick="chg('${p.id}',1)" aria-label="more">+</button></div></td>
-      <td class="c-am" id="a-${p.id}">${qty[p.id]?rs(qty[p.id]*p.price):'&ndash;'}</td></tr>`;
+      <td class="c-am" id="a-${p.id}">${qty[p.id]?rs(qty[p.id]*p.net):'&ndash;'}</td></tr>`;
   });
-  $('ptbody').innerHTML=html||'<tr><td colspan="5" class="sum-empty" style="padding:1rem">No matching items.</td></tr>';
+  $('ptbody').innerHTML=html||'<tr><td colspan="6" class="sum-empty" style="padding:1rem">No matching items.</td></tr>';
   $('pcount').textContent=n+' of '+PRODS.length+' items';
 }
 function refreshRow(id){
@@ -988,7 +1022,7 @@ function refreshRow(id){
   if(!r)return;
   r.classList.toggle('sel',qty[id]>0);
   const q=$('q-'+id);if(q)q.value=qty[id];
-  const a=$('a-'+id);if(a)a.innerHTML=qty[id]?rs(qty[id]*p.price):'&ndash;';
+  const a=$('a-'+id);if(a)a.innerHTML=qty[id]?rs(qty[id]*p.net):'&ndash;';
 }
 function setQty(id,v){qty[id]=Math.max(0,Math.min(9999,parseInt(v,10)||0));refreshRow(id);updSum();}
 function chg(id,d){setQty(id,(qty[id]||0)+d);}
@@ -1001,7 +1035,7 @@ function setBudget(n){$('cb').value=n;updSum();}
 function fillGroup(cats,budget){
   const cap=Math.max(budget*0.3,150);
   const lists=cats.map(c=>{
-    const l=PRODS.filter(p=>p.cat===c&&p.price<=cap).sort((a,b)=>a.price-b.price);
+    const l=PRODS.filter(p=>p.cat===c&&p.net<=cap).sort((a,b)=>a.net-b.net);
     const m=Math.floor(l.length/2);
     return l.map((p,i)=>[Math.abs(i-m),i,p]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]).map(x=>x[2]);
   }).filter(l=>l.length);
@@ -1011,7 +1045,7 @@ function fillGroup(cats,budget){
     lists.forEach((l,i)=>{
       for(let t=0;t<l.length;t++){
         const p=l[(ptr[i]+t)%l.length];
-        if(p.price<=rem){qty[p.id]++;rem-=p.price;ptr[i]=(ptr[i]+t+1)%l.length;prog=true;break;}
+        if(p.net<=rem){qty[p.id]++;rem-=p.net;ptr[i]=(ptr[i]+t+1)%l.length;prog=true;break;}
       }
     });
   }
@@ -1038,7 +1072,7 @@ function offerNote(total){
 }
 function getRows(){
   const rows=[];
-  PRODS.forEach(p=>{if(qty[p.id]>0)rows.push({sl:p.id.slice(1),name:p.name,qty:qty[p.id],unit:p.unit,rate:p.price,amt:qty[p.id]*p.price,cat:p.cat});});
+  PRODS.forEach(p=>{if(qty[p.id]>0)rows.push({sl:p.id.slice(1),name:p.name,qty:qty[p.id],unit:p.unit,rate:p.net,mrp:p.mrp,amt:qty[p.id]*p.net,cat:p.cat});});
   return rows;
 }
 function updSum(){
@@ -1046,6 +1080,8 @@ function updSum(){
   rows.forEach(r=>{total+=r.amt;html+=`<div class="si"><span>${CE[r.cat]} ${esc(r.name)} &#xD7;${r.qty}</span><span>${rs(r.amt)}</span></div>`;});
   $('sum-items').innerHTML=html||'<p class="sum-empty">No items selected yet.</p>';
   $('sum-total').textContent=rs(total);
+  const mrpT=rows.reduce((a,r)=>a+r.mrp*r.qty,0);
+  $('save-line').textContent=total>0&&mrpT>total?'List '+rs(mrpT)+' \u2192 you save '+rs(mrpT-total)+' (50% Diwali discount)':'';
   const b=getBudget(),bl=$('bud-line');
   if(b>0&&total>0){const d=b-total;bl.innerHTML='Budget '+rs(b)+' &middot; '+(d>=0?'<b class="ok">'+rs(d)+' left</b>':'<b class="over">over by '+rs(-d)+'</b>');}
   else if(b>0){bl.innerHTML='Budget '+rs(b);}
@@ -1054,7 +1090,7 @@ function updSum(){
   let hint=null;
   if(total>0&&total<4999&&4999-total<=1500)hint='Add '+rs(4999-total)+' more to get a Juno 25 Shots box (Diwali offer)';
   else if(total>=4999&&total<9999&&9999-total<=2000)hint='Add '+rs(9999-total)+' more to get a Silk Gift Box (30 items) instead';
-  dn.textContent=hint||offerNote(total)||'Factory outlet rates \u00B7 \u20B94,999+ and \u20B99,999+ unlock Diwali offers';
+  dn.textContent=hint||offerNote(total)||'50% Diwali discount applied \u00B7 \u20B94,999+ and \u20B99,999+ unlock Diwali offers';
   const qo=$('quote-out');if(qo)qo.style.display='none';
 }
 
@@ -1069,7 +1105,7 @@ function buildQuote(){
     ref:'AMQ'+String(d.getFullYear()).slice(2)+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes()),
     date:d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}),
     name,phone,city:$('cc').value.trim(),occ:$('co').value,note:$('cnote').value.trim(),
-    budget:getBudget(),pref:getPref(),rows,total,offer:offerNote(total)
+    budget:getBudget(),pref:getPref(),rows,total,mrpTotal:rows.reduce((a,r)=>a+r.mrp*r.qty,0),offer:offerNote(total)
   };
 }
 function quoteDocHtml(q){
@@ -1082,14 +1118,15 @@ function quoteDocHtml(q){
     <div class="qd-meta"><div><b>Quote:</b> ${q.ref}</div><div><b>Date:</b> ${q.date}</div></div>
     <div><b>Customer:</b> ${esc(q.name)} &nbsp;|&nbsp; <b>Phone:</b> ${esc(q.phone)}${q.city?' &nbsp;|&nbsp; <b>City:</b> '+esc(q.city):''}${q.occ?' &nbsp;|&nbsp; <b>Occasion:</b> '+esc(q.occ):''}</div>
     <div><b>Preference:</b> ${PREF_LABEL[q.pref]}${q.budget?' &nbsp;|&nbsp; <b>Budget:</b> '+rs(q.budget):''}</div>
-    <table><thead><tr><th>#</th><th>Item</th><th class="r">Qty</th><th class="r">Rate</th><th class="r">Amount</th></tr></thead><tbody>
-    ${q.rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td class="r">${r.qty} ${r.unit}</td><td class="r">${rs(r.rate)}</td><td class="r">${rs(r.amt)}</td></tr>`).join('')}
+    <table><thead><tr><th>#</th><th>Item</th><th class="r">Qty</th><th class="r">List Rate</th><th class="r">Offer Rate</th><th class="r">Amount</th></tr></thead><tbody>
+    ${q.rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td class="r">${r.qty} ${r.unit}</td><td class="r">${r.mrp>r.rate?"<s>"+rs(r.mrp)+"</s>":"Net"}</td><td class="r">${rs(r.rate)}</td><td class="r">${rs(r.amt)}</td></tr>`).join('')}
     </tbody></table>
-    <div class="tot">Estimated Total: ${rs(q.total)}</div>
+    ${q.mrpTotal>q.total?`<div class="fine" style="text-align:right">List price ${rs(q.mrpTotal)} &minus; 50% Diwali discount ${rs(q.mrpTotal-q.total)}</div>`:""}
+    <div class="tot">Amount Payable: ${rs(q.total)}</div>
     ${q.budget?`<div class="fine" style="text-align:right">${q.total<=q.budget?rs(q.budget-q.total)+' within your budget':'Over your budget by '+rs(q.total-q.budget)}</div>`:''}
     ${q.offer?`<div class="offer">${esc(q.offer)}</div>`:''}
     ${q.note?`<div class="fine"><b>Special request:</b> ${esc(q.note)}</div>`:''}
-    <div class="fine">Rates as per Amutham Mega Crackers factory outlet price list. Final availability and price will be confirmed on WhatsApp.</div>
+    <div class="fine">Rates include the 50% Diwali discount (gift boxes at net rate). Final availability and price will be confirmed on WhatsApp.</div>
   </div>`;
 }
 function generateQuote(){
@@ -1115,8 +1152,8 @@ function quoteText(q){
     '\uD83C\uDFAF *Preference:* '+PREF_LABEL[q.pref],'',
     '\uD83D\uDCE6 *Items:*',
     ...q.rows.map((r,i)=>'  '+(i+1)+'. '+r.name+' \xd7 '+r.qty+' '+r.unit+' @ '+rs(r.rate)+' = '+rs(r.amt)),'',
-    '\uD83D\uDCB0 *Estimated Total: '+rs(q.total)+'*',
-    '   _(Factory outlet rates)_',
+    '\uD83D\uDCB0 *Amount Payable: '+rs(q.total)+'*',
+    '   _(50% Diwali discount applied \u2014 you save '+rs(q.mrpTotal-q.total)+')_',
     q.offer?q.offer:null,
     q.note?'\n\uD83D\uDCDD *Special Request:* '+q.note:null,'',
     '_Please confirm availability and payment details._'
@@ -1144,7 +1181,14 @@ function clearQ(){
   FS.cat='All';FS.q='';FS.sel=false;$('fc').value='All';$('fq').value='';$('fs').checked=false;
   renderTable();updSum();showT('Quote cleared');
 }
+function closePromo(){const e=$('promo');if(e)e.style.display='none';try{sessionStorage.setItem('amc_promo','1');}catch(x){}}
+function initPromo(){
+  let seen=false;try{seen=sessionStorage.getItem('amc_promo');}catch(x){}
+  if(!seen)setTimeout(()=>{$('promo').style.display='flex';},700);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closePromo();});
+}
 function initQuote(){
+  initPromo();
   $('fc').innerHTML='<option value="All">All categories</option>'+CATS.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
   renderTable();updSum();
   const qf=$('qfloat'),vis={};
