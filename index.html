@@ -588,6 +588,7 @@
       <div class="q-summary">
         <h3>📋 Quote Summary</h3>
         <div id="sum-items"><p class="sum-empty">No items selected yet.</p></div>
+        <div class="fg" style="margin-top:.8rem"><label for="coupon-code">Coupon code</label><div style="display:flex;gap:.45rem"><input type="text" id="coupon-code" placeholder="Enter coupon code" autocomplete="off" style="min-width:0;flex:1;text-transform:uppercase"/><button class="btn btn-ghost" type="button" onclick="applyCoupon()">Apply</button></div><p id="coupon-note" class="fine" style="margin-top:.35rem">Use the secret code for an extra discount on price-list items only.</p></div>
         <div class="total-row"><span>Total after 35% off</span><span id="sum-total">&#x20B9;0</span></div>
         <p class="save-line" id="save-line"></p>
         <p class="bud-line" id="bud-line"></p>
@@ -606,44 +607,27 @@
   </div>
 </section>
 
-<!-- PAYMENT -->
+<!-- PAYMENT: offline payment only -->
 <section id="payment">
   <div class="container">
     <div class="sec-label">Easy Payments</div>
-    <h2 class="sec-title">Payment Options</h2>
-    <p class="sec-sub">Pay advance securely. Balance on delivery or before dispatch for outstation orders.</p>
+    <h2 class="sec-title">Offline Payment</h2>
+    <p class="sec-sub">Payment will be arranged offline after your quote is confirmed. Our team will share the payment details and next steps on WhatsApp.</p>
     <div class="pay-grid">
       <div class="pay-card">
-        <div class="pay-icon">📱</div><h3>UPI Payment</h3>
-        <p>PhonePe, Google Pay, Paytm, BHIM all accepted.</p>
-        <div class="upi-box"><span id="upi-val">nadimani@icici</span><button class="copy-btn" onclick="copyUPI()">📋 Copy</button></div>
-      </div>
-      <div class="pay-card">
-        <div class="pay-icon">💳</div><h3>Card / Net Banking</h3>
-        <p>Pay securely via Razorpay — Visa, Mastercard, RuPay, net banking all supported.</p>
-        <button class="btn btn-fire" style="margin-top:1rem;width:100%;font-size:.84rem" onclick="advPay()">Pay Advance Now</button>
+        <div class="pay-icon">💬</div><h3>Confirm on WhatsApp</h3>
+        <p>Send your quote to our team. We will confirm availability, final billing, and offline payment instructions.</p>
+        <a href="https://wa.me/918122373416?text=Please%20share%20offline%20payment%20instructions" class="btn btn-wa" style="margin-top:1rem;font-size:.84rem" target="_blank" rel="noopener">Request Payment Details</a>
       </div>
       <div class="pay-card">
         <div class="pay-icon">🏦</div><h3>Bank Transfer</h3>
-        <p>For large bulk orders. Account details shared on WhatsApp after quote confirmation.</p>
-        <a href="https://wa.me/918122373416?text=I%20want%20bank%20transfer%20details" class="btn btn-wa" style="margin-top:1rem;font-size:.84rem" target="_blank">Get Bank Details</a>
+        <p>For bulk orders, bank transfer details will be shared on WhatsApp after quote confirmation.</p>
+        <a href="https://wa.me/918122373416?text=I%20want%20bank%20transfer%20details" class="btn btn-ghost" style="margin-top:1rem;font-size:.84rem" target="_blank" rel="noopener">Get Bank Details</a>
       </div>
       <div class="pay-card">
-        <div class="pay-icon">💵</div><h3>Cash on Delivery</h3>
-        <p>Available for local Chennai deliveries.</p>
-        <a href="https://wa.me/918122373416?text=Is%20COD%20available?" class="btn btn-ghost" style="margin-top:1rem;font-size:.84rem" target="_blank">Check COD Availability</a>
-      </div>
-    </div>
-    <div class="rzp-box">
-      <h3>💳 Pay Advance Online (UPI / Card / Net Banking)</h3>
-      <p>Pay ₹500–₹2000 advance to confirm your order. Balance collected before / on delivery.</p>
-      <div class="rzp-ph">
-        &lt;!-- PASTE YOUR RAZORPAY PAYMENT BUTTON CODE HERE --&gt;<br/>
-        &lt;!-- Get it free at: razorpay.com/payment-button --&gt;<br/><br/>
-        &lt;form&gt;<br/>
-        &nbsp;&nbsp;&lt;script src="https://checkout.razorpay.com/v1/payment-button.js"<br/>
-        &nbsp;&nbsp;&nbsp;data-payment_button_id="YOUR_BUTTON_ID"&gt;&lt;/script&gt;<br/>
-        &lt;/form&gt;
+        <div class="pay-icon">💵</div><h3>Local Chennai Orders</h3>
+        <p>Ask our team about available offline payment and delivery options for your order.</p>
+        <a href="https://wa.me/918122373416?text=Please%20confirm%20offline%20payment%20options%20for%20my%20order" class="btn btn-ghost" style="margin-top:1rem;font-size:.84rem" target="_blank" rel="noopener">Check Options</a>
       </div>
     </div>
   </div>
@@ -715,11 +699,11 @@
         </div>
       </div>
       <div class="step">
-        <div class="step-icon">💳</div>
+        <div class="step-icon">💬</div>
         <div class="step-body">
           <div class="step-num">Step 03</div>
-          <h3>Pay Advance</h3>
-          <p>UPI / card via Razorpay to confirm.</p>
+          <h3>Confirm Offline Payment</h3>
+          <p>Our team shares payment instructions after confirming your quote.</p>
         </div>
       </div>
       <div class="step">
@@ -860,11 +844,28 @@ function getRows(){
   PRODS.forEach(p=>{if(qty[p.id]>0)rows.push({sl:p.id.slice(1),name:p.name,qty:qty[p.id],unit:p.unit,rate:p.net,mrp:p.mrp,amt:qty[p.id]*p.net,cat:p.cat});});
   return rows;
 }
+let couponApplied=false;
+function isGiftBox(r){return /gift\s*box/i.test((r.name||''));}
+function couponDiscount(rows){
+  if(!couponApplied)return 0;
+  const eligible=rows.filter(r=>!isGiftBox(r)).reduce((a,r)=>a+r.amt,0);
+  return Math.round(eligible*0.10*100)/100;
+}
+function applyCoupon(){
+  const field=$('coupon-code'),note=$('coupon-note');
+  couponApplied=field.value.trim().toUpperCase()==='LOTUS10';
+  if(couponApplied){field.value='LOTUS10';note.textContent='LOTUS10 applied: 10% extra discount on price-list items only. Gift boxes are excluded.';note.style.color='var(--green)';}
+  else {note.textContent='Invalid coupon code. Please check the code and try again.';note.style.color='var(--fire)';}
+  updSum();
+}
 function updSum(){
   const rows=getRows();let total=0,html='';
   rows.forEach(r=>{total+=r.amt;html+=`<div class="si"><span>${CE[r.cat]} ${esc(r.name)} &#xD7;${r.qty}</span><span>${rs(r.amt)}</span></div>`;});
   $('sum-items').innerHTML=html||'<p class="sum-empty">No items selected yet.</p>';
-  $('sum-total').textContent=rs(total);
+  const cdisc=couponDiscount(rows);
+  $('sum-total').textContent=rs(total-cdisc);
+  const couponNote=$('coupon-note');
+  if(couponApplied&&couponNote){couponNote.textContent='LOTUS10 applied: extra '+rs(cdisc)+' off price-list items. Gift boxes excluded.';couponNote.style.color='var(--green)';}
   const mrpT=rows.reduce((a,r)=>a+r.mrp*r.qty,0);
   $('save-line').textContent=total>0&&mrpT>total?'List '+rs(mrpT)+' \u2192 you save '+rs(mrpT-total)+' (35% discount)':'';
   const b=getBudget(),bl=$('bud-line');
@@ -885,12 +886,12 @@ function buildQuote(){
   if(!name||!phone){showT('Please enter your name and phone first!');$('cn').scrollIntoView({behavior:'smooth',block:'center'});$('cn').focus();return null;}
   const rows=getRows();
   if(!rows.length){showT('Please select at least one product!');return null;}
-  const total=rows.reduce((a,r)=>a+r.amt,0),d=new Date(),z=n=>String(n).padStart(2,'0');
+  const subtotal=rows.reduce((a,r)=>a+r.amt,0),couponDiscountAmount=couponDiscount(rows),total=subtotal-couponDiscountAmount,d=new Date(),z=n=>String(n).padStart(2,'0');
   return {
     ref:'AMQ'+String(d.getFullYear()).slice(2)+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes()),
     date:d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}),
     name,phone,city:$('cc').value.trim(),occ:$('co').value,note:$('cnote').value.trim(),
-    budget:getBudget(),pref:getPref(),rows,total,mrpTotal:rows.reduce((a,r)=>a+r.mrp*r.qty,0),offer:offerNote(total)
+    budget:getBudget(),pref:getPref(),rows,subtotal,couponCode:couponApplied?'LOTUS10':'',couponDiscount:couponDiscountAmount,total,mrpTotal:rows.reduce((a,r)=>a+r.mrp*r.qty,0),offer:offerNote(subtotal)
   };
 }
 function quoteDocHtml(q){
@@ -907,6 +908,7 @@ function quoteDocHtml(q){
     ${q.rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td class="r">${r.qty} ${r.unit}</td><td class="r">${r.mrp>r.rate?"<s>"+rs(r.mrp)+"</s>":"Net"}</td><td class="r">${rs(r.rate)}</td><td class="r">${rs(r.amt)}</td></tr>`).join('')}
     </tbody></table>
     ${q.mrpTotal>q.total?`<div class="fine" style="text-align:right">List price ${rs(q.mrpTotal)} &minus; 35% discount ${rs(q.mrpTotal-q.total)}</div>`:""}
+    ${q.couponDiscount?`<div class="fine" style="text-align:right">LOTUS10 coupon discount (price-list items only): &minus;${rs(q.couponDiscount)}</div>`:""}
     <div class="tot">Amount Payable: ${rs(q.total)}</div>
     ${q.budget?`<div class="fine" style="text-align:right">${q.total<=q.budget?rs(q.budget-q.total)+' within your budget':'Over your budget by '+rs(q.total-q.budget)}</div>`:''}
     ${q.offer?`<div class="offer">${esc(q.offer)}</div>`:''}
@@ -937,6 +939,7 @@ function quoteText(q){
     '\uD83C\uDFAF *Preference:* '+PREF_LABEL[q.pref],'',
     '\uD83D\uDCE6 *Items:*',
     ...q.rows.map((r,i)=>'  '+(i+1)+'. '+r.name+' \xd7 '+r.qty+' '+r.unit+' @ '+rs(r.rate)+' = '+rs(r.amt)),'',
+    q.couponDiscount?'\uD83C\uDF9F *LOTUS10 coupon discount (price-list items only): -'+rs(q.couponDiscount)+'*':null,
     '\uD83D\uDCB0 *Amount Payable: '+rs(q.total)+'*',
     '   _(35% discount applied \u2014 you save '+rs(q.mrpTotal-q.total)+')_',
     q.offer?q.offer:null,
@@ -960,7 +963,8 @@ function printQuote(){
 }
 function clearQ(){
   PRODS.forEach(p=>{qty[p.id]=0;});
-  ['cn','cp','cc','cnote','cb'].forEach(id=>$(id).value='');
+  ['cn','cp','cc','cnote','cb','coupon-code'].forEach(id=>$(id).value='');
+  couponApplied=false;const couponNote=$('coupon-note');if(couponNote){couponNote.textContent='Use the secret code for an extra discount on price-list items only.';couponNote.style.color='';}
   $('co').value='';
   document.querySelector('input[name="pref"][value="mix"]').checked=true;
   FS.cat='All';FS.q='';FS.sel=false;$('fc').value='All';$('fq').value='';$('fs').checked=false;
@@ -982,16 +986,6 @@ function initQuote(){
     const hero=document.querySelector('.hero');if(hero)io.observe(hero);
     const qs=$('quote');if(qs)io.observe(qs);
   }
-}
-
-function copyUPI(){
-  navigator.clipboard.writeText(document.getElementById('upi-val').textContent)
-    .then(()=>showT('UPI ID copied!'));
-}
-
-function advPay(){
-  showT('Razorpay link coming soon! WhatsApp us now.');
-  setTimeout(()=>window.open('https://wa.me/918122373416?text=I%20want%20to%20pay%20advance','_blank'),1200);
 }
 
 function showT(msg){
